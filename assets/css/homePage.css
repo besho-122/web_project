@@ -14,69 +14,6 @@ color:rgb(255, 255, 255);
    font-size:2vw;
 }
 
-/* شكل عام */
-.offcanvas.offcanvas-end {
-    background: rgba(0, 0, 0, 0.6); /* زجاجي شفاف */
-    backdrop-filter: blur(15px); /* تأثير الزجاج */
-    border-left: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-    transition: all 0.5s ease;
-    padding: 2vw;
-}
-
-/* رأس القائمة */
-.offcanvas-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    margin-bottom: 1vw;
-}
-
-.offcanvas-title {
-    font-size: 2vw;
-    font-weight: bold;
-    color: #0dcaf0;
-}
-
-/* روابط القائمة */
-.offcanvas-body .nav-link {
-    font-size: 1.5vw;
-    padding: 0.5vw 1vw;
-    margin: 0.5vw 0;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    color: #ffffff;
-    background-color: transparent;
-}
-
-.offcanvas-body .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #0dcaf0;
-    transform: translateX(10px);
-}
-
-/* مربع البحث */
-.offcanvas-body input.form-control {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: white;
-    border-radius: 50px;
-}
-
-.offcanvas-body input.form-control::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.offcanvas-body .btn-success {
-    border-radius: 50px;
-    background: linear-gradient(to right, #0dcaf0, #6610f2);
-    border: none;
-    padding: 0.5vw 1.5vw;
-    transition: all 0.3s ease;
-}
-
-.offcanvas-body .btn-success:hover {
-    background: linear-gradient(to left, #0dcaf0, #6610f2);
-    transform: scale(1.05);
-}
 
 
 /* main section && video  */
@@ -89,19 +26,21 @@ color:rgb(255, 255, 255);
     display: flex;
     justify-content: left;
     align-items:end;
-    background-color: rgba(0, 0, 0, 0.24);
+    background-color: rgba(0, 0, 0, 0.379);
     height: 100vh;
-    
+     
+    box-shadow: inset 0px 100px 100px 100px rgba(0, 0, 0, 0.674)
 }
 
 .homePageMainSection video{
     position: absolute;
     top:0;
-    left:0;
+    right:0;
     height: 100vh;
     width:100%;
     object-fit: cover;
     z-index: -1;
+
 }
 
 .homePageMainSectionText{ 
