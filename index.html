@@ -81,27 +81,28 @@
 
   <section class="homePageSecondSection" id="secondSection">
     <div class="secondSectionContent">
-      <h2>Discover Our Vehicles</h2>
-      <!-- Slider main container -->
-      <div class="swiper">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper ">
-          <!-- Slides -->
-          <div class="swiper-slide"><img src="./assets/photos/title.png" alt=""></div>
-          <div class="swiper-slide"><img src="./assets/photos/title.png" alt=""></div>
-          <div class="swiper-slide"><img src="./assets/photos/title.png" alt=""></div>
-          <div class="swiper-slide"><img src="./assets/photos/title.png" alt=""></div>
-        </div>
-        <!-- If we need pagination -->
-        <div class="swiper-pagination"></div>
+      <h2>Discover Our Vehicles</h2> 
 
-        <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+         <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" style="background-image:url(./assets//img/download.png)"></div>
+     <div class="swiper-slide" style="background-image:url(./assets/img/BMW-M-logo-3D-2560x1440.png )"></div>
+      <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+     <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+     <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+    <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+    <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+      <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+     <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+     <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+    <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+    <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+      <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+     <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+     <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+    <div class="swiper-slide" style="background-image:url(./assets//photos/title.png )"></div>
+  
 
-        <!-- If we need scrollbar -->
-        <div class="swiper-scrollbar"></div>
-      </div>
     </div>
   </section>
 
@@ -151,22 +152,31 @@
     </footer>
   </section>
 
-<script>
-  window.addEventListener('scroll', function() {
-      const title = document.getElementById('mainTitle');
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
- console.log('scrollY:', scrollY, 'windowHeight:', windowHeight);
-      if (scrollY > windowHeight) {
-          title.classList.add('hidden');
-      } else {
-          title.classList.remove('hidden');
-      }
-  });
-</script> 
+<script type="module">
+  import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+  var swiper = new Swiper('.swiper', {
+    effect: 'coverflow',
+      grabCursor: true,
+      autoplay: {
+        delay: 2000,
+      },
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+      },
+    });
+</script>
 
-  <script src="./assets/js/homePage.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="./assets/js/homePage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>

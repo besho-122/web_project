@@ -1,77 +1,84 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
-  scroll-padding-top: 56px;
+html,
+body {
+    height: 100%;
+    margin: 0;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    overflow-y: inherit;
+
 }
+
 section {
-  scroll-snap-align: start;
-  scroll-margin-top: -60px;
-  height: 100vh;
-  overflow: hidden;
-  margin: 0;
+    scroll-snap-align: start;
+
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
 }
+
 /* Navbar */
 .homePageNavbar {
 
-background-color: none;
-color:rgb(255, 255, 255);
+    background-color: none;
+    color: rgb(255, 255, 255);
 }
-.navbar-brand{
-   color:rgb(255, 255, 255); 
-     font-family: "Audiowide", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  
+
+.navbar-brand {
+    color: rgb(255, 255, 255);
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
 }
-.navbar-toggler{
-   border: none !important;
-   outline: none !important;
-   box-shadow: none !important;
+
+.navbar-toggler {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
+
 .navbar-toggler:focus,
 .navbar-toggler:active {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
- .navbar-toggler-icon {
-    border: none; 
+
+.navbar-toggler-icon {
+    border: none;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-  }
+}
 
 
-  
+
 /* main section && video  */
 
-.homePageMainSection{
+.homePageMainSection {
     position: relative;
     right: 0;
-    width:100%;
-    padding:3vw;
+    width: 100%;
+    padding: 3vw;
     display: flex;
     justify-content: left;
-    align-items:end;
+    align-items: end;
     background-color: rgba(0, 0, 0, 0.379);
     height: 100vh;
-     
+
     box-shadow: inset 0px 100px 100px 100px rgba(0, 0, 0, 0.674)
 }
 
-.homePageMainSection video{
+.homePageMainSection video {
     position: absolute;
-    top:0;
-    right:0;
+    top: 0;
+    right: 0;
     height: 100vh;
-    width:100%;
+    width: 100%;
     object-fit: cover;
     z-index: -1;
 
 }
 
-.homePageMainSectionText{ 
+.homePageMainSectionText {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -80,32 +87,36 @@ color:rgb(255, 255, 255);
     color: rgb(255, 255, 255);
     z-index: 1;
     width: 60%;
-    
+
     padding: 2vw;
-    height:fit-content;
+    height: fit-content;
     background-image: image-set(url(""));
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 
-    
+
 }
-.homePageMainSectionText h2{
+
+.homePageMainSectionText h2 {
     font-size: 5vw;
     margin-bottom: 1vw;
 }
-.homePageMainSectionText h3{
+
+.homePageMainSectionText h3 {
     font-size: 2.5vw;
     margin-bottom: 1vw;
 }
-.homePageMainSectionText p{
+
+.homePageMainSectionText p {
     font-size: 1.5vw;
-    
+
 }
-.homePageMainSectionText a button{
+
+.homePageMainSectionText a button {
     size: 2vw;
     text-decoration: none;
-    color:rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
     font-size: 1.5vw;
 }
 
@@ -117,7 +128,7 @@ color:rgb(255, 255, 255);
 .homePageSecondSection {
     width: 100%;
     height: 100vh;
-    background-color: #111;
+    background-color: #db6868 !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -257,23 +268,63 @@ color:rgb(255, 255, 255);
 }
 
 /* offcanvas-body   */
-.offcanvas{
+.offcanvas {
     background-color: #000000;
-    border-top-right-radius:10vh ;
+    border-top-right-radius: 10vh;
 }
+
 .offcanvas-body {
     background-color: #737373;
-  
-  
+
+
 }
-.offcanvas-header{
-     margin-left:2vw;
-    border-bottom-left-radius:20% ;
+
+.offcanvas-header {
+    margin-left: 2vw;
+    border-bottom-left-radius: 20%;
 }
 
 /*slider companies */
 .swiper {
-  width: 500px;
-  height: 500px;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
-  
+
+.swiper-slide {
+    background-position:center;
+    background-size: cover;
+    width: 20vw;
+    height: 60vh;
+    background-color: rgba(255, 255, 255, 0);
+    transition: all 400ms !important;  
+   
+
+
+}
+.swiper-slide  img {
+    background-size: cover;
+
+}
+.swiper-slide {
+   filter: grayscale(100%);
+  transition: filter 0.4s ease;
+}
+
+.swiper-slide-active {
+  filter: grayscale(0%);
+}
+
+
+/* vw -> width ; ; vh -> height */
+/* اخفاء العنوان لعيون يوسف */
+
+#mainTitle {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#mainTitle.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
