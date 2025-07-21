@@ -256,6 +256,20 @@ color:rgb(255, 255, 255);
     width: 100%;
 }
 
+/* offcanvas-body   */
+.offcanvas{
+    background-color: #000000;
+    border-top-right-radius:10vh ;
+}
+.offcanvas-body {
+    background-color: #737373;
+  
+  
+}
+.offcanvas-header{
+     margin-left:2vw;
+    border-bottom-left-radius:20% ;
+}
 
 /*slider companies */
 .swiper {
