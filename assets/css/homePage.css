@@ -5,7 +5,6 @@ body {
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
     overflow-y: inherit;
-
 }
 
 section {
@@ -63,7 +62,6 @@ section {
     align-items: end;
     background-color: rgba(0, 0, 0, 0.379);
     height: 100vh;
-
     box-shadow: inset 0px 100px 100px 100px rgba(0, 0, 0, 0.674)
 }
 
@@ -75,7 +73,7 @@ section {
     width: 100%;
     object-fit: cover;
     z-index: -1;
-
+    
 }
 
 .homePageMainSectionText {
@@ -128,25 +126,48 @@ section {
 .homePageSecondSection {
     width: 100%;
     height: 100vh;
-    background-color: #db6868 !important;
+    background-color: #000000 !important;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 3vw;
+  
 }
 
 .secondSectionContent {
     text-align: center;
+    width: 120vw;
+    height: 50vh;
+    
+}
+@keyframes color{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
 }
 
 .secondSectionContent h2 {
     font-size: 4vw;
     margin-bottom: 1vw;
+    margin-top: 0px;
+    border-bottom: 7px solid #054da0 !important;
+    width: fit-content;
+    margin: auto;
+    padding-bottom: 5px;
+    margin-bottom: 40px;
+   color: white;
 }
 
 .secondSectionContent p {
-    font-size: 1.5vw;
+    font-size: 1.2vw;
+    color: white;
 }
 
 /* homePageThirdSection   */
@@ -239,7 +260,7 @@ section {
     background-color: #1c1c1c;
     padding: 2vw;
     border-radius: 1vw;
-    min-width: 200px;
+    min-width: 50px;
     flex: 1;
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
@@ -284,27 +305,33 @@ section {
     border-bottom-left-radius: 20%;
 }
 
+
 /*slider companies */
 .swiper {
-    width: 100%;
+    width: 60%;
     padding-top: 50px;
     padding-bottom: 50px;
+    
+       
 }
 
 .swiper-slide {
     background-position:center;
-    background-size: cover;
-    width: 20vw;
-    height: 60vh;
-    background-color: rgba(255, 255, 255, 0);
-    transition: all 400ms !important;  
-   
-
-
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 15vw;
+    height: 15vh;
+   transition: transform 0.3s ease !important;
+       -webkit-box-reflect:below 1px
+        linear-gradient(
+            transparent,rgba(0,0,0,0.15)
+        );
+        
+        transform: scale(1,1);
 }
 .swiper-slide  img {
-    background-size: cover;
-
+    background-size: 90px !important;
+    
 }
 .swiper-slide {
    filter: grayscale(100%);
