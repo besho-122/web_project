@@ -130,20 +130,45 @@ section {
  
 }
 .homePageTwoSection{
-padding: 10vh 3vw;
+    margin-top: 4vh;
 text-align: center;
  height: fit-content; 
  width: 100%;
  background-color: #ffffff !important;
  color: rgb(0, 0, 0);
  
+
+}
+.serviceCard {
+padding:0 !important;
 }
 .homePageTwoSectionCard{
-   height: 30vh;    
-   border-end-start-radius: 12px;
-    border-end-end-radius: 12px;
-     background-color: #a5a5a5 !important;
+height: 30vh;    
+ border-radius: 1vw;
+background-color: #a5a5a5 !important;
+} 
+.homePageTwoSectionCard img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 1vw;
+
 }
+
+.fade-in {
+  opacity: 0;
+   transform: translateY(50px); 
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+
 
 /* homePageSecondSection   */
 
