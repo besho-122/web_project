@@ -39,7 +39,6 @@ window.addEventListener('scroll', () => {
   const secondSection = document.getElementById('secondSection');
   const thirdSection = document.getElementById('thirdSection');
   const titleDiscover = secondSection.querySelector('h2'); 
-  const pargraphChange = mainSection.querySelector('P');
   const scrollY = window.scrollY;
   const windowHeight = window.innerHeight;
   const secondTop = secondSection.offsetTop;
@@ -47,15 +46,13 @@ window.addEventListener('scroll', () => {
   const middleScreen = scrollY + windowHeight / 2;
   if (middleScreen >= secondTop && middleScreen < thirdTop) {
     document.body.style.backgroundColor = 'black';
-    if (titleDiscover || pargraphChange) {
+    if (titleDiscover ) {
         titleDiscover.style.color = 'white';
-        pargraphChange.style.color = 'white'
     }
   } else {
     document.body.style.backgroundColor = 'white';
-    if (titleDiscover || pargraphChange) {
+    if (titleDiscover) {
         titleDiscover.style.color = 'black';
-        pargraphChange.style.color = 'black';
     }
   }
 });
