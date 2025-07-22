@@ -201,8 +201,22 @@ animation-delay: calc(var(--position)*-1s);
 
 
 /*homePageTwoSection*/
+.homePageTwoSectionText{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+}
+.homePageTwoSectionText p{
+width: 100%;
+text-align: left;
+}
+
+
 .servicesGrid{
     margin:10vh 10vw;
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -249,7 +263,7 @@ text-align: center;
 
 
 .homePageTwoSectionCard{
-height: 40vh;    
+height: 25vh;    
  border-radius: 1vw;
 } 
 .homePageTwoSectionCard img {
@@ -389,7 +403,7 @@ grid-gap: 2vw;
  position: relative;
 }
 .container3{
- width: 75%;
+ width: 90%;
 }
 
 
