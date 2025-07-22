@@ -8,11 +8,11 @@ body {
 }
 
 section {
-    scroll-snap-align: start;
-
-    height: 100vh;
-    overflow: hidden;
     margin: 0;
+    width: 100%;
+    overflow: hidden;
+
+    
 }
 
 /* Navbar */
@@ -62,7 +62,7 @@ section {
     align-items: end;
     background-color: rgba(0, 0, 0, 0.379);
     height: 100vh;
-    box-shadow: inset 0px 100px 100px 100px rgba(0, 0, 0, 0.674)
+    box-shadow: inset 0px 100px 100px 100px rgba(0, 0, 0, 0.315)
 }
 
 .homePageMainSection video {
@@ -119,6 +119,31 @@ section {
 }
 
 
+/*homePageTwoSection*/
+.servicesGrid{
+    margin:10vh 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2vw;
+ 
+}
+.homePageTwoSection{
+padding: 10vh 3vw;
+text-align: center;
+ height: fit-content; 
+ width: 100%;
+ background-color: #ffffff !important;
+ color: rgb(0, 0, 0);
+ 
+}
+.homePageTwoSectionCard{
+   height: 30vh;    
+   border-end-start-radius: 12px;
+    border-end-end-radius: 12px;
+     background-color: #a5a5a5 !important;
+}
 
 /* homePageSecondSection   */
 
