@@ -64,8 +64,8 @@ section {
     height: 100vh;
     box-shadow: inset 0px 100px 100px 100px rgba(0, 0, 0, 0.315);
     overflow:hidden;
-    border-bottom-left-radius: 60px;
-    border-bottom-right-radius: 60px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     
 }
 .homePageMainSection video {
@@ -76,9 +76,52 @@ section {
     width: 100%;
     object-fit: cover;
     z-index: -1;
-    border-bottom-left-radius: 60px;
-    border-bottom-right-radius: 60px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
 }
+.homePageMainSectionOverlay{
+    position: absolute;
+    top:96vh;
+    height:4vh;
+    width: 100%;
+    z-index: 0;
+    overflow: hidden;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        rgba(26, 26, 26, 0.911),
+        transparent
+    );
+  
+}
+.item{
+width:100%/10;
+height: 4vh ; 
+position: absolute;
+left:-100%;
+animation:autoRun 10s linear infinite;
+animation-delay: calc(var(--position)*-1s);
+}
+.overlay{
+   display: flex;
+   width: 100%;
+   position: relative;
+  
+
+
+}
+
+@keyframes autoRun{
+   form{
+    left:-100%;
+   }
+   to{
+    left:100%;
+   }
+}
+
+
 
 .homePageMainSectionText {
     display: flex;
