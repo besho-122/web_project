@@ -35,28 +35,100 @@ faders.forEach((fader) => {
 
 //Color chaging
 window.addEventListener('scroll', () => {
-  const mainSection = document.getElementById('mainSection');
   const secondSection = document.getElementById('secondSection');
   const thirdSection = document.getElementById('thirdSection');
   const titleDiscover = secondSection.querySelector('h2'); 
+  const navbarLinks = document.querySelectorAll('.navbar__link'); // عناوين وروابط النافبار
+
   const scrollY = window.scrollY;
   const windowHeight = window.innerHeight;
   const secondTop = secondSection.offsetTop;
   const thirdTop = thirdSection.offsetTop;
   const middleScreen = scrollY + windowHeight / 2;
+
   if (middleScreen >= secondTop && middleScreen < thirdTop) {
     document.body.style.backgroundColor = 'black';
-    if (titleDiscover ) {
-        titleDiscover.style.color = 'white';
-    }
+    if (titleDiscover) titleDiscover.style.color = 'white';
+
+    navbarLinks.forEach(link => {
+      link.style.color = 'white';  // هنا بنغير لون النص والأيقونة مع بعض
+    });
   } else {
     document.body.style.backgroundColor = 'white';
-    if (titleDiscover) {
-        titleDiscover.style.color = 'black';
-    }
+    if (titleDiscover) titleDiscover.style.color = 'black';
+
+    navbarLinks.forEach(link => {
+      link.style.color = 'black';  // نرجعهم أبيض مثل الأصل
+    });
   }
 });
 
+// الإضافة: خلي أيقونات navbar بيضاء دايمًا داخل homePageMainSection
+window.addEventListener('scroll', () => {
+  const mainSection = document.querySelector('.homePageMainSection');
+  const navbarLinks = document.querySelectorAll('.navbar__link');
+  const scrollY = window.scrollY;
+  const windowHeight = window.innerHeight;
+  const mainTop = mainSection.offsetTop;
+  const mainBottom = mainTop + mainSection.offsetHeight;
+  const middleScreen = scrollY + windowHeight / 2;
+
+  if (middleScreen >= mainTop && middleScreen < mainBottom) {
+    navbarLinks.forEach(link => {
+      link.style.color = 'white';
+    });
+  }
+});
+
+
+
+// menu
+document.addEventListener("DOMContentLoaded", function () {
+  feather.replace();
+});
+
+// play video
+document.addEventListener("DOMContentLoaded", () => {
+  const video = document.getElementById("bgVideo");
+  const toggleBtn = document.getElementById("videoToggle");
+  const icon = toggleBtn.querySelector("i");
+
+  toggleBtn.addEventListener("click", () => {
+    if (video.paused) {
+      video.play();
+      icon.classList.remove("fa-play");
+      icon.classList.add("fa-pause");
+    } else {
+      video.pause();
+      icon.classList.remove("fa-pause");
+      icon.classList.add("fa-play");
+    }
+  });
+});
+
+// icon train
+window.addEventListener('scroll', () => {
+  const section = document.querySelector('.homePageTwoSection');
+  const navbarItems = document.querySelectorAll('.navbar__item');
+  const scrollY = window.scrollY;
+  const windowHeight = window.innerHeight;
+  const sectionTop = section.offsetTop;
+  const sectionBottom = sectionTop + section.offsetHeight;
+  const middleScreen = scrollY + windowHeight / 2;
+  if (middleScreen >= sectionTop && middleScreen < sectionBottom) {
+    navbarItems.forEach((item, index) => {
+      setTimeout(() => {
+        item.style.transform = 'translateX(calc(100vw - 8rem))';
+      }, index * 400); 
+    });
+  } else {
+    navbarItems.forEach((item, index) => {
+      setTimeout(() => {
+        item.style.transform = 'translateX(0)';
+      }, index * 400);
+    });
+  }
+});
 
 
 
