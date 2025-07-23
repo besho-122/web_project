@@ -479,10 +479,22 @@ width: 100%;
 
 }
 
+.serviceCard3 video {
+  position: absolute; /* مهم جداً */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.3vw;
+  transition: opacity 0.5s ease;
+}
+ 
 .homePagethreeSectionCard:hover{
 flex :3;
 cursor: pointer;
 }
+
 
 .servicesGrid3 {
    display: grid;
@@ -492,6 +504,16 @@ cursor: pointer;
     grid-gap: 2vw;
     position: relative;
 
+}
+.serviceCard3 img {
+  opacity: 1;
+  z-index: 2;
+}
+
+.serviceCard3 video {
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
 }
 .servicesGrid2rows{
 display: flex;
@@ -504,7 +526,13 @@ grid-gap: 2vw;
  width: 90%;
 }
 
+.serviceCard3:hover img {
+  opacity: 0;
+}
 
+.serviceCard3:hover video {
+  opacity: 1;
+}
 
 
 .serviceCard3  {
