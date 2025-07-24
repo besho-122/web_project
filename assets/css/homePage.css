@@ -330,7 +330,6 @@ position: relative;
 .cardOverlay{
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 12px 16px;
   color: white;
   position: absolute;
@@ -343,6 +342,36 @@ position: relative;
   font-size: 1rem;
   font-weight: 600;
   margin: 0;
+}
+.cardOverlay2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+.cardTitle2 {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #7d7a7a; 
+    text-align: center;
+    font-family: "Ruslan Display", sans-serif;
+    font-style: italic;
+    font-size: 2.7vw;
+}
+
+.cardIcon2 {
+    position: absolute;
+    bottom: 10px; 
+    right: 15px;  
+    font-size: 1.3rem;
+    color: white;
 }
 
 .cardIcon {
@@ -359,13 +388,28 @@ margin-top: 4vh;
     margin-left: 16vw;
     transition: color 1.3s ease;
     color: rgb(119, 119, 119);
+    font-size: 0.8vw;
+ }
+
+}
+.homePageFourSection{ 
+     
+margin-top: 24vh; 
+ height: 50vh; 
+ width: 100%;
+ color: rgb(0, 0, 0);
+ p{
+    width: 70vw;
+    margin-left: 16vw;
+    transition: color 1.3s ease;
+    color: rgb(119, 119, 119);
     
     font-size: 0.8vw;
  }
 
 }
 .homePageTwoSection > p {
-  margin-top: -45px; /* قللها أكثر حسب الحاجة */
+  margin-top: -45px;
   margin-bottom: 20px;
   width: 70vw;
   transition: color 1.3s ease;
@@ -468,7 +512,7 @@ height: 32vh;
 height: 85vh;    
 width: 100%;
  border-radius: 0.3vw;
-
+box-shadow: inset 0px 100px 100px 100px rgba(0, 0, 0, 0.315);
 }
 .homePagethreeSectionCard img {
     width: 100% !important;
@@ -535,13 +579,40 @@ grid-gap: 2vw;
 }
 
 
-.serviceCard3  {
+.serviceCard3 {
   flex:1;
   transition: all 700ms;
   overflow: hidden;
   position: relative;
   padding:0 !important;
 }
+
+.gas{
+    flex-direction: column;
+    text-align: left;
+    
+}
+.gas .type{
+        font-size: 15px;
+    }
+.gas p{
+     font-size: 18px;
+     margin-left: 10px;
+}
+.serviceCard3::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+    box-shadow: 
+    inset 0px 60px 50px -30px rgba(0,0,0,0.65),  /* من فوق */
+    inset 0px -60px 50px -30px rgba(0,0,0,0.65); /* من تحت */
+  z-index: 2;
+}
+
 
 .serviceCard3 img {
   width: 100%;
@@ -555,10 +626,16 @@ grid-gap: 2vw;
   flex:1.2;
 }
 
-
-
-
-
+.type{
+    background-color: #bcbbbb5c;
+    width: fit-content;
+    padding: 5px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-bottom: 6px;
+}
 
 
 
@@ -624,8 +701,10 @@ grid-gap: 2vw;
 }
 
 .serviceCard h3 {
-    font-size: 2vw;
+    font-size: 1.1vw;
     margin-bottom: 1vw;
+    font-family: "Orbitron", sans-serif;
+
 }
 
 .serviceCard p {
@@ -636,8 +715,8 @@ grid-gap: 2vw;
 /* homePageContactSection   */
 .homePageContactSection {
     width: 100%;
-   
-    color: white;
+   background-color: #000000;
+    color: rgb(255, 255, 255);
     padding: 5vw 3vw 2vw 3vw;
     display: flex;
     flex-direction: column;
@@ -766,3 +845,211 @@ grid-gap: 2vw;
     transform: translateY(-20px);
     pointer-events: none;
 }
+
+
+.car-container {
+  display: flex;
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 1400px;
+  height: 410px;
+  margin: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.car-image {
+  flex: 1.2;
+}
+
+.car-image img {
+  width: 43vw;
+  height: 100%;
+  
+}
+.car-content {
+  flex: 0.8;
+  background-color: #0d0d0e;
+  color: white;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 34vw;
+  height: auto;
+}
+
+.car-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.3;
+  margin-left: 10px;
+}
+
+.car-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ccc;
+  margin-bottom: 30px;
+  margin-left: 10px;
+  width: 450px;
+}
+
+.car-content button {
+  padding: 12px 24px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+  margin-left: 10px;
+}
+
+.car-content button:hover {
+  background-color: #e0e0e0;
+}
+
+
+
+.cardDiscover{
+    width: 20.5vw;
+    height: 43vh;
+}
+#discoverSection h2{
+font-family: "Orbitron", sans-serif;
+margin-top: 6vw;
+font-size: 3vw;
+}
+
+.card {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  margin: 50px auto;
+  box-sizing: border-box;
+  border-radius: 50%;
+  overflow: visible;
+}
+
+.image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  z-index: 1;
+  position: relative;
+}
+
+.image::before {
+  content: "";
+  position: absolute;
+  top: 15px;    
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border: 3px solid white;
+  border-radius: 50%;
+  z-index: 0;
+  transition: transform 0.5s ease;
+}
+
+.link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.link .icon-circle {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 3px solid white;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: auto;
+}
+
+.image::before {
+  content: "";
+  position: absolute;
+  top: -10px;    
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 3px solid white;
+  border-radius: 20px; 
+  box-sizing: border-box;
+  z-index: 0;
+  transition: transform 0.5s ease;
+  pointer-events: none; 
+}
+
+.card:hover .image::before {
+  transform: rotate(-15deg);
+  cursor: pointer;
+}
+.link .icon1 { 
+  top: 30%;
+  right: -50px;
+}
+.link .icon2 {
+  top: 45%;
+  left: -50px;
+}
+.link .icon3 { 
+  bottom: -40px;
+  left: 45%;
+  transform: translateX(-50%) scale(0.5);
+}
+
+.link i {
+  font-size: 30px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+.link i:hover {
+  color: #000;
+  cursor: pointer;
+}
+
+.card:hover .link .icon-circle {
+  opacity: 1;
+  transform: scale(1);
+  cursor: pointer;
+}
+.card:hover .image::before {
+  transform: rotate(-10deg);
+  cursor: pointer;
+}
+.card:hover{
+    cursor: pointer;
+}
+
+.containerContact{
+    display: flex;
+   gap: 70px;
+}
+
+
+
+

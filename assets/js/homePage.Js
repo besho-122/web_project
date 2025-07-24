@@ -107,6 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // icon train
+let inSection = false; 
+let isAnimating = false; 
 window.addEventListener('scroll', () => {
   const section = document.querySelector('.homePageTwoSection');
   const navbarItems = document.querySelectorAll('.navbar__item');
@@ -115,20 +117,35 @@ window.addEventListener('scroll', () => {
   const sectionTop = section.offsetTop;
   const sectionBottom = sectionTop + section.offsetHeight;
   const middleScreen = scrollY + windowHeight / 2;
+  const totalAnimTime = navbarItems.length * 400;
   if (middleScreen >= sectionTop && middleScreen < sectionBottom) {
-    navbarItems.forEach((item, index) => {
-      setTimeout(() => {
-        item.style.transform = 'translateX(calc(100vw - 8rem))';
-      }, index * 400); 
-    });
-  } else {
-    navbarItems.forEach((item, index) => {
-      setTimeout(() => {
-        item.style.transform = 'translateX(0)';
-      }, index * 400);
-    });
+    if (!inSection && !isAnimating) { 
+      inSection = true;
+      isAnimating = true;
+      navbarItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.style.transform = 'translateX(calc(100vw - 8rem))';
+        }, index * 400);
+      });
+
+      setTimeout(() => isAnimating = false, totalAnimTime);
+    }
+  } 
+  else {
+    if (inSection && !isAnimating) { 
+      inSection = false;
+      isAnimating = true;
+      navbarItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.style.transform = 'translateX(0)';
+        }, index * 400);
+      });
+
+      setTimeout(() => isAnimating = false, totalAnimTime);
+    }
   }
 });
+
 
 
 
