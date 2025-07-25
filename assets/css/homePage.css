@@ -432,12 +432,11 @@ height: 32vh;
  border-radius: 1vw;
  
 } 
-.homePageTwoSectionCard img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
+#discoverSection img {
+    
+height: 100% !important;
+    object-fit: cover;
     border-radius: 0.5vw;
-
 }
 .serviceCard {
   overflow: hidden;
@@ -446,10 +445,35 @@ height: 32vh;
   
 }
 
-.serviceCard img {
+#mainSection .serviceCard {
+    height: 32vh;             
+    width: 100%;             
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5vw;
+}
+
+#mainSection .serviceCard img {
+    width: 100%;
+    object-fit: cover;
+    transform: scale(1.64);
+    transform-origin:  right left;
+}
+
+
+
+
+#discoverSection .serviceCard img {
   width: 100%;
   height: auto;
   transition: transform 0.5s ease;
+}
+#mainSection .serviceCard img {
+  transition: transform 0.5s ease;
+}
+#mainSection .serviceCard:hover img{
+    transform: scale(1.8);
+  cursor: pointer;
 }
 
 .serviceCard:hover img {
@@ -935,8 +959,8 @@ font-size: 3vw;
 }
 
 .card {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   position: relative;
   margin: 50px auto;
   box-sizing: border-box;
@@ -986,8 +1010,8 @@ font-size: 3vw;
 
 .link .icon-circle {
   position: absolute;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border: 3px solid white;
   border-radius: 50%;
   background: white;
@@ -1059,6 +1083,10 @@ font-size: 3vw;
 .containerContact{
     display: flex;
    gap: 70px;
+   
+}
+.card a{
+    text-decoration: none;
 }
 
 
