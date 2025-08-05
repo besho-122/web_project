@@ -38,7 +38,7 @@ window.addEventListener('scroll', () => {
   const secondSection = document.getElementById('secondSection');
   const thirdSection = document.getElementById('thirdSection');
   const titleDiscover = secondSection.querySelector('h2'); 
-  const navbarLinks = document.querySelectorAll('.navbar__link'); // عناوين وروابط النافبار
+  const navbarLinks = document.querySelectorAll('.navbar__link'); 
 
   const scrollY = window.scrollY;
   const windowHeight = window.innerHeight;
@@ -51,19 +51,19 @@ window.addEventListener('scroll', () => {
     if (titleDiscover) titleDiscover.style.color = 'white';
 
     navbarLinks.forEach(link => {
-      link.style.color = 'white';  // هنا بنغير لون النص والأيقونة مع بعض
+      link.style.color = 'white';  
     });
   } else {
     document.body.style.backgroundColor = 'white';
     if (titleDiscover) titleDiscover.style.color = 'black';
 
     navbarLinks.forEach(link => {
-      link.style.color = 'black';  // نرجعهم أبيض مثل الأصل
+      link.style.color = 'black'; 
     });
   }
 });
 
-// الإضافة: خلي أيقونات navbar بيضاء دايمًا داخل homePageMainSection
+
 window.addEventListener('scroll', () => {
   const mainSection = document.querySelector('.homePageMainSection');
   const navbarLinks = document.querySelectorAll('.navbar__link');
