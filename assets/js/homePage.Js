@@ -53,6 +53,7 @@ window.addEventListener('scroll', () => {
     if (titleDiscover) titleDiscover.style.color = 'white';
     navbarLinks.forEach(link => {
       link.style.color = 'white';
+      link.style.color = 'white';  
     });
   } 
   else if (middleScreen >= contactTop) {
@@ -66,9 +67,11 @@ window.addEventListener('scroll', () => {
     if (titleDiscover) titleDiscover.style.color = 'black';
     navbarLinks.forEach(link => {
       link.style.color = 'black';
+      link.style.color = 'black'; 
     });
   }
 });
+
 
 window.addEventListener('scroll', () => {
   const mainSection = document.querySelector('.homePageMainSection');
