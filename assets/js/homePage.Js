@@ -2,13 +2,16 @@
 //hide title
   window.addEventListener('scroll', function() {
       const title = document.getElementById('mainTitle');
+      const logIn = document.getElementById('logTitle');
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
  console.log('scrollY:', scrollY, 'windowHeight:', windowHeight);
       if (scrollY >= windowHeight/2) {
           title.classList.add('hidden');
+          logIn.classList.add('hidden');
       } else {
           title.classList.remove('hidden');
+          logIn.classList.remove('hidden');
       }
   });
 

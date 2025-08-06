@@ -1,0 +1,39 @@
+body{
+    background-color: rgb(182, 173, 173);
+}
+.navProduct{
+    background-color: rgba(0, 0, 0, 0.779) !important;
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+}
+.navbar-brand{
+    margin-left: 100px !important;
+    margin-right: 80px !important;
+}
+.nav-link{
+    color: white !important;
+    font-family: "Orbitron", sans-serif;
+    
+}
+.dropdown-item{
+    font-family: "Orbitron", sans-serif;
+}
+.fa-cart-shopping{
+    margin-right: 20px !important;
+    margin-left: 15px !important;
+    margin-top: 20px;
+}
+.me-2{
+    width: 40vw !important;
+    border-radius: 20px !important;
+    margin-left: 50px;
+}
+.searchIcon{
+    position: absolute;
+    top: 62px;
+    right: 255px;
+}
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}

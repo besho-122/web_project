@@ -1,4 +1,4 @@
-let isAtLeft = false;
+/*let isAtLeft = false;
 function toggleForm() {
   const signupForm = document.querySelector('.signupForm');
   const signinForm = document.querySelector('.signinForm');
@@ -34,4 +34,15 @@ function fadeImage(imgElement, newSrc) {
   void imgElement.offsetWidth;
   imgElement.src = newSrc;
   imgElement.classList.add('fade');
-}
+}*/
+const container = document.getElementById("container");
+const registerBtn = document.getElementById("register");
+const loginBtn = document.getElementById("login");
+
+registerBtn.addEventListener("click", () => {
+  container.classList.add("active");
+});
+
+loginBtn.addEventListener("click", () => {
+  container.classList.remove("active");
+});
