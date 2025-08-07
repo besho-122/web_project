@@ -42,10 +42,8 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
-       <!-- <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
-        -->
+       
+      
      
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
@@ -53,6 +51,7 @@
         
       </form>
       <li class="nav-item"> <i class="fa-solid fa-cart-shopping fa-xl" style="color: #ffffff;"></i></li>
+      
        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             En
@@ -64,11 +63,169 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
+        
          </ul>
+         
+          <a href="../pages/login.html" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
+      
     </div>
   </div>
 </nav>
 
+
+
+<!--ProductFirstSection-->
+<div class="firstProduct">
+<h3>Find your new or used <span>Car</span> at a Motor Center.</h3>
+<p>Choose a model series.</p><br>
+<div class="productCards">
+  <div class="card"  style="width:500px">
+  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
+  <div class="card-img-overlay">
+    <h1 class="card-title">911</h1>
+    <p class="card-text">Porche 911</p>
+    
+  </div>
+</div>
+<div class="card"  style="width:500px">
+  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
+  <div class="card-img-overlay">
+    <h1 class="card-title">Panamera</h1>
+    <p class="card-text">Porche Panamera</p>
+    
+  </div>
+</div>
+<div class="card"  style="width:500px">
+  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
+  <div class="card-img-overlay">
+    <h1 class="card-title">911</h1>
+    <p class="card-text">Porche 911</p>
+    
+  </div>
+</div>
+<div class="card"  style="width:500px">
+  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
+  <div class="card-img-overlay">
+    <h1 class="card-title">911</h1>
+    <p class="card-text">Porche 911</p>
+    
+  </div>
+</div>
+<div class="card" style="width:500px">
+  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
+  <div class="card-img-overlay">
+    <h1 class="card-title">911</h1>
+    <p class="card-text">Porche 911</p>
+    
+  </div>
+</div>
+<div class="card" style="width:500px">
+  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
+  <div class="card-img-overlay">
+    <h1 class="card-title">911</h1>
+    <p class="card-text">Porche 911</p>
+    
+  </div>
+</div>
+
+</div>
+<button class="btnProduct">Browse all model series</button>
+<h4>Making it even easier to <span>find</span> your new or pre-owned Car.</h4>
+
+
+</div>
+<!--Second Section-->
+<section class="homePageFourSection" id="thirdSection">
+  <div class="homePageTwoSectionText">
+    <div class="car-container">
+      <div class="car-image">
+        <img src="../assets/photos/new.jpg" alt="Car">
+      </div>
+      <div class="car-content">
+        <h1>New vehicle inventory.</h1>
+        <p>
+          New and available. Find your new Porsche vehicle at a Porsche Center near you. Choose from a large selection of available new vehicles.
+        </p>
+        <a href="./pages/products.html"> <button>Browse new vehicle inventory</button></a>
+       
+      </div>
+    </div>
+  </div><br>
+   <div class="homePageTwoSectionText">
+    <div class="car-container">
+      <div class="car-image">
+        <img src="../assets/photos/pre.jpg" alt="Car">
+      </div>
+      <div class="car-content">
+        <h1>Porsche Approved Pre-owned vehicles.</h1>
+        <p>
+         Peace of mind comes as standard. Porsche Approved used vehicles come with a minimum 12 month warranty and have been prepared by Porsche Technicians using only Porsche Genuine Parts.
+        </p>
+        <a href="./pages/products.html"> <button>Browse Porsche Approved inventory</button></a>
+       
+      </div>
+    </div>
+  </div><br>
+  <div class="homePageTwoSectionText">
+    <div class="car-container">
+      <div class="car-image">
+        <img src="../assets/photos/used.jpg" alt="Car">
+      </div>
+      <div class="car-content">
+        <h1>Used Vehicles.</h1>
+        <p>
+          Driving pleasure doesn't know an age. Find a pre-owned Porsche at one of our official Porsche Centres.
+        </p>
+        <a href="./pages/products.html"> <button>Browse used Porsche inventory</button></a>
+       
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <!--Footer-->
+<footer class="footer">
+  <h4>Overall, how satisfied are you with the <span>information</span> available on this page?</h4>
+  <button class="btnProduct" onclick="showFeedback()">Give Feedback now</button>
+
+  <div class="feedback-container" id="feedback">
+    <div class="rating-scale">
+      <span class="rating-label">Very dissatisfied</span>
+
+      <div class="rating-option">
+        <input type="radio" name="rating" id="rate1" value="1">
+        <label for="rate1">1</label>
+      </div>
+      <div class="rating-option">
+        <input type="radio" name="rating" id="rate2" value="2">
+        <label for="rate2">2</label>
+      </div>
+      <div class="rating-option">
+        <input type="radio" name="rating" id="rate3" value="3">
+        <label for="rate3">3</label>
+      </div>
+      <div class="rating-option">
+        <input type="radio" name="rating" id="rate4" value="4">
+        <label for="rate4">4</label>
+      </div>
+      <div class="rating-option">
+        <input type="radio" name="rating" id="rate5" value="5">
+        <label for="rate5">5</label>
+      </div>
+      <span class="rating-label">Very satisfied</span>
+    </div>
+  </div>
+  </div>
+  <div class="underFooter">
+     <p>© 2025 Porsche Sales & Marketplace GmbH General Privacy Policy. Imprint. Open Source Software Notice. Business & Human Rights. The illustrated vehicle images may contain automatically computer generated image material. The representation may differ in part from the actual appearance and/or the product substance of the vehicle.</p>
+     <a href="../index.html"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="200px"></a>
+  </div>
+</footer>
+</section>
+
+
+<script src="../assets/js/product.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
