@@ -6,6 +6,7 @@ body{
     background-color: rgba(0, 0, 0, 0.916) !important;
     border-bottom-left-radius: 20px !important;
     border-bottom-right-radius: 20px !important;
+    height: 60px;
 }
 
 
@@ -42,14 +43,19 @@ body{
     margin-right: 80px;
 }
 .me-2{
-    width: 30vw !important;
+    width: 20vw !important;
     border-radius: 20px !important;
     margin-left: 50px;
 }
 .searchIcon{
     position: absolute;
-    top: 62px;
-    right: 325px;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.searchDiv{
+    position: relative;
+
 }
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
