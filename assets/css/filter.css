@@ -102,11 +102,74 @@ input[type="search"]::-webkit-search-cancel-button {
   border-bottom: 1px solid #ddd;
   font-weight: bold;
   cursor: pointer;
+  position: relative;
 }
 
 .sidebar li::after {
   content: '+';
   float: right;
+  position: absolute;
+  right: 5px;
+  top: 25px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.sidebar li.active::after {
+  content: '-';
+
+}
+.checkCondition{
+    margin-top: 20px;
+    width: fit-content;
+    display: none;
+}
+.custom-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 13px;
+  user-select: none;
+}
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 3px;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: black;
+  
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.custom-checkbox .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 .content-area {
@@ -117,7 +180,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .sort-bar {
   background: rgb(255, 255, 255);
-  padding: 30px;
   padding-right: 0px !important;
   border-radius: 12px;
   display: flex;
@@ -220,3 +282,287 @@ width: 150px;
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(60, 59, 59, 0.108);
 }
+
+.sortingBy{
+    display: none;
+  gap: 10px; 
+  flex-wrap: wrap;
+  width: 600px;
+}
+.sortingOne{
+    font-family:Roboto;
+    background-color: #e9e9e9ab;
+    width: 141px;
+    height: 54px;
+    border-radius: 5px;
+    padding-right: 5px;
+    display: flex;
+    i{
+        margin-top: 23px;
+    }
+    padding-bottom: 0px;
+    height: 57px;
+    gap: 20px;
+}
+.divCondition{
+    width: 90px;
+}
+
+.sortingOne  p{
+   padding-top: 10px;
+   font-size: 13px;
+   margin-bottom: 0px;
+   padding-left: 10px;
+    }
+.sortingOne h5{
+    padding-left: 10px;
+    font-size: 14px;
+}
+
+.sort-bar-two {
+  background: rgb(255, 255, 255);
+  padding: 30px;
+  padding-right: 0px !important;
+  border-radius: 12px;
+}
+.SeriesSelect{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: none;
+}
+.modelSeries{
+    
+}
+.selectionEdit{
+    appearance:auto;
+}
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: auto;
+    appearance: auto;
+}
+.varientsChecked{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: none;
+}
+.searchGrandDad{
+    display: flex;
+    border: 1px solid;
+    border-radius: 5px;
+    height: 50px;
+    align-items: center;
+    width: 300px;
+    margin-bottom: 20px;
+}
+.form-control {
+  border: none;
+  margin-left: 30px;
+}
+
+.form-control:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.editSearchIcon{
+    left: 22px !important;
+    top: 85px !important;
+    opacity: 0.5 !important;
+}
+
+.generationChecked{
+    margin-top: 20px;
+    display: none;
+}
+
+.years-select{
+    margin-top: 20px;
+    padding: 15px;
+    width: 300px;
+    border-radius: 5px;
+    
+}
+.yearSelection{
+    display: none;
+}
+.exColor{
+    margin-top: 20px;
+    display: none;
+}
+
+.colorType{
+    padding: 4px;
+    padding-bottom: 1px !important;
+    padding-top: 1px !important;
+    border-radius: 4px;
+    color: transparent;
+}
+.colorFirst{
+    background: linear-gradient(to bottom, #555 50%, #333 50%);
+}
+.colorSecond{
+    background: linear-gradient(to bottom, white 50%, #ccc 50%);
+}
+.colorThird{
+    background: linear-gradient(to bottom, silver 50%, #818181 50%);
+}
+.colorFourth{
+    background: linear-gradient(to bottom, #cfcfcf 50%, #b5b5b5 50%);
+}
+.colorFifth{
+    background: linear-gradient(to bottom, gray 50%, #5a5a5a 50%);
+}
+.colorSixth{
+    background: linear-gradient(to bottom, #8ab4d9 50%, #6a9ec9 50%);
+}
+.colorSeventh{
+    background: linear-gradient(to bottom, red 50%, #b30000 50%);
+}
+.colorEight{
+    background: linear-gradient(to bottom, #FFD700 50%, #E6C200 50%);
+}
+.colorNine{
+    background: linear-gradient(to bottom, #A52A2A 50%, #5C1A1A 50%);
+}
+.colorTen{
+    background: linear-gradient(to bottom, #00cc00 50%, #009900 50%);
+}
+.colorEleven{
+    background: linear-gradient(to bottom, #8A2BE2 50%, #5D1A99 50%);
+}
+.colorTwelve{
+    background: linear-gradient(to bottom, #FFD700 50%, #B8860B 50%);
+}
+.colorThirteen{
+    background: linear-gradient(to bottom, #FFA500 50%, #CC8400 50%);
+}
+.colorFourteen{
+    background: linear-gradient(to bottom, #FFC0CB 50%, #FF8FA3 50%);
+}
+.colorFifteen{
+    background: linear-gradient(to bottom, #F5F5DC 50%, #D6C9A8 50%);
+}
+
+.intColour{
+    margin-top: 20px;
+    display: none;
+}
+.intColour .colorType{
+    
+    padding: 4px;
+    padding-bottom: 1px !important;
+    padding-top: 1px !important;
+    border-radius: 50px;
+    color: transparent;
+}
+.intColour .colorFirst{
+    background: black !important;
+}
+.intColour .colorSecond{
+    background: beige !important;
+}
+.intColour .colorThird{
+    background: brown !important;
+}
+.intColour .colorFourth{
+   background: grey !important;
+}
+.intColour .colorFifth{
+    background: blue !important;
+}
+.intColour .colorSixth{
+    background: red !important;
+}
+.intColour .colorSeventh{
+    background: purple !important;
+}
+.intColour .colorEight{
+   background: green !important;
+}
+.intColour .colorNine{
+    background: white !important;
+}
+
+.priceField{
+    margin-top: 20px;
+    p{
+        font-weight: lighter;
+    }
+    margin-bottom: 10px;
+     display: none;
+}
+.inputSelection{
+    appearance: auto;
+    position: absolute;
+    border: 1px solid;
+   
+}
+.sideArrow{
+    border: 1px solid;
+    position: relative;
+    left: 240px;
+    width: 60px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-bottom: none;
+    border-top: none;
+    padding-left: 20px;
+    top: 2px;
+}
+
+.SeriesSelect2{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    
+}
+
+.mileField{
+    margin-top: 20px;
+    p{
+        font-weight: lighter;
+        margin-bottom: 0px;
+    }
+    margin-bottom: 10px;
+    width:330px;
+    display: none;
+    
+}
+.milesSelect{
+    width: 330px !important;
+}
+.ownerField{
+     margin-top: 20px;
+    p{
+        font-weight: lighter;
+        margin-bottom: 0px;
+    }
+    margin-bottom: 10px;
+    width:330px;
+     display: none;
+}
+.sideArrow2{
+    position: relative;
+    left: 240px;
+    width: 60px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 20px;
+    top: 13px;
+    opacity: 0.7;
+}
+
+.resetButton{
+    padding: 15px;
+    width: 320px;
+    i{
+        margin-right: 20px;
+    }
+    background-color: white;
+    margin-left: 10px;
+    border-radius: 5px;
+    display: none;
+    transition: 1s;
+}
+.resetButton:hover{
+    background-color: rgba(188, 187, 187, 0.429);
+}
+
