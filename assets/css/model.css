@@ -1,0 +1,327 @@
+body {
+    height: 500vh;
+    margin: 0;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    overflow-y: inherit;
+    transition: background-color 1.3s ease;
+    
+}
+
+section {
+    margin: 0;
+    width: 100%;
+    overflow: hidden;
+
+}
+
+/* Navbar */
+.homePageNavbar {
+    list-style: none;
+    border: none;
+    background-color: transparent; 
+    color: #fff ;
+    display: flex;
+    margin-left: 3.9vw;
+}
+
+.brand {
+    color: #fff;
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: none;
+    display: flex;
+    align-items: center;
+    
+}
+.behind{
+    display: flex;
+    gap: 38vw;
+}
+
+.brand img {
+    display: block;  
+    border: none;
+}
+
+.navbar {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 9999;
+  background: transparent;
+  border-radius: 10px;
+  padding: 1rem 0;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.03);
+  height: calc(100vh - 4rem);
+}
+
+
+
+/* main section && video  */
+.fade-in-home-text{
+    opacity: 0;
+    transform: translateY(10vh);
+  animation: fadeIn3 1.5s ease-out forwards;
+}
+@keyframes fadeIn3 {
+   to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.homePageMainSection {
+    position: relative;
+    right: 0;
+    width: 100%;
+    padding: 3vw;
+    justify-content: left;
+    align-items: end;
+    background-color: rgba(0, 0, 0, 0.379);
+    height: 65vh;
+    box-shadow: inset 0px 100px 100px 100px rgba(0, 0, 0, 0.315);
+    overflow:hidden;
+    h2{
+        font-family: "Playwrite HU", cursive;
+        padding-left:6vw;
+    }
+    h3{
+        font-family: "Orbitron", sans-serif;
+        margin-left: 6vw;
+    }
+   
+}
+.homePageMainSection video {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+    z-index: -1;
+
+}
+.video-btn {
+    position: absolute;
+    bottom: 5vw;
+    right: 5vw;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.video-btn:hover {
+    background: rgba(0,0,0,0.85);
+}
+
+
+.homePageMainSectionOverlay{
+    position: absolute;
+    top:96vh;
+    height:4vh;
+    width: 100%;
+    z-index: 0;
+    overflow: hidden;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        rgba(26, 26, 26, 0.911),
+        transparent
+    );
+  
+}
+.item{
+width:300vw;
+height: 4vh ; 
+position: absolute;
+left:-100%;
+animation:autoRun 10s linear infinite;
+animation-delay: calc(var(--position)*-1s);
+}
+.overlay{
+   display: flex;
+   width: 100%;
+   position: relative;
+  
+
+
+}
+
+@keyframes autoRun{
+   form{
+    left:-100%;
+   }
+   to{
+    left:100%;
+   }
+}
+
+
+
+.homePageMainSectionText {
+    margin-top: 15vw;
+    color: rgb(255, 255, 255);
+    z-index: 1;
+    width: 60%;
+    padding: 2vw;
+    height: fit-content;
+    background-image: image-set(url(""));
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
+}
+
+.homePageMainSectionText h2 {
+    font-size: 7vw;
+    margin-left: 270px;
+    margin-top: 0px;
+    position: absolute;
+    top: 150px;
+    width:40vw;
+    font-style: italic;
+  
+}
+
+.highlight {
+  color: #ca0000b3; 
+  font-weight: bold;
+}
+.homePageMainSectionText h3 {
+    font-size: 1.5vw;
+    margin-bottom: 2vw;
+    border: 3px solid;
+    padding: 14px;
+    width: fit-content;
+    border-radius: 5px;
+}
+.homePageMainSectionText h3:hover{
+    cursor: pointer;
+    background-color: #ca00005b;
+    transition: 1.5s;
+}
+
+.homePageMainSection p {
+  width: 70vw;
+  background-color: transparent;
+  margin-left: 0px;
+  padding: 14px;
+  color: rgba(255, 255, 255, 0.559);
+  white-space: nowrap; 
+  overflow: hidden;
+  margin: auto;
+  font-family: "Orbitron", sans-serif;
+}
+
+
+.homePageMainSectionText a button {
+    size: 2vw;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 1.5vw;
+}
+
+.modelImage{
+    position: absolute;
+    top: 275px;
+    left: 250px;
+}
+.typeCar{
+    display: flex;
+    margin-top: 100px;
+    justify-content: center;
+    gap: 8px;
+    font-family: "Orbitron", sans-serif;
+}
+.typeCar p{
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.5s;
+    font-size: small;
+}
+.typeCar p:hover{
+    background-color: rgba(176, 176, 176, 0.57);
+    cursor: pointer;
+}
+.titleCar{
+    text-align: center;
+    font-family: "Orbitron", sans-serif;
+    margin-top: 20px;
+    font-size: 35px;
+}
+
+.btnProduct{
+    background-color: black;
+    margin-top: 50px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    color: white;
+    padding-left: 15px;
+    padding-right: 15PX;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+.btnProduct:hover{
+   background-color: rgba(0, 0, 0, 0.808);
+}
+.editButton{
+    background-color: #fff;
+    color: black;
+}
+.editButton:hover{
+    background-color: rgba(197, 197, 197, 0.238);
+}
+.Buttons{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.firstButton{
+    width: 150px;
+}
+.secondButton{
+    width: 120px;
+}
+.technical{
+    display: flex;
+    margin-top: 200px;
+    img{
+        width:600px;
+        margin-top: 50px;
+    }
+    sub{
+        font-size: large;
+    }
+    justify-content: center;
+    p{
+        width: 280px;
+        margin-bottom: 80px;
+    }
+    gap: 40px;
+    h2{
+        font-size: 50px;
+        font-family: "Orbitron", sans-serif;
+    }
+}
+.decMarginButton{
+    margin-bottom: 10px !important;
+}
+.editButton2{
+    background-color: #fff;
+    color: black;
+    width: 220px;
+}
+.editButton2:hover{
+    background-color: rgba(197, 197, 197, 0.238);
+}

@@ -243,32 +243,21 @@ const searchInput = document.getElementById('checkboxSearch');
   });
 
 
-
+//Reset Filter
 const resetBtn = document.querySelector('.resetButton');
 if (resetBtn) {
   resetBtn.addEventListener('click', () => {
-    // Clear checkedGroups object
     for (const group in checkedGroups) {
       checkedGroups[group] = [];
     }
-
-    // Clear checkboxes
     document.querySelectorAll('.sidebar input[type="checkbox"]').forEach(cb => cb.checked = false);
-
-    // Reset selects
     document.querySelectorAll('.sidebar select').forEach(sel => sel.selectedIndex = -1);
-
-    // Clear all other inputs (text, number, search, etc.)
     document.querySelectorAll('.sidebar input:not([type="checkbox"]):not([type="radio"])').forEach(input => {
       input.value = '';
       input.dispatchEvent(new Event('input'));
     });
-
-    // Dispatch change/input events to update UI
     document.querySelectorAll('.sidebar select').forEach(sel => sel.dispatchEvent(new Event('change')));
     document.querySelectorAll('.sidebar input[type="checkbox"]').forEach(cb => cb.dispatchEvent(new Event('change')));
-
-    // Hide reset button and clear sorting display
     resetBtn.style.display = 'none';
     const sortingBy = document.querySelector('.sortingBy');
     if (sortingBy) sortingBy.innerHTML = '';
@@ -276,7 +265,83 @@ if (resetBtn) {
 }
 
 
+//Pagination 
+document.addEventListener('DOMContentLoaded', function () {
+  const cards = Array.from(document.querySelectorAll('.car-card'));
+  const itemsPerPage = 3;
+  const paginationUl = document.querySelector('.pagination');
+  if (!paginationUl) return;
+  const totalCards = cards.length;
+  const totalPages = Math.max(1, Math.ceil(totalCards / itemsPerPage));
+  let currentPage = 1;
+  function renderPagination() {
+    paginationUl.innerHTML = '';
+    const prevLi = document.createElement('li');
+    prevLi.className = 'page-item';
+    prevLi.innerHTML = '<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>';
+    paginationUl.appendChild(prevLi);
+    for (let i = 1; i <= totalPages; i++) {
+      const li = document.createElement('li');
+      li.className = 'page-item';
+      li.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`;
+      paginationUl.appendChild(li);
+    }
+    const nextLi = document.createElement('li');
+    nextLi.className = 'page-item';
+    nextLi.innerHTML = '<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>';
+    paginationUl.appendChild(nextLi);
+  }
+  function showPage(page) {
+    if (page < 1) page = 1;
+    if (page > totalPages) page = totalPages;
+    currentPage = page;
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    cards.forEach((card, idx) => {
+      card.style.display = (idx >= start && idx < end) ? '' : 'none';
+    });
+    paginationUl.querySelectorAll('.page-item').forEach(li => li.classList.remove('active', 'disabled'));
+    const activeLink = paginationUl.querySelector(`.page-link[data-page="${page}"]`);
+    if (activeLink) activeLink.parentElement.classList.add('active');
+    const prev = paginationUl.querySelector('.page-link[aria-label="Previous"]');
+    const next = paginationUl.querySelector('.page-link[aria-label="Next"]');
+    if (prev) {
+      if (page === 1) prev.parentElement.classList.add('disabled'); else prev.parentElement.classList.remove('disabled');
+    }
+    if (next) {
+      if (page === totalPages) next.parentElement.classList.add('disabled'); else next.parentElement.classList.remove('disabled');
+    }
+  }
+  paginationUl.addEventListener('click', (e) => {
+    const link = e.target.closest('.page-link');
+    if (!link) return;
+    e.preventDefault();
+    if (link.getAttribute('aria-label') === 'Previous') {
+      if (currentPage > 1) showPage(currentPage - 1);
+      return;
+    }
+    if (link.getAttribute('aria-label') === 'Next') {
+      if (currentPage < totalPages) showPage(currentPage + 1);
+      return;
+    }
+    const p = Number(link.dataset.page);
+    if (p) showPage(p);
+  });
+  renderPagination();
+  showPage(1);
+});
+
+//feedback
+function showFeedback() {
+      document.getElementById('feedback').style.display = 'block';
+    }
 
 
 
-
+document.querySelectorAll('.car-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const modelName = card.querySelector('h2').textContent;
+    localStorage.setItem("carName", modelName);
+    window.location.href = "../pages/model.html";
+  });
+});
