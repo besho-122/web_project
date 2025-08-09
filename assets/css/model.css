@@ -299,6 +299,7 @@ animation-delay: calc(var(--position)*-1s);
     img{
         width:600px;
         margin-top: 50px;
+       
     }
     sub{
         font-size: large;
@@ -312,7 +313,11 @@ animation-delay: calc(var(--position)*-1s);
     h2{
         font-size: 50px;
         font-family: "Orbitron", sans-serif;
+         padding-left: 0px;
+         width: 350px;
     }
+   
+
 }
 .decMarginButton{
     margin-bottom: 10px !important;
@@ -325,3 +330,43 @@ animation-delay: calc(var(--position)*-1s);
 .editButton2:hover{
     background-color: rgba(197, 197, 197, 0.238);
 }
+
+.rolling-number {
+  display: inline-flex;
+  gap: 2px;
+  font-size: 48px;
+  font-weight: bold;
+  position: relative;
+  vertical-align: middle;
+  overflow: hidden;
+  height: 1.2em;
+}
+
+.digit-container {
+  width: 1ch;
+  height: 1.2em;
+  overflow: hidden;
+  position: relative;
+}
+
+.digit-strip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+ 
+ transition: transform 0.8s;
+}
+
+.digit {
+  height: 1.2em;
+  line-height: 1.2em;
+  text-align: center;
+  user-select: none;
+}
+
+
+
+
+
+

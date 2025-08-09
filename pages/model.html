@@ -58,16 +58,28 @@
     </div>
 
     <div class="technical">
-        <div>
-            <h2>4.7 <sub>s</sub></h2>
-            <p>Acceleration 0 - 100 km/h with Launch Control</p>
-            <h2>320 <sub>kW / </sub>435 <sub>PS</sub></h2>
-            <p>Power up to (kW)/Power up to (PS)
-             Details of the measuring method can be found at www.porsche.com/gtr21</p>
-             <h2>220 <sub>km/h</sub></h2>
-             <p class="decMarginButton">Top speed</p>
-             <button class="btnProduct editButton2">View all technical details</button>
-        </div>
+       <div class="number-container">
+  <h2>
+    <span id="acceleration" class="rolling-number" data-decimals="1"></span><sub>s</sub>
+  </h2>
+  <p>Acceleration 0 - 100 km/h with Launch Control</p>
+
+  <h2>
+    <span id="powerKW" class="rolling-number" data-decimals="0"></span><sub>kW / </sub>
+    <span id="powerPS" class="rolling-number" data-decimals="0"></span><sub>PS</sub>
+  </h2>
+  <p>Power up to (kW)/Power up to (PS)
+     Details of the measuring method can be found at www.porsche.com/gtr21</p>
+
+  <h2>
+    <span id="speed" class="rolling-number" data-decimals="0"></span><sub>km/h</sub>
+  </h2>
+  <p class="decMarginButton">Top speed</p>
+
+  <button class="btnProduct editButton2">View all technical details</button>
+</div>
+
+
         <div>
             <img src="../assets/photos/front.avif" alt="">
         </div>
