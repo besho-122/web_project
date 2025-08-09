@@ -7,12 +7,9 @@
     <link rel="stylesheet" href="../assets/css/dashboard.css">
   </head>
   <body>
-    <div class="grid-container">
-      <header class="header">
-        <div class="menu-icon" onclick="openSidebar()">
+      <div class="menu-icon" onclick="openSidebar()">
           <span class="material-icons-outlined">menu</span>
         </div>
-      </header>
       <aside id="sidebar">
         <div class="sidebar-title">
           <div class="sidebarBrand">
@@ -21,46 +18,19 @@
           <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
         </div>
 
-        <ul class="sidebar-list">
-          <li class="sidebaritem">
-            <a href="#" target="_blank">
-             Dashboard
-            </a>
-          </li>
-          <li class="sidebaritem">
-            <a href="#" target="_blank">
-               Products
-            </a>
-          </li>
-          <li class="sidebaritem">
-            <a href="#" target="_blank">
-             Companies
-            </a>
-          </li>
-          <li class="sidebaritem">
-            <a href="#" target="_blank">
-             Models
-            </a>
-          </li>
-          <li class="sidebaritem">
-            <a href="#" target="_blank">
-             Customers
-            </a>
-          </li>
-          <li class="sidebaritem">
-            <a href="#" target="_blank">
-             Pages
-            </a>
-          </li>
-          <li class="sidebaritem">
-            <a href="#" target="_blank">
-              Settings
-            </a>
-          </li>
-        </ul>
+     <ul class="sidebar-list">
+  <li class="sidebaritem"><a href="#dashboard">Dashboard</a></li>
+  <li class="sidebaritem"><a href="#products">Products</a></li>
+  <li class="sidebaritem"><a href="#companies">Companies</a></li>
+  <li class="sidebaritem"><a href="#models">Models</a></li>
+  <li class="sidebaritem"><a href="#customers">Customers</a></li>
+  <li class="sidebaritem"><a href="#pages">Pages</a></li>
+  <li class="sidebaritem"><a href="#settings">Settings</a></li>
+</ul>
       </aside>
 
       <main class="main-container">
+      <section id="dashboard" class="dashboard">
         <div class="main-title">
           <h2>DASHBOARD</h2>
         </div>
@@ -110,10 +80,34 @@
           </div>
 
         </div>
+        </section> 
+
+<section id="products" class="products">
+  <h1>Products</h1>
+</section>
+
+<section id="companies" class="companies">
+  <h1>Companies</h1>
+</section>
+
+<section id="models" class="models">
+  <h1>Models</h1>
+</section>
+
+<section id="customers" class="customers">
+  <h1>Customers</h1>
+</section>
+
+<section id="pages" class="pages">
+  <h1>Pages</h1>
+</section>
+
+<section id="settings" class="settings">
+  <h1>Settings</h1>
+</section>
       </main>
 
 
-    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
     <script src="../assets/js/dashboard.js"></script>
   </body>

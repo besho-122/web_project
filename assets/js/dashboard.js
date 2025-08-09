@@ -250,3 +250,57 @@ const areaChart = new ApexCharts(
   areaChartOptions
 );
 areaChart.render();
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.querySelector('.main-container');
+  const sections = Array.from(document.querySelectorAll('main section'));
+  const items = Array.from(document.querySelectorAll('.sidebar-list .sidebaritem'));
+  const linkById = new Map(
+    items.map(li => {
+      const a = li.querySelector('a');
+      const id = a && a.getAttribute('href') ? a.getAttribute('href').replace('#', '') : null;
+      return [id, li];
+    })
+  );
+
+  items.forEach(li => {
+    const a = li.querySelector('a');
+    if (!a) return;
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = a.getAttribute('href').replace('#', '');
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        items.forEach(li => li.classList.remove('active'));
+        const li = linkById.get(id);
+        if (li) li.classList.add('active');
+      }
+    });
+  }, {
+    root: container,       
+    threshold: 0.6
+  });
+
+  sections.forEach(sec => observer.observe(sec));
+  if (!location.hash) {
+    const first = sections[0];
+    if (first) {
+      first.scrollIntoView({ block: 'start' });
+      const li = linkById.get(first.id);
+      if (li) li.classList.add('active');
+    }
+  } else {
+    const id = location.hash.replace('#', '');
+    const li = linkById.get(id);
+    if (li) li.classList.add('active');
+  }
+});
