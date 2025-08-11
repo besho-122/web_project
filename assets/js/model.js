@@ -160,11 +160,14 @@ countUpRolling(speed, 220, 2000);
       autoRotate: -2
     });
     
+//exteroir view 
 
 
     //feedback 
     function showFeedback() {
       document.getElementById('feedback').style.display = 'block';
     }
+
+    
 
     
