@@ -155,7 +155,7 @@ countUpRolling(speed, 220, 2000);
 ///PANORAMA//
  pannellum.viewer('panorama', {
       type: 'equirectangular',
-      panorama: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs/21cc8987436853.5db84efff1c3a.jpg', 
+      panorama: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_3840/f213a387436853.5db84efff141d.jpg', 
       autoLoad: true,
       autoRotate: -2
     });
