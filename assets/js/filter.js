@@ -338,10 +338,51 @@ function showFeedback() {
 
 
 
-document.querySelectorAll('.car-card').forEach(card => {
-  card.addEventListener('click', () => {
-    const modelName = card.querySelector('h2').textContent;
-    localStorage.setItem("carName", modelName);
+document.addEventListener('click', (event) => {
+  const btn = event.target.closest('.btnProduct.details');
+  if (btn && btn.closest('.car-card')) {
+    event.preventDefault();
+
+    const card = btn.closest('.car-card');
+    const modelNameElem = card.querySelector('h2');
+    if (!modelNameElem) return;
+
+    const modelName = modelNameElem.textContent.trim();
+    console.log('Show Details clicked:', modelName);
+
+    localStorage.setItem('carName', modelName);
     window.location.href = "../pages/model.html";
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const saveButtons = document.querySelectorAll('.btnProduct.two');
+  const cartCount = document.getElementById('cartCount');
+
+  let count = 0;
+
+  saveButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('saved')) {
+        return;
+      }
+      btn.classList.add('saved'); 
+      count++;
+      cartCount.textContent = count;
+
+      if (count > 0) {
+        cartCount.style.display = 'inline-block';
+
+        cartCount.classList.remove('animate-count');
+        void cartCount.offsetWidth; // force reflow
+        cartCount.classList.add('animate-count');
+      }
+    });
   });
 });
+
+
+
+
+
