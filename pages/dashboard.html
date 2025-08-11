@@ -33,15 +33,14 @@
       <li class="sidebaritem"><a href="#dashboard">Dashboard</a></li>
       <li class="sidebaritem"><a href="#products">Products</a></li>
       <li class="sidebaritem"><a href="#companies">Companies</a></li>
-      <li class="sidebaritem"><a href="#models">Models</a></li>
       <li class="sidebaritem"><a href="#customers">Customers</a></li>
       <li class="sidebaritem"><a href="#pages">Pages</a></li>
       <li class="sidebaritem"><a href="#settings">Settings</a></li>
     </ul>
   </aside>
-   <nav class="navbar">
+  <nav class="navbar">
 
-   </nav>
+  </nav>
   <main class="main-container">
     <section id="dashboard" class="dashboard">
       <h1 class="pagetitles">DASHBOARD</h1>
@@ -86,149 +85,305 @@
 
     <section id="products" class="products">
       <h1 class="pagetitles">Products</h1>
-       <div class="d-flex flex-column list-wrap">
-      <!-- Item -->
-      <div class="car-card p-4">
-        <div class="row g-3 align-items-center">
-          <div class="col-12 col-sm-auto">
-            <img class="car-thumb w-100" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1400&auto=format&fit=crop" alt="car">
-          </div>
-          <div class="col">
-            <div class="d-flex flex-wrap justify-content-between align-items-start gap-2">
-              <div>
-                <div class="brand">lamborghini</div>
-                <div class="model h5 m-0">Aventador</div>
-                <div class="mt-2 d-flex flex-wrap gap-2">
-                  <span class="badge rounded-pill meta-badge">Economy</span>
-                  <span class="badge rounded-pill meta-badge">Turbo</span>
-                </div>
-              </div>
-              <div class="text-end">
-                <div class="price">$45</div>
+      <div class="productsList">
+        <div class="productSearch">
+          <input type="text" placeholder="Search for a product">
+          <button class="btnProduct">Search</button>
+        </div>
+        <div class="productCards">
+          <!--Product Card-->
+          <div class="productCard">
+            <div class="productCardInfo">
+              <img src="../assets/photos/side.avif" alt="Card image">
+              <div class="productCardDiscription">
+                <h1 class="productName"> Panamera GT 911</h1>
+                <ul>
+                  <li>Product price</li>
+                  <li>Product description</li>
+                  <li>Product category</li>
+                </ul>
               </div>
             </div>
-            <div class="mt-3 d-flex flex-wrap gap-3 text-secondary small">
-              <div><i class="bi bi-gear ms-1"></i>Manual</div>
-              <div><i class="bi bi-fuel-pump ms-1"></i>Petrol</div>
-              <div><i class="bi bi-people ms-1"></i>5 Passengers</div>
+            <div class="productCardText">
+              <button class="btnProductCardEdit">Edit</button>
+              <button class="btnProductCardDelete">Delete</button>
             </div>
           </div>
-          <div class="col-12 col-sm-auto">
-            <div class="actions d-flex gap-2 justify-content-sm-end">
-              <button class="btn btn-select px-4">select</button>
-              <button class="btn btn-outline-secondary">Edit</button>
-              <button class="btn btn-outline-danger">Delete</button>
+          <!--Product Card-->
+          <div class="productCard">
+            <div class="productCardInfo">
+              <img src="../assets/photos/side.avif" alt="Card image">
+              <div class="productCardDiscription">
+                <h1 class="productName">Panamera GT 911</h1>
+                <ul>
+                  <li>Product price</li>
+                  <li>Product description</li>
+                  <li>Product category</li>
+                </ul>
+              </div>
+            </div>
+            <div class="productCardText">
+              <button class="btnProductCardEdit">Edit</button>
+              <button class="btnProductCardDelete">Delete</button>
             </div>
           </div>
+          <!--Product Card-->
+          <div class="productCard">
+            <div class="productCardInfo">
+              <img src="../assets/photos/side.avif" alt="Card image">
+              <div class="productCardDiscription">
+                <h1 class="productName">Panamera GT 911</h1>
+                <ul>
+                  <li>Product price</li>
+                  <li>Product description</li>
+                  <li>Product category</li>
+                </ul>
+              </div>
+            </div>
+            <div class="productCardText">
+              <button class="btnProductCardEdit">Edit</button>
+              <button class="btnProductCardDelete">Delete</button>
+            </div>
+          </div>
+        </div>
+        <div class="paginationproduct">
+          <button class="btnPaginationproductPrevious">Previous</button>
+          <button class="btnPaginationproduct">1</button>
+          <button class="btnPaginationproduct">2</button>
+          <button class="btnPaginationproduct">3</button>
+          <button class="btnPaginationproduct">4</button>
+          <button class="btnPaginationproduct">5</button>
+          <button class="btnPaginationproductNext">Next</button>
+
         </div>
       </div>
-      
-      
-   <!-- Item -->
-      <div class="car-card p-4">
-        <div class="row g-3 align-items-center">
-          <div class="col-12 col-sm-auto">
-            <img class="car-thumb w-100" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1400&auto=format&fit=crop" alt="car">
-          </div>
-          <div class="col">
-            <div class="d-flex flex-wrap justify-content-between align-items-start gap-2">
-              <div>
-                <div class="brand">lamborghini</div>
-                <div class="model h5 m-0">Aventador</div>
-                <div class="mt-2 d-flex flex-wrap gap-2">
-                  <span class="badge rounded-pill meta-badge">Economy</span>
-                  <span class="badge rounded-pill meta-badge">Turbo</span>
-                </div>
-              </div>
-              <div class="text-end">
-                <div class="price">$45</div>
-              </div>
-            </div>
-            <div class="mt-3 d-flex flex-wrap gap-3 text-secondary small">
-              <div><i class="bi bi-gear ms-1"></i>Manual</div>
-              <div><i class="bi bi-fuel-pump ms-1"></i>Petrol</div>
-              <div><i class="bi bi-people ms-1"></i>5 Passengers</div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-auto">
-            <div class="actions d-flex gap-2 justify-content-sm-end">
-              <button class="btn btn-select px-4">select</button>
-              <button class="btn btn-outline-secondary">Edit</button>
-              <button class="btn btn-outline-danger">Delete</button>
-            </div>
-          </div>
-        </div>
-      </div> 
-        <!-- Item -->
-      <div class="car-card p-4">
-        <div class="row g-3 align-items-center">
-          <div class="col-12 col-sm-auto">
-            <img class="car-thumb w-100" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1400&auto=format&fit=crop" alt="car">
-          </div>
-          <div class="col">
-            <div class="d-flex flex-wrap justify-content-between align-items-start gap-2">
-              <div>
-                <div class="brand">lamborghini</div>
-                <div class="model h5 m-0">Aventador</div>
-                <div class="mt-2 d-flex flex-wrap gap-2">
-                  <span class="badge rounded-pill meta-badge">Economy</span>
-                  <span class="badge rounded-pill meta-badge">Turbo</span>
-                </div>
-              </div>
-              <div class="text-end">
-                <div class="price">$45</div>
-              </div>
-            </div>
-            <div class="mt-3 d-flex flex-wrap gap-3 text-secondary small">
-              <div><i class="bi bi-gear ms-1"></i>Manual</div>
-              <div><i class="bi bi-fuel-pump ms-1"></i>Petrol</div>
-              <div><i class="bi bi-people ms-1"></i>5 Passengers</div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-auto">
-            <div class="actions d-flex gap-2 justify-content-sm-end">
-              <button class="btn btn-select px-4">select</button>
-              <button class="btn btn-outline-secondary">Edit</button>
-              <button class="btn btn-outline-danger">Delete</button>
-            </div>
-          </div>
-        </div>
-      </div>
-     <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
     </section>
 
     <section id="companies" class="companies">
       <h1 class="pagetitles">Companies</h1>
-    </section>
+      <div class="companiesList">
+        <div class="companySearch">
+          <input type="text" placeholder="Search for a Company">
+          <button class="btncomponies">Search</button>
+        </div>
+        <div class="companiesCards">
+          <div class="companyCard">
+            <img src="../assets/photos/porsche.png" alt="Card image">
+            <div class="companyCardDiscription">
+            <h1>Porsche</h1>
+            <div class="companyCardButtons">
+            <button class="btncompanyCardEdit">Edit</button>
+            <button class="btncompanyCardDelete">Delete</button>
+            </div>
+          </div>
 
-    <section id="models" class="models">
-      <h1 class="pagetitles">Models</h1>
-    </section>
+          </div>
+           <div class="companyCard">
+            <img src="../assets/photos/porsche.png" alt="Card image">
+            <div class="companyCardDiscription">
+            <h1>Porsche</h1>
+            <div class="companyCardButtons">
+            <button class="btncompanyCardEdit">Edit</button>
+            <button class="btncompanyCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
 
+           <div class="companyCard">
+            <img src="../assets/photos/porsche.png" alt="Card image">
+            <div class="companyCardDiscription">
+            <h1>Porsche</h1>
+            <div class="companyCardButtons">
+            <button class="btncompanyCardEdit">Edit</button>
+            <button class="btncompanyCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+
+           <div class="companyCard">
+            <img src="../assets/photos/porsche.png" alt="Card image">
+            <div class="companyCardDiscription">
+            <h1>Porsche</h1>
+            <div class="companyCardButtons">
+            <button class="btncompanyCardEdit">Edit</button>
+            <button class="btncompanyCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+
+           <div class="companyCard">
+            <img src="../assets/photos/porsche.png" alt="Card image">
+            <div class="companyCardDiscription">
+            <h1>Porsche</h1>
+            <div class="companyCardButtons">
+            <button class="btncompanyCardEdit">Edit</button>
+            <button class="btncompanyCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+           <div class="companyCard">
+            <img src="../assets/photos/porsche.png" alt="Card image">
+            <div class="companyCardDiscription">
+            <h1>Porsche</h1>
+            <div class="companyCardButtons">
+            <button class="btncompanyCardEdit">Edit</button>
+            <button class="btncompanyCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+           <div class="companyCard">
+            <img src="../assets/photos/porsche.png" alt="Card image">
+            <div class="companyCardDiscription">
+            <h1>Porsche</h1>
+            <div class="companyCardButtons">
+            <button class="btncompanyCardEdit">Edit</button>
+            <button class="btncompanyCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+           <div class="companyCard">
+            <img src="../assets/photos/porsche.png" alt="Card image">
+            <div class="companyCardDiscription">
+            <h1>Porsche</h1>
+            <div class="companyCardButtons">
+            <button class="btncompanyCardEdit">Edit</button>
+            <button class="btncompanyCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+          
+        </div>
+
+      </div>
+    </section>
     <section id="customers" class="customers">
       <h1 class="pagetitles">Customers</h1>
+      <div class="customersList">
+        <div class="customerSearch">
+          <input type="text" placeholder="Search for a customer">
+          <button class="btncustomers">Search</button>
+        </div>
+        <div class="customersCards">
+          <div class="customerCard">
+            <img src="../assets/photos/yousef.jpg" alt="Card image">
+            <div class="customerCardDiscription">
+            <h1>Yousef</h1>
+            <div class="customerCardButtons">
+            <button class="btncustomerCardEdit">Edit</button>
+            <button class="btncustomerCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+
+         <div class="customerCard">
+            <img src="../assets/photos/besho.jpg" alt="Card image">
+            <div class="customerCardDiscription">
+            <h1>Mohammad</h1>
+            <div class="customerCardButtons">
+            <button class="btncustomerCardEdit">Edit</button>
+            <button class="btncustomerCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+
+            <div class="customerCard">
+            <img src="../assets/photos/yousef.jpg" alt="Card image">
+            <div class="customerCardDiscription">
+            <h1>Yousef</h1>
+            <div class="customerCardButtons">
+            <button class="btncustomerCardEdit">Edit</button>
+            <button class="btncustomerCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+
+         <div class="customerCard">
+            <img src="../assets/photos/besho.jpg" alt="Card image">
+            <div class="customerCardDiscription">
+            <h1>Mohammad</h1>
+            <div class="customerCardButtons">
+            <button class="btncustomerCardEdit">Edit</button>
+            <button class="btncustomerCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+            <div class="customerCard">
+            <img src="../assets/photos/yousef.jpg" alt="Card image">
+            <div class="customerCardDiscription">
+            <h1>Yousef</h1>
+            <div class="customerCardButtons">
+            <button class="btncustomerCardEdit">Edit</button>
+            <button class="btncustomerCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+
+         <div class="customerCard">
+            <img src="../assets/photos/besho.jpg" alt="Card image">
+            <div class="customerCardDiscription">
+            <h1>Mohammad</h1>
+            <div class="customerCardButtons">
+            <button class="btncustomerCardEdit">Edit</button>
+            <button class="btncustomerCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+
+  <div class="customerCard">
+            <img src="../assets/photos/besho.jpg" alt="Card image">
+            <div class="customerCardDiscription">
+            <h1>Mohammad</h1>
+            <div class="customerCardButtons">
+            <button class="btncustomerCardEdit">Edit</button>
+            <button class="btncustomerCardDelete">Delete</button>
+            </div>
+          </div>
+          </div>
+        </div>
+
+      </div>
     </section>
 
     <section id="pages" class="pages">
-      <h1 class="pagetitles">Pages</h1>
+      <h1 class="pagetitles">Main Page</h1>
+      <div class="pagesList">
+        <div class="pagecards">
+          <div class="pagecard1">
+            <h1>Video</h1>
+            <video id="bgVideo" src="../assets/videos/homePage/main.mp4" autoplay muted loop ></video>
+            <button class="btnpagecard1">Change Video</button>
+          </div>
+          <div class="pagecard2">
+            <h1>News</h1>
+            <img id="newsImage" src="../assets/photos/sectionTwo/2025-Mercedes-AMG.jpg" alt="Discover Image">
+            <button class="btnpagecard2">Change Images</button>
+          </div>
+          <div class="pagecard3">
+            <h1>Discover</h1>
+            <img id="discoverImage" src="../assets/photos/discover2.jpg" alt="Discover Image">
+            <button class="btnpagecard3">Change Images</button>
+          </div>
+        </div>
+        
+      </div>
     </section>
 
     <section id="settings" class="settings">
       <h1 class="pagetitles">Settings</h1>
+      <div class="settingsList">
+        <img src="../assets/photos/besho.jpg" alt="besho">
+        <div class="settingsDiscription">
+        <h1>Mohammad</h1>
+        <p>Admin</p>
+        </div>
+        <div class="settingsButtons">
+        <button class="btnSettings">Edit Name</button>
+        <button class="btnSettings">Change Password</button>
+        <button class="btnSettings">Change Email</button>
+        <button class="btnSettings">Logout</button>
+        </div>
+
+      </div>
     </section>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

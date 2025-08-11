@@ -122,22 +122,706 @@ color: #ffffff;
 
 
 .products{
+   width: 100%;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.884);
-  
+  background-color:#ffffff;
+
 } 
-   .car-card{border:1px solid #e9eef5;border-radius:14px;background:#fff}
-    .car-thumb{width:140px;height:90px;object-fit:cover;border-radius:10px}
-    .brand{font-weight:600;color:#8895a7}
-    .model{font-weight:700;color:#1f2a44}
-    .meta-badge{background:#f1f5ff;color:#ca0000b3 ;border:1px solid #dbe3ff}
-    .price{font-weight:800;font-size:1.1rem;color:#1f2a44}
-    .actions .btn{border-radius:10px}
-    .btn-select{background:black ;color:#fff;border:0}
-    .btn-select:hover{opacity:.9;color:#fff
-      
-    }
-    .list-wrap{gap:1rem}
+
+.productsList{
+  width: 90%;
+  height: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top :40px;
+  border-radius:30px;
+
+}
+
+.productSearch{
+  width: 100%;
+  height:50px ;
+  background-color:#ffffff;
+  border-radius: 20px;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.productSearch input{
+  width: 70%;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+  padding-left: 20px;
+
+}
+.btnProduct{
+  width: 20%;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+}
+
+.productCards{
+  width: 100%;
+  height: 80%;
+  background-color: #ffffff;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top :10px;
+  border-radius:30px;
+}
+.productCard{
+  width: 100%;
+  height: 130px;
+  background-color:none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top :10px;
+  border-radius:30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:10px;
+}
+.productCardInfo{
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  gap: 20px;
+}
+.productCardInfo img{
+  width: 220px;
+  height: 80px;
+  border-radius:30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+ 
+}
+.productCardDiscription ul{
+  list-style: none;
+  display: flex;
+  gap: 10px;
+}
+.productCardDiscription ul li {
+  font-size: 10px;
+  width:fit-content;
+  font-family: "Orbitron", sans-serif;
+  background-color:#000000b3;
+  color: white;
+  border-radius:20px;
+  padding: 5px;
+}
+.productCardDiscription{
+  display: flex;
+  flex-direction: column;
+
+}
+.productName{
+  font-size: 30px;
+  color:#000000;
+  font-family: "Orbitron", sans-serif;
+}
+.productCardText{
+  background-color:none;
+
+
+
+}
+.btnProductCardEdit{
+  width: 90px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+.btnProductCardDelete{
+  width: 90px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ca0000b3;
+  color:white;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+.paginationproduct{
+   display: flex;
+   gap: 6px;
+   list-style: none;
+   padding: 0;
+   margin: 16px 0;
+   justify-content: center;
+   border-radius: 12px;
+   bottom:0;
+  justify-content: center;
+  align-items: center;
+}
+.btnPaginationproduct{
+  width: 40px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+.btnPaginationproductPrevious ,.btnPaginationproductNext{
+ width: 90px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.685);
+  background-color: #ca0000b3;;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+
+/*companies*/
+.companies{
+  height: 100vh;
+
+  
+
+}
+.companiesList{
+  width: 90%;
+  height: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top :40px;
+  border-radius:30px;
+  gap: 40px;
+  display: flex;
+  flex-direction: column ;
+}
+.companySearch{
+  width: 100%;
+  height:50px ;
+  background-color:#ffffff;
+  border-radius: 20px;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.companySearch input{
+  width: 70%;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+  padding-left: 20px;
+
+}
+.btncomponies{
+  width: 20%;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+}
+.companiesCards{
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+
+
+}
+.companyCard{
+  width: 200px;
+  height: 170px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  position: relative;
+}
+
+.companyCard img {
+  width: 100px;
+  height:100px;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.companyCardDiscription{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.companyCardDiscription h1{
+  font-size: 35px;
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  color:#000000;
+}
+
+.companyCardButtons{
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.btncompanyCardEdit{
+  border: none;
+  width: 40%;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+    font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+.btncompanyCardDelete{
+  border: none;
+  width: 60%;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ca0000b3;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+
+
+
+/*customers*/
+.customers{
+  height: 100vh;
+}
+
+.customersList{
+  width: 90%;
+  height: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top :40px;
+  border-radius:30px;
+  gap: 40px;
+  display: flex;
+  flex-direction: column ;
+}
+
+.customerSearch{
+  width: 100%;
+  height:50px ;
+  background-color:#ffffff;
+  border-radius: 20px;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.customerSearch input{
+  width: 70%;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+  padding-left: 20px;
+
+}
+.btncustomers{
+  width: 20%;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+}
+
+
+.customersCards{
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+
+
+}
+.customerCard{
+  width: 200px;
+  height: 170px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  position: relative;
+}
+
+.customerCard img {
+  width: 100px;
+  height:100px;
+  position: absolute;
+  bottom:-40px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  border: 5px solid #ffffff;
+  border-left: 5px solid #000000b3;
+  border-bottom: 5px solid #000000b3;
+
+}
+.customerCardDiscription{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.customerCardDiscription h1{
+  font-size: 26px;
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  color:#000000;
+}
+
+.customerCardButtons{
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.btncustomerCardEdit{
+  border: none;
+  width: 40%;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+    font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+.btncustomerCardDelete{
+  border: none;
+  width: 60%;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ca0000b3;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+
+
+
+/*.pages */
+.pages{
+  height: 100vh;
+  
+  z-index: -3;
+}
+.pagesList{
+  width: 90%;
+  height: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top :40px;
+  border-radius:30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.pagecards{
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+ 
+}
+.pagecard1{
+  background-color: #ffffff;
+  height:60%;
+  width:250px;
+  border-radius:20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding:10px;
+  position: relative;
+  box-shadow: 0 6px 10px 1px rgba(0, 0, 0, 0.342);
+}
+.pagecard1 h1{
+  font-size: 26px;
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  color:#000000;
+  z-index: 6;
+}
+#bgVideo{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius:10px;
+  z-index: 5;
+
+}
+.btnpagecard1{
+  width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+}
+
+
+.pagecard2{
+  background-color: #ffffff;
+  height:100%;
+  width:250px;
+  border-radius:20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding:10px;
+  position: relative;
+  box-shadow: 0 6px 10px 1px rgba(0, 0, 0, 0.342);
+}
+
+.pagecard2 h1{
+  font-size: 26px;
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  color:#000000; 
+  z-index:6;
+}
+
+#newsImage{
+   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius:10px;
+  z-index: 5;
+}
+
+.btnpagecard2{
+  width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+}
+
+
+
+.pagecard3{
+  background-color: #ffffff;
+  height:80%;
+  width:250px;
+  border-radius:20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding:10px;
+  position: relative;
+  box-shadow: 0 6px 10px 1px rgba(0, 0, 0, 0.342);
+}
+
+.pagecard3 h1{
+  font-size: 26px;
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  color:#000000; 
+  z-index:6;
+}
+
+#discoverImage{
+   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius:10px;
+  z-index: 5;
+}
+
+.btnpagecard3{
+  width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+}
+
+
+
+/* settings */
+.settings{
+  height: 100vh;
+
+
+}
+
+.settingsList{
+  width: 50%;
+  height: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top :40px;
+  border-radius:30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding:10px;
+  position: relative;
+  box-shadow: 0 6px 10px 1px rgba(0, 0, 0, 0.342);
+}
+.settingsList img{
+  width: 200px;
+  height:200px;
+  border-radius:50%;
+  border: #000000 solid 5px;
+}
+
+
+.settingsDiscription h1{
+  font-size: 30px;
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  color:#000000; 
+  z-index:6;
+}
+.settingsDiscription p{
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  color:#494949; 
+  z-index:6;
+}
+
+
+.settingsDiscription{
+  display: flex;
+  justify-content: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap:3px;
+}
+.settingsButtons{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap:8px;
+}
+
+.btnSettings{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+
+
+
+/* pagination */
+
  .pagination {
     background-color: #ffffff !important;
    display: flex;
@@ -176,31 +860,14 @@ color: #ffffff;
     pointer-events: none;
     opacity: 0.5;
  }
-  
-.models{
-  height: 100vh;
-  background-color: rgb(81, 87, 87);
-}
-.companies{
-  height: 100vh;
-  background-color: rgb(0, 47, 255);
-}
-.customers{
-  height: 100vh;
-  background-color: rgb(23, 216, 55);
-}
+
+
 .orders{
   height: 100vh;
   background-color: rgb(255, 0, 0);
 }
-.pages{
-  height: 100vh;
-  background-color: aqua;
-}
-.settings{
-  height: 100vh;
-  background-color: rgb(0, 217, 255);
-}
+
+
 
 #sidebar {
   z-index: 101;
