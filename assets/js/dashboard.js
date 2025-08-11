@@ -17,240 +17,6 @@ function closeSidebar() {
   }
 }
 
-// ---------- CHARTS ----------
-
-const barChartOptions = {
-  series: [
-    {
-      data: [10, 8, 6, 4, 2],
-      name: 'Products',
-    },
-  ],
-  chart: {
-    type: 'bar',
-    background: 'transparent',
-    height: 350,
-    toolbar: {
-      show: false,
-    },
-  },
-  colors: ['#2962ff', '#d50000', '#2e7d32', '#ff6d00', '#583cb3'],
-  plotOptions: {
-    bar: {
-      distributed: true,
-      borderRadius: 4,
-      horizontal: false,
-      columnWidth: '40%',
-    },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  fill: {
-    opacity: 1,
-  },
-  grid: {
-    borderColor: '#55596e',
-    yaxis: {
-      lines: {
-        show: true,
-      },
-    },
-    xaxis: {
-      lines: {
-        show: true,
-      },
-    },
-  },
-  legend: {
-    labels: {
-      colors: '#f5f7ff',
-    },
-    show: true,
-    position: 'top',
-  },
-  stroke: {
-    colors: ['transparent'],
-    show: true,
-    width: 2,
-  },
-  tooltip: {
-    shared: true,
-    intersect: false,
-    theme: 'dark',
-  },
-  xaxis: {
-    categories: ['Laptop', 'Phone', 'Monitor', 'Headphones', 'Camera'],
-    title: {
-      style: {
-        color: '#f5f7ff',
-      },
-    },
-    axisBorder: {
-      show: true,
-      color: '#55596e',
-    },
-    axisTicks: {
-      show: true,
-      color: '#55596e',
-    },
-    labels: {
-      style: {
-        colors: '#f5f7ff',
-      },
-    },
-  },
-  yaxis: {
-    title: {
-      text: 'Count',
-      style: {
-        color: '#f5f7ff',
-      },
-    },
-    axisBorder: {
-      color: '#55596e',
-      show: true,
-    },
-    axisTicks: {
-      color: '#55596e',
-      show: true,
-    },
-    labels: {
-      style: {
-        colors: '#f5f7ff',
-      },
-    },
-  },
-};
-
-const barChart = new ApexCharts(
-  document.querySelector('#bar-chart'),
-  barChartOptions
-);
-barChart.render();
-
-// AREA CHART
-const areaChartOptions = {
-  series: [
-    {
-      name: 'Purchase Orders',
-      data: [31, 40, 28, 51, 42, 109, 100],
-    },
-    {
-      name: 'Sales Orders',
-      data: [11, 32, 45, 32, 34, 52, 41],
-    },
-  ],
-  chart: {
-    type: 'area',
-    background: 'transparent',
-    height: 350,
-    stacked: false,
-    toolbar: {
-      show: false,
-    },
-  },
-  colors: ['#00ab57', '#d50000'],
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-  dataLabels: {
-    enabled: false,
-  },
-  fill: {
-    gradient: {
-      opacityFrom: 0.4,
-      opacityTo: 0.1,
-      shadeIntensity: 1,
-      stops: [0, 100],
-      type: 'vertical',
-    },
-    type: 'gradient',
-  },
-  grid: {
-    borderColor: '#55596e',
-    yaxis: {
-      lines: {
-        show: true,
-      },
-    },
-    xaxis: {
-      lines: {
-        show: true,
-      },
-    },
-  },
-  legend: {
-    labels: {
-      colors: '#f5f7ff',
-    },
-    show: true,
-    position: 'top',
-  },
-  markers: {
-    size: 6,
-    strokeColors: '#1b2635',
-    strokeWidth: 3,
-  },
-  stroke: {
-    curve: 'smooth',
-  },
-  xaxis: {
-    axisBorder: {
-      color: '#55596e',
-      show: true,
-    },
-    axisTicks: {
-      color: '#55596e',
-      show: true,
-    },
-    labels: {
-      offsetY: 5,
-      style: {
-        colors: '#f5f7ff',
-      },
-    },
-  },
-  yaxis: [
-    {
-      title: {
-        text: 'Purchase Orders',
-        style: {
-          color: '#f5f7ff',
-        },
-      },
-      labels: {
-        style: {
-          colors: ['#f5f7ff'],
-        },
-      },
-    },
-    {
-      opposite: true,
-      title: {
-        text: 'Sales Orders',
-        style: {
-          color: '#f5f7ff',
-        },
-      },
-      labels: {
-        style: {
-          colors: ['#f5f7ff'],
-        },
-      },
-    },
-  ],
-  tooltip: {
-    shared: true,
-    intersect: false,
-    theme: 'dark',
-  },
-};
-
-const areaChart = new ApexCharts(
-  document.querySelector('#area-chart'),
-  areaChartOptions
-);
-areaChart.render();
-
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('.main-container');
@@ -303,4 +69,212 @@ document.addEventListener('DOMContentLoaded', () => {
     const li = linkById.get(id);
     if (li) li.classList.add('active');
   }
-});
+});  
+
+
+
+////////////////////////////////charts/////////////////////////////////////
+
+    const data = {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1,
+        backgroundColor: ['#bbbbbbff', '#5a5a5aff', '#333333ff', '#94290eff', '#000000ff', '#8b8b8bff'],
+      }]
+    };
+
+
+    function handleHover(evt, item, legend) {
+      const colors = legend.chart.data.datasets[0].backgroundColor;
+      colors.forEach((color, index) => {
+        colors[index] = (index === item.index || color.length === 9) ? color : color + '4D';
+      });
+      legend.chart.update();
+    }
+
+    function handleLeave(evt, item, legend) {
+      const colors = legend.chart.data.datasets[0].backgroundColor;
+      colors.forEach((color, index) => {
+        colors[index] = (color.length === 9) ? color.slice(0, -2) : color;
+      });
+      legend.chart.update();
+    }
+
+   const config = {
+  type: 'polarArea',
+  data: data,
+  options: {
+    responsive: false,
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            size: 10, 
+            weight: 'bold' 
+          },
+          color: '#000' 
+        }
+      },
+      tooltip: {
+        bodyFont: {
+          size: 10 
+        }
+      }
+    }
+  }
+};
+
+    const ctx = document.getElementById('pieChart');
+    const myChart = new Chart(ctx, config);
+
+
+    //chart2 
+    const data2 = {
+      labels: ['BMW', 'GOLF', 'Audi', 'Porsche', 'Opel', 'VW'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1,
+        backgroundColor: ['#bbbbbbff', '#5a5a5aff', '#333333ff', '#94290eff', '#000000ff', '#8b8b8bff'],
+      }]
+    };
+
+
+    function handleHover(evt, item, legend) {
+      const colors = legend.chart.data.datasets[0].backgroundColor;
+      colors.forEach((color, index) => {
+        colors[index] = (index === item.index || color.length === 9) ? color : color + '4D';
+      });
+      legend.chart.update();
+    }
+
+    function handleLeave(evt, item, legend) {
+      const colors = legend.chart.data.datasets[0].backgroundColor;
+      colors.forEach((color, index) => {
+        colors[index] = (color.length === 9) ? color.slice(0, -2) : color;
+      });
+      legend.chart.update();
+    }
+
+   const config2 = {
+  type: 'doughnut',
+  data: data2,
+  options: {
+    responsive: false,
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            size: 10, 
+            weight: 'bold' 
+          },
+          color: '#000' 
+        }
+      },
+      tooltip: {
+        bodyFont: {
+          size: 10 
+        }
+      }
+    }
+  }
+};
+
+    const ctx2 = document.getElementById('lineChart');
+    const myChart2 = new Chart(ctx2, config2);
+
+
+      function makeWheel(fontSize) {
+    const wheel = document.createElement('span');
+    wheel.className = 'wheel';
+    const digits = document.createElement('span');
+    digits.className = 'digits';
+    const arr = [...Array(20)].map((_,i)=> String(i%10));
+    arr.forEach(n => {
+      const d = document.createElement('span');
+      d.className = 'digit';
+      d.textContent = n;
+      digits.appendChild(d);
+    });
+    wheel.appendChild(digits);
+    return { wheel, digits };
+  }
+
+  function formatWithSep(numStr) {
+    return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function buildOdometer(el, value, options = {}) {
+    const {
+      duration = 1200,     
+      spinTurns = 10,      
+      stagger = 70,        
+      useThousandsSep = true
+    } = options;
+
+    const targetStr = String(value);
+    const formatted = useThousandsSep ? formatWithSep(targetStr) : targetStr;
+
+  
+    const fs = window.getComputedStyle(el).fontSize;
+
+   
+    const box = document.createElement('span');
+    box.className = 'odometer';
+    el.textContent = '';
+    el.appendChild(box);
+
+    let index = 0;
+    for (const ch of formatted) {
+      if (ch === ',') {
+        const sep = document.createElement('span');
+        sep.className = 'sep';
+        sep.textContent = ',';
+        box.appendChild(sep);
+        continue;
+      }
+      const { wheel, digits } = makeWheel(fs);
+      box.appendChild(wheel);
+      const digitHeight = wheel.clientHeight || parseFloat(fs);
+      const n = parseInt(ch, 10);
+      const stopIndex = spinTurns + n; 
+      const translateY = -(stopIndex * digitHeight);
+      digits.style.transition = `transform ${duration}ms cubic-bezier(.2,.8,.2,1)`;
+      setTimeout(() => {
+        digits.style.transform = `translateY(${translateY}px)`;
+      }, index * stagger);
+
+      index++;
+    }
+  }
+
+  function initOdometers(){
+    const stats = document.querySelectorAll('.odometer-stat');
+    if (!stats.length) return;
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const val = parseInt(el.getAttribute('data-value'), 10) || 0;
+          buildOdometer(el, val, {
+            duration: 1200,
+            spinTurns: 10,
+            stagger: 90,
+            useThousandsSep: true
+          });
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    stats.forEach(el => io.observe(el));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initOdometers);
+  } else {
+    initOdometers();
+  }
