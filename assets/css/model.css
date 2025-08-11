@@ -469,6 +469,7 @@ height:500px;
 border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom:50px;
 
 }
 #panorama img{
@@ -486,4 +487,68 @@ border-radius: 10px;
 }
 
 
+/*footer*/
 
+.footer {
+    border-top: 1px solid #6c6c6c89;
+    width: 100%;
+    text-align: center;
+    font-family: "Orbitron", sans-serif;
+    height: 500px;
+   position: relative;
+   bottom: 0;
+   
+}
+.underFooter{
+    margin-top: 50px;
+    background-color: #000000;
+    height: 300px;
+    color: white;
+    font-size: small;
+    p{
+        padding-top: 40px;
+        width: 1000px;
+        margin: auto;
+    }
+}
+
+
+.feedback-container {
+      display: none;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .rating-scale {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .rating-label {
+      font-weight: bold;
+    }
+
+    .rating-option input[type="radio"] {
+      display: none;
+    }
+
+    .rating-option label {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .rating-option input[type="radio"]:checked + label {
+      background-color: #ca0000b3;
+      color: white;
+      border-color: #ca0000b3;
+    }

@@ -159,3 +159,12 @@ countUpRolling(speed, 220, 2000);
       autoLoad: true,
       autoRotate: -2
     });
+    
+
+
+    //feedback 
+    function showFeedback() {
+      document.getElementById('feedback').style.display = 'block';
+    }
+
+    
