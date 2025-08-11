@@ -150,3 +150,12 @@ countUpRolling(powerKW, 320, 2000);
 countUpRolling(powerPS, 435, 2000);
 countUpRolling(speed, 220, 2000);
 
+
+
+///PANORAMA//
+ pannellum.viewer('panorama', {
+      type: 'equirectangular',
+      panorama: 'https://pannellum.org/images/alma.jpg', 
+      autoLoad: true,
+      autoRotate: -2
+    });
