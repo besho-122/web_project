@@ -120,7 +120,6 @@ color: #ffffff;
 /* products */
 
 
-
 .products{
    width: 100%;
   height: 100vh;
@@ -301,6 +300,80 @@ color: #ffffff;
   font-family: "Orbitron", sans-serif;
 }
 
+.productShow{
+  width: 100%;
+  height: 100%;
+  background-color:none;
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 1000;
+  display: none;
+}
+.productShowDiscription{
+  width: 80%;
+  height: 80%;
+  background-color: #ffffff;
+  margin: auto;
+  border-radius: 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); 
+  display: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.212);
+}
+
+
+.closeProduct{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  font-weight: bold;
+}
+.productShowDiscriptionList{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #00bd3900;
+  padding: 10px;
+}
+
+.productShowDiscriptionList h1{
+  font-size: 30px;
+  color:#000000;
+  font-family: "Orbitron", sans-serif;
+  margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*companies*/
 .companies{
   height: 100vh;
@@ -424,6 +497,138 @@ color: #ffffff;
   font-size: 16px;
   font-family: "Orbitron", sans-serif;
 }
+
+.companyShow{
+  width: 100%;
+  height: 100%;
+  background-color:none;
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 1000;
+  display: none;
+}
+.companyShowDiscription{
+  width: 80%;
+  height: 80%;
+  background-color:#fff;
+  margin: auto;
+  border-radius: 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); 
+  display: none;
+}
+
+
+.closeCompany{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  font-weight: bold;
+}
+.companyShowDiscriptionList{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #00bd3900;
+  padding: 10px;
+}
+
+.companyShowDiscriptionList h1{
+  font-size: 30px;
+  color:#000000;
+  font-family: "Orbitron", sans-serif;
+  margin: 0;
+}
+
+
+.companyShowDiscriptionInner{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  
+  padding: 10px;
+  margin: 10px;
+  gap: 20px;
+}
+
+.companyShowDiscriptionInner img {
+  width: 30%;
+}
+.companyShowDiscriptionInnerList{
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.companyShowDiscriptionInnerList h1 {
+  font-size: 20px;
+  color:#000000;
+  font-family: "Orbitron", sans-serif;
+  margin: 0;
+}
+
+.companyShowDiscriptionInnerList input{
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+  padding-left: 20px;
+
+}
+.btnProductShowDiscriptionInnerList{
+  border: none;
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -558,6 +763,89 @@ color: #ffffff;
 }
 
 
+.customerShow{
+  width: 100%;
+  height: 100%;
+  background-color:none;
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 1000;
+  display: none;
+}
+.customerShowDiscription{
+  width: 80%;
+  height: 80%;
+  background-color:#fff;
+  margin: auto;
+  border-radius: 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); 
+  display: none;
+}
+
+
+.closeCustomer{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  font-weight: bold;
+}
+.customerShowDiscriptionList{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #00bd3900;
+  padding: 10px;
+}
+
+.customerShowDiscriptionList h1{
+  font-size: 30px;
+  color:#000000;
+  font-family: "Orbitron", sans-serif;
+  margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*.pages */
 .pages{
@@ -634,6 +922,59 @@ color: #ffffff;
   z-index: 6;
 }
 
+.videoInput{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 10px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+.btnVideoApply{
+  width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  display: none;
+}
+.btnVideoCancel{
+    width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+/*pagecard2*/
 
 .pagecard2{
   background-color: #ffffff;
@@ -685,6 +1026,68 @@ color: #ffffff;
 
 
 
+.imgInput{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 10px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+.btnImagesApply{
+  width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  display: none;
+}
+.btnImagesCancel{
+    width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*pagecard3*/
 .pagecard3{
   background-color: #ffffff;
   height:80%;
@@ -732,6 +1135,57 @@ color: #ffffff;
   font-family: "Orbitron", sans-serif;
   z-index: 6;
 }
+
+.imgInputThree{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 10px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+.btnImagesThreeApply{
+  width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  display: none;
+}
+.btnImagesThreeCancel{
+    width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  display: none;
+}
+
+
+
+
+
+
+
 
 
 
@@ -805,7 +1259,7 @@ color: #ffffff;
   gap:8px;
 }
 
-.btnSettings{
+.btnSettings1{
   width: 90%;
   height: 30px;
   border-radius: 20px;
@@ -816,6 +1270,166 @@ color: #ffffff;
   color: #ffffff;
   font-size: 16px;
   font-family: "Orbitron", sans-serif;
+}
+.btnSettings2{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+.btnSettings3{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+.btnSettings4{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+}
+#nameInput{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  display: none;
+  text-align: center;
+}
+#passwordInput{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  display: none;
+   text-align: center;
+}
+
+#emailInput{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  display: none;
+   text-align: center;
+}
+.btnSettings5{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  display: none;
+}
+.btnSettings6{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  display: none;
+}
+
+.btnSettings7{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  display: none;
+}
+
+.btnSettings8{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  display: none;
+}
+
+.btnSettings9{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  display: none;
+}
+.btnSettings10{
+  width: 90%;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  display: none;
 }
 
 

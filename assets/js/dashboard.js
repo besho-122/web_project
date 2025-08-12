@@ -278,3 +278,231 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     initOdometers();
   }
+
+
+
+
+
+
+
+
+  /////////////////////////// show product ////////////
+
+  function closeProduct() {
+    document.querySelector('.productShow').style.display = 'none';
+    document.querySelector('.productShowDiscription').style.display = 'none';
+    document.querySelector('.toMakeItBlur').style.filter = 'blur(0px)';
+  }
+
+
+  function editProduct() {
+    document.querySelector('.productShow').style.display = 'block';
+    document.querySelector('.productShowDiscription').style.display = 'block';
+    document.querySelector('.toMakeItBlur').style.filter = 'blur(16px)';
+
+  }
+
+
+  //////show company////////////
+    function closeCompany() {
+    document.querySelector('.companyShow').style.display = 'none';
+    document.querySelector('.companyShowDiscription').style.display = 'none';
+    document.querySelector('.toMakeItBlur').style.filter = 'blur(0px)';
+  }
+
+
+  function editCompany() {
+    document.querySelector('.companyShow').style.display = 'block';
+    document.querySelector('.companyShowDiscription').style.display = 'block';
+    document.querySelector('.toMakeItBlur').style.filter = 'blur(16px)';
+
+  }
+
+
+  /////////////////////cutomer //////
+
+    function closeCustomer() {
+    document.querySelector('.customerShow').style.display = 'none';
+    document.querySelector('.customerShowDiscription').style.display = 'none';
+    document.querySelector('.toMakeItBlur').style.filter = 'blur(0px)';
+  }
+
+
+  function editCustomer() {
+    document.querySelector('.customerShow').style.display = 'block';
+    document.querySelector('.customerShowDiscription').style.display = 'block';
+    document.querySelector('.toMakeItBlur').style.filter = 'blur(16px)';
+
+  }
+
+
+
+
+
+//////// main page ///////////////
+
+
+///page one ////video////
+function changeVideo(){
+  document.querySelector('.btnVideoApply').style.display = 'block';
+  document.querySelector('.btnVideoCancel').style.display = 'block';
+  document.querySelector('#videoInput').style.display = 'block';
+
+}
+function applyVideo(){
+  
+}
+function cancelVideo(){
+    document.querySelector('.btnVideoApply').style.display = 'none';
+  document.querySelector('.btnVideoCancel').style.display = 'none';
+  document.querySelector('#videoInput').style.display = 'none';
+  
+}
+
+
+
+
+
+
+//////////////////page two /////////////////
+function changeImagesTwo(){
+  document.querySelector('.btnImagesApply').style.display = 'block';
+  document.querySelector('.btnImagesCancel').style.display = 'block';
+  document.querySelector('#imageInput1').style.display = 'block';
+  document.querySelector('#imageInput2').style.display = 'block';
+  document.querySelector('#imageInput3').style.display = 'block';
+}
+function applyImagesTwo(){
+  
+}
+function cancelImagesTwo(){
+  document.querySelector('.btnImagesApply').style.display = 'none';
+  document.querySelector('.btnImagesCancel').style.display = 'none';
+  document.querySelector('#imageInput1').style.display = 'none';
+  document.querySelector('#imageInput2').style.display = 'none';
+  document.querySelector('#imageInput3').style.display = 'none';
+}
+
+//////////page 3////////////////////////
+function changeImagesThree(){
+  document.querySelector('.btnImagesThreeApply').style.display = 'block';
+  document.querySelector('.btnImagesThreeCancel').style.display = 'block';
+  document.querySelector('#imageInputThree1').style.display = 'block';
+  document.querySelector('#imageInputThree2').style.display = 'block';
+  document.querySelector('#imageInputThree3').style.display = 'block';
+}
+function applyImagesThree(){
+  
+}
+function cancelImagesThree(){
+  document.querySelector('.btnImagesThreeApply').style.display = 'none';
+  document.querySelector('.btnImagesThreeCancel').style.display = 'none';
+  document.querySelector('#imageInputThree1').style.display = 'none';
+  document.querySelector('#imageInputThree2').style.display = 'none';
+  document.querySelector('#imageInputThree3').style.display = 'none';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////setting ///////////////////////////
+
+function editName() {
+  document.querySelector('#nameInput').style.display = 'block';
+  document.querySelector('.btnSettings1').style.display = 'block';
+  document.querySelector('.btnSettings2').style.display = 'none';
+  document.querySelector('.btnSettings3').style.display = 'none';
+  document.querySelector('.btnSettings4').style.display = 'none';
+  document.querySelector('.btnSettings5').style.display = 'block';
+  document.querySelector('.btnSettings6').style.display = 'block';
+}
+function applyEditName() {
+    
+}
+
+function cancelEditName() {
+  document.querySelector('#nameInput').style.display = 'none';
+  document.querySelector('.btnSettings1').style.display = 'block';
+  document.querySelector('.btnSettings2').style.display = 'block';
+  document.querySelector('.btnSettings3').style.display = 'block';
+  document.querySelector('.btnSettings4').style.display = 'block';
+  document.querySelector('.btnSettings5').style.display = 'none';
+  document.querySelector('.btnSettings6').style.display = 'none';
+}
+
+///////////////////////////////////////////////////
+
+function editPassword() {
+  document.querySelector('#passwordInput').style.display = 'block';
+  document.querySelector('.btnSettings1').style.display = 'none';
+  document.querySelector('.btnSettings2').style.display = 'block';
+  document.querySelector('.btnSettings3').style.display = 'none';
+  document.querySelector('.btnSettings4').style.display = 'none';
+  document.querySelector('.btnSettings7').style.display = 'block';
+  document.querySelector('.btnSettings8').style.display = 'block';
+}
+
+function applyEditPassword() {
+    
+}
+
+function cancelEditPassword() {
+  document.querySelector('#passwordInput').style.display = 'none';
+  document.querySelector('.btnSettings1').style.display = 'block';
+  document.querySelector('.btnSettings2').style.display = 'block';
+  document.querySelector('.btnSettings3').style.display = 'block';
+  document.querySelector('.btnSettings4').style.display = 'block';
+   document.querySelector('.btnSettings7').style.display = 'none';
+  document.querySelector('.btnSettings8').style.display = 'none';
+}
+
+////////////////////////////////////////////////////////////
+function editEmail() {
+  document.querySelector('#emailInput').style.display = 'block';
+  document.querySelector('.btnSettings1').style.display = 'none';
+  document.querySelector('.btnSettings2').style.display = 'none';
+  document.querySelector('.btnSettings3').style.display = 'block';
+  document.querySelector('.btnSettings4').style.display = 'none';
+  document.querySelector('.btnSettings9').style.display = 'block';
+  document.querySelector('.btnSettings10').style.display = 'block';
+}
+
+function applyEditEmail() {
+    
+}
+
+function cancelEditEmail() {
+  document.querySelector('#emailInput').style.display = 'none';
+  document.querySelector('.btnSettings1').style.display = 'block';
+  document.querySelector('.btnSettings2').style.display = 'block';
+  document.querySelector('.btnSettings3').style.display = 'block';
+  document.querySelector('.btnSettings4').style.display = 'block';
+  document.querySelector('.btnSettings9').style.display = 'none';
+  document.querySelector('.btnSettings10').style.display = 'none';
+}
+
+
+
+
+
+
+
+
