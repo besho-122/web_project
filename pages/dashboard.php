@@ -265,81 +265,30 @@
           <button class="btncustomers">Search</button>
         </div>
         <div class="customersCards">
-          <div class="customerCard">
-            <img src="../assets/photos/yousef.jpg" alt="Card image">
-            <div class="customerCardDiscription">
-            <h1>Yousef</h1>
-            <div class="customerCardButtons">
-            <button class="btncustomerCardEdit" onclick="editCustomer()">Edit</button>
-            <button class="btncustomerCardDelete">Delete</button>
+          <?php
+          
+          require("../api/config.php");
+          $sql = "Select * from Users where role = 'user'";
+          $result = $dp->query($sql);
+          if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+              echo "<div class='customerCard'>
+              <img src='../assets/photos/yousef.jpg' alt='Card image'>
+              <div class='customerCardDiscription'>
+              <h1>" . $row['userName'] . "</h1>
+              <div class='customerCardButtons'>
+              <button class='btncustomerCardEdit'  onclick='editCustomer()'>Edit</button>
+              <button class='btncustomerCardDelete'>Delete</button>
+              </div>
             </div>
-          </div>
-          </div>
+            </div>";
+            }
+          }
+          ?>
 
-         <div class="customerCard">
-            <img src="../assets/photos/besho.jpg" alt="Card image">
-            <div class="customerCardDiscription">
-            <h1>Mohammad</h1>
-            <div class="customerCardButtons">
-            <button class="btncustomerCardEdit"  onclick="editCustomer()">Edit</button>
-            <button class="btncustomerCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-
-            <div class="customerCard">
-            <img src="../assets/photos/yousef.jpg" alt="Card image">
-            <div class="customerCardDiscription">
-            <h1>Yousef</h1>
-            <div class="customerCardButtons">
-            <button class="btncustomerCardEdit" onclick="editCustomer()">Edit</button>
-            <button class="btncustomerCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-
-         <div class="customerCard">
-            <img src="../assets/photos/besho.jpg" alt="Card image">
-            <div class="customerCardDiscription">
-            <h1>Mohammad</h1>
-            <div class="customerCardButtons">
-            <button class="btncustomerCardEdit" onclick="editCustomer()">Edit</button>
-            <button class="btncustomerCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-            <div class="customerCard">
-            <img src="../assets/photos/yousef.jpg" alt="Card image">
-            <div class="customerCardDiscription">
-            <h1>Yousef</h1>
-            <div class="customerCardButtons">
-            <button class="btncustomerCardEdit" onclick="editCustomer()">Edit</button>
-            <button class="btncustomerCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-
-         <div class="customerCard">
-            <img src="../assets/photos/besho.jpg" alt="Card image">
-            <div class="customerCardDiscription">
-            <h1>Mohammad</h1>
-            <div class="customerCardButtons">
-            <button class="btncustomerCardEdit" onclick="editCustomer()">Edit</button>
-            <button class="btncustomerCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-
-  <div class="customerCard">
-            <img src="../assets/photos/besho.jpg" alt="Card image">
-            <div class="customerCardDiscription">
-            <h1>Mohammad</h1>
-            <div class="customerCardButtons">
-            <button class="btncustomerCardEdit" onclick="editCustomer()">Edit</button>
-            <button class="btncustomerCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
+          
+          
+          
         </div>
 
       </div>
