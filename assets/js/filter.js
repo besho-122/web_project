@@ -383,6 +383,23 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+document.querySelectorAll('.btnProduct.two').forEach(btn => {
+  btn.addEventListener('click', () => {
+    let cartCars = JSON.parse(localStorage.getItem('cartCars')) || [];
+
+    const card = btn.closest('.car-card');
+    const img = card.querySelector('.car-image img').src;
+    const name = card.querySelector('h2').textContent.trim();
+    const description = card.querySelector('.car-info p').textContent.trim();
+
+      cartCars.push({name, image: img, description});
+      localStorage.setItem('cartCars', JSON.stringify(cartCars));
+      console.log('Added to cart:', name);
+      console.log('Current cart:', cartCars);
+    
+  });
+});
+
 
 
 

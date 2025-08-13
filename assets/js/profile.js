@@ -1,63 +1,129 @@
-let cartCars = [
-      {
-        id: 1,
-        name: "Porsche Taycan",
-        description: "Electric sports car",
-        image: "https://cdn.pixabay.com/photo/2017/01/06/21/06/porsche-1950019_1280.jpg"
-      },
-      {
-        id: 2,
-        name: "Tesla Model S",
-        description: "Electric luxury sedan",
-        image: "https://cdn.pixabay.com/photo/2018/05/08/08/50/tesla-3382347_1280.jpg"
-      },
-      {
-        id: 3,
-        name: "BMW i8",
-        description: "Hybrid sports car",
-        image: "https://cdn.pixabay.com/photo/2016/02/19/11/30/bmw-1209992_1280.jpg"
-      }
-    ];
+//Profile Sections
+let password = document.getElementById('password-section');
+let settings = document.getElementById('settings-section');
+let cart = document.getElementById('cart-section');
+let profile = document.getElementById('personal-info');
+document.querySelectorAll('aside nav .password').forEach(button => {
+  button.addEventListener('click', () => {
+    profile.classList.add('hidden');
+    password.style.display = 'block';
+    settings.style.display = 'none';
+    cart.style.display = 'none';
+  });
+});
+document.querySelectorAll('aside nav .cart').forEach(button => {
+  button.addEventListener('click', () => {
+     profile.classList.add('hidden');
+    cart.style.display = 'block';
+    password.style.display = 'none';
+    settings.style.display = 'none';
+  });
+});
+document.querySelectorAll('aside nav .Settings').forEach(button => {
+  button.addEventListener('click', () => {
+     profile.classList.add('hidden');
+    settings.style.display = 'block';
+      cart.style.display = 'none';
+    password.style.display = 'none';
+  });
+});
+document.querySelectorAll('aside nav .information').forEach(button => {
+  button.addEventListener('click', () => {
+     profile.classList.remove('hidden');
+    settings.style.display = 'none';
+      cart.style.display = 'none';
+    password.style.display = 'none';
+  });
+});
 
-    const cartListEl = document.getElementById('cart-list');
 
-    // Render the cart items
-    function renderCart() {
-      cartListEl.innerHTML = '';
-      if(cartCars.length === 0) {
-        cartListEl.innerHTML = '<p>Your cart is empty.</p>';
-        return;
-      }
-      cartCars.forEach(car => {
-        const li = document.createElement('li');
-        li.className = 'cart-item';
 
-        li.innerHTML = `
-          <img src="${car.image}" alt="${car.name}" />
-          <div class="cart-item-info">
-            <h3>${car.name}</h3>
-            <p>${car.description}</p>
-          </div>
-          <button class="cart-remove-btn" aria-label="Remove ${car.name} from cart" data-id="${car.id}">Remove</button>
-        `;
-        cartListEl.appendChild(li);
-      });
-
-      // Add event listeners to remove buttons
-      document.querySelectorAll('.cart-remove-btn').forEach(btn => {
-        btn.addEventListener('click', e => {
-          const id = parseInt(e.target.getAttribute('data-id'));
-          cartCars = cartCars.filter(car => car.id !== id);
-          renderCart();
-        });
-      });
+//Cart Reception
+document.addEventListener("DOMContentLoaded", () => {
+  const cartSection = document.getElementById('cart-section');
+  let currentPage = 1;
+  const itemsPerPage = 2;
+  function renderCart() {
+    let cartCars = JSON.parse(localStorage.getItem('cartCars')) || [];
+    if (cartCars.length === 0) {
+      cartSection.innerHTML = `<p>No cars in cart.</p>`;
+      return;
     }
-
-    // Initial render
-    renderCart();
-
-    // Handle profile form submission (just prevent default here)
-    document.getElementById('profile-form').addEventListener('submit', e => {
-      e.preventDefault();
-      alert('Profile saved!');
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedCars = cartCars.slice(startIndex, endIndex);
+    const carsHtml = displayedCars.map(car => `
+      <div class="car-card-small">
+        <img src="${car.image}" alt="${car.name}" />
+        <h3>${car.name}</h3>
+        <p>${car.description}</p>
+        <a class="btnShowDetails" href="../pages/model.html" data-name="${car.name}">Show Details</a>
+      </div>
+    `).join('');
+    const totalPages = Math.ceil(cartCars.length / itemsPerPage);
+    let paginationHtml = `<ul class="pagination">`;
+    paginationHtml += `
+      <li class="page-item">
+        <a class="page-link" href="#" data-page="${currentPage - 1}" aria-label="Previous" ${currentPage === 1 ? 'style="pointer-events:none;opacity:0.5;"' : ''}>
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    `;
+    let startPage = Math.max(1, currentPage - 1);
+    let endPage = Math.min(totalPages, startPage + 1);
+    if (endPage - startPage < 1 && startPage > 1) {
+      startPage--;
+    }
+    for (let i = startPage; i <= endPage; i++) {
+      paginationHtml += `
+        <li class="page-item ${i === currentPage ? 'active' : ''}">
+          <a class="page-link" href="#" data-page="${i}">${i}</a>
+        </li>
+      `;
+    }
+    paginationHtml += `
+      <li class="page-item">
+        <a class="page-link" href="#" data-page="${currentPage + 1}" aria-label="Next" ${currentPage === totalPages ? 'style="pointer-events:none;opacity:0.5;"' : ''}>
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    `;
+    paginationHtml += `</ul>`;
+    cartSection.innerHTML = `
+      <div class="cart-items-container">${carsHtml}</div>
+      ${paginationHtml}
+    `;
+    document.querySelectorAll('.page-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const page = parseInt(link.getAttribute('data-page'));
+        if (page >= 1 && page <= totalPages) {
+          currentPage = page;
+          renderCart();
+        }
+      });
     });
+  }
+
+  renderCart();
+});
+
+//Settings
+document.querySelectorAll('.toggle-button').forEach(toggle => {
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    if(toggle.id === 'darkModeToggle'){
+      if(toggle.classList.contains('active')){
+        document.body.style.background = '#1e1e1e';
+        document.body.style.color = '#eee';
+      } else {
+        document.body.style.background = '#f5f6fa';
+        document.body.style.color = '#222';
+      }
+    }
+  });
+});
+const themeColorPicker = document.getElementById('themeColorPicker');
+themeColorPicker.addEventListener('input', (e) => {
+  document.documentElement.style.setProperty('--accent-color', e.target.value);
+});

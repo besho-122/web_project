@@ -1,7 +1,5 @@
-/* إعدادات عامة */
 * {
   box-sizing: border-box;
-  
 }
 
 body {
@@ -9,21 +7,87 @@ body {
   font-family: 'Inter', sans-serif;
   display: flex;
   height: 100vh;
-  background: #212020;
-  color: #eee;
+  background: #eeeeee;
+  color: #eeeeee;
+}
+.smallBody{
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  height: 100vh;
+  background: #252323;
+  color: #eeeeee;
+}
+.navProduct{
+    background-color: rgba(0, 0, 0, 0.916) !important;
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    height: 60px;
+    top: 0px;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+    
+}
+.navbar-brand{
+    margin-left: 100px !important;
+    margin-right: 80px !important;
+}
+.nav-link {
+    margin-left: 15px;
+  color: white !important;
+  font-family: "Orbitron", sans-serif;
+  border-bottom: 4px solid transparent;
+  transition: border-color 0.5s ease-in-out;
+  padding-bottom: 3px;
+
+}
+.nav-link:hover,
+.nav-link:active,
+.nav-link.active {
+  border-bottom-color: #ca0000b3 !important;
 }
 
-/* الشريط الجانبي */
+
+.dropdown-item{
+    font-family: "Orbitron", sans-serif;
+}
+.fa-cart-shopping{
+    margin-left: 15px !important;
+    margin-top: 20px;
+}
+.firstUserIcon{
+    margin-right: 80px;
+}
+.me-2{
+    width: 20vw !important;
+    border-radius: 20px !important;
+    margin-left: 50px;
+}
+.searchIcon{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.searchDiv{
+    position: relative;
+
+}
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
 aside {
-  background: linear-gradient(135deg, #ffffff6f 0%, #eeeeee49 100%);
+  background: linear-gradient(135deg, #4241416f 0%, #ebebebad 100%);
   width: 280px;
   padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border-radius: 0 20px 20px 0;
-  color: #222;
-
+  border-radius: 20px 0px 0px 20px;
+  color: #ffffff;
+  font-family: "Orbitron", sans-serif;
 }
 
 aside .profile-icon {
@@ -38,6 +102,7 @@ aside .profile-icon {
   font-size: 38px;
   filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
   opacity: 0.7;
+
 }
 
 aside h2 {
@@ -47,19 +112,18 @@ aside h2 {
   font-size: 1.2rem;
   letter-spacing: 0.02em;
 }
-
-/* أزرار القائمة الجانبية */
 aside nav {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-aside nav button {
+aside nav a {
   background: transparent;
   border: none;
-  color: #222;
-  font-weight: 500;
+  color: #222 !important;
+  font-weight: 600;
+  text-decoration: none;
   font-size: 1rem;
   text-align: left;
   cursor: pointer;
@@ -68,14 +132,14 @@ aside nav button {
   align-items: center;
   gap: 0.8rem;
   border-radius: 6px;
-  transition: background 0.3s ease;
+  transition:  0.3s ease;
 }
 
-aside nav button:hover {
-  background: rgba(255,255,255,0.2);
+aside nav a:hover {
+  color: #eee !important;
 }
 
-aside nav button svg {
+aside nav a svg {
   width: 18px;
   height: 18px;
   fill: #222;
@@ -90,62 +154,88 @@ aside .logout {
   gap: 0.8rem;
   color: #222;
 }
+aside .logout:hover{
+    color: #eee;
+}
 
 aside .logout svg {
   width: 18px;
   height: 18px;
   fill: #222;
 }
-
 .image-form-container {
   position: absolute;
-  width: 1267px; /* عرض ثابت مناسب */
-  height: 700px; /* ارتفاع مناسب */
-  margin: 0 auto; /* مركز الحاوية */
+  width: 910px;
+  height: 658px; 
+  margin: 0 auto; 
   overflow: hidden;
-  left: 260px;
-  top: 38px;
-  border-radius: 10px; /* إذا بدك زوايا مدورة */
+  left: 340px;
+  top: 70px;
+  border-radius: 10px; 
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
- 
+  background-color: rgba(206, 203, 203, 0.558);
 }
-
-
 .image-form-container img {
-  width: 100%;
   height: 100%;
-  object-fit: cover; /* تحافظ على نسبة الصورة */
+  width: 100%;
+  object-fit: cover; 
   display: block;
-  filter: brightness(0.3); /* تخفيف إضاءة الصورة حتى يبرز النص */
+  filter: brightness(0.3);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
-
-/* العنوان */
+.passwordForm{
+    display: none;
+}
+.form-section {
+    display: none;
+  }
+  .form-section.active {
+    display: block;
+  }
  h1 {
   font-weight: 600;
   font-size: 1.8rem;
+  width: 500px;
   margin-bottom: 0.5rem;
+  margin-left: 20px;
   font-family: "Orbitron", sans-serif;
 }
-
-/* فورم الملف الشخصي */
-#profile-form {
+.profile-form {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
-  max-width: 600px;
-  transform: translate(-50%, -50%);
+  gap: 10px;
+  max-width: 750px;
+  transform: translate(-20%, -60%);
   position: absolute;
-  top: 50%;
-  left: 400px;
+  top: 51%;
+  left: 310px;
+
+  
+}
+#personal-info{
+  max-width: 450px;
+}
+.hidden{
+    display: none;
+}
+#cart-section{
+    display: none;
+}
+#password-section{
+    display: none;
+}
+#settings-section{
+    display: none;
 }
 
 .row {
-  flex: 1 1 45%;
-  min-width: 280px;
+  flex: 2 2 20%;
+  min-width: 160px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  margin-left: 20px;
 }
 
 .row label {
@@ -161,11 +251,11 @@ aside .logout svg {
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 20px;
+ 
 }
-
-/* زر الحفظ */
-#profile-form button {
-  width: 100%;
+.buttonForm{
+    width: 100%;
+  margin: auto;
   padding: 12px 0;
   font-size: 1.2rem;
   cursor: pointer;
@@ -174,14 +264,17 @@ aside .logout svg {
   border: none;
   font-weight: 600;
   color: #222;
+  position: relative;
+  top: 20px;
+  left: 15px;
   transition: background 0.3s ease;
+
 }
 
-#profile-form button:hover {
+.buttonForm:hover {
   background: linear-gradient(135deg, #eeeeeeb7 0%, #ffffffa2 100%);
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   body {
     flex-direction: column;
@@ -220,3 +313,191 @@ aside .logout svg {
     width: 100%;
   }
 }
+
+
+#cart-section {
+  
+  top: 395px !important;
+  left: 21.84vw;
+    background-color: #000000;
+   border-top-right-radius: 20px;
+   border-bottom-right-radius: 20px;
+   height:658px;
+}
+
+.cart-items-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 738px;
+  gap: 70px;
+}
+
+.car-card-small {
+ background-color: #000000;
+ border-radius: 20px;
+ border-top-right-radius: 60px;
+  width: 738px;
+  text-align: center;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.car-card-small img {
+  border-top-right-radius: 20px;
+  height: 180px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  filter: brightness(0.8) !important;
+}
+
+.car-card-small h3 {
+  font-size: 1.1em;
+  margin: 0 0 6px;
+  color: #eee;
+}
+
+.car-card-small p {
+  font-size: 0.9em;
+  color: #eee;
+  margin: 0;
+}
+.btnShowDetails{
+    z-index: 999;
+    position: relative;
+    top: 20px;
+    width: 100px;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #4241416f 0%, #ebebebef 100%);
+    border-radius: 30px;
+    padding: 20px;
+}
+
+
+.pagination {
+   display: flex;
+   gap: 6px;
+   list-style: none;
+   padding: 0;
+   margin: 16px 0;
+   padding-left: 550px;
+   border-radius: 12px;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+   z-index: 999;
+}
+.page-item .page-link {
+    display: inline-block;
+    font-size: 20px;
+    padding-left: 14px;
+    padding-bottom: 5px !important;
+    padding-top:5px !important;
+    padding-right: 14px;
+    font-family: "Orbitron", sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background: none;
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.page-item.active .page-link {
+    color: #eee;
+    border-radius:20px;
+ }
+.page-item.disabled .page-link {
+    pointer-events: none;
+    opacity: 0.5;
+ }
+
+#password-section{
+  width: 300px;
+  h1{
+   margin-bottom: 50px !important;
+  }
+  top: 270px !important;
+  .row{
+    margin-top: 10px;
+  }
+}
+#settings-section {
+  max-width: 900px;
+  margin: 50px auto;
+  font-family: 'Segoe UI', sans-serif;
+  margin-left: 60px;
+}
+
+#settings-section h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.setting-card {
+  background:#eee;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.setting-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.setting-card h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.setting-card p {
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  color: #666;
+}
+.setting-card select{
+  border-radius: 20px;
+  padding: 3px;
+}
+
+/* Toggle button */
+.toggle-button {
+  width: 60px;
+  height: 30px;
+  border-radius: 30px;
+  background: #ddd;
+  margin: auto;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle-button::after {
+  content: '';
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  transition: left 0.3s;
+}
+
+.toggle-button.active {
+  background: #970c0c;
+}
+
+.toggle-button.active::after {
+  left: 31px;
+}
+
