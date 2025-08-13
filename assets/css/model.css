@@ -236,6 +236,7 @@ animation-delay: calc(var(--position)*-1s);
     position: absolute;
     top: 275px;
     left: 250px;
+    
 }
 .typeCar{
     display: flex;

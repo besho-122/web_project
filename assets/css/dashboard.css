@@ -358,12 +358,96 @@ color: #ffffff;
   margin: 0;
 }
 
+.productShowDiscriptionInner{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #00bd3900;
+  padding: 10px;
+}
+
+.productShowDiscriptionInner{
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #00bd3900;
+  padding: 10px;
+}
+.productShowDiscriptionInner h1{
+  font-size: 17px;
+  color:#000000;
+  font-family: "Orbitron", sans-serif;
+  margin: 0;
+}
+
+.productShowImages{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #00bd3900;
+  padding: 10px;
+}
+
+.productShowImages img{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #00bd3900;
+  padding: 10px;
+  border-radius: 20px;
+}
 
 
 
 
+.productShowContainer{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.productShowDiscriptionInner input{
+  width: 100%;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+  padding:10px;
+}
 
 
+
+.productShowImagesthree{
+  width: 30%;
+  height: 40%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.productShowImagesthree img{
+  width: 100%;
+  height: 100%;
+ border-radius: 20px;
+  padding: 10px;
+}
 
 
 
@@ -822,10 +906,54 @@ color: #ffffff;
 
 
 
+.customerShowDiscriptionInner{
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+  background-color: #00bd3900;
+  padding: 10px;
+}
+.customerShowDiscriptionInner img {
+  width: 40%;
+  height: 100%;
+  border-radius: 40px;
+}
+
+.customerShowDiscriptionInnerList{
+  width: 50%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #00bd3900;
+  padding: 10px;
+}
+.customerShowDiscriptionInnerList h1{
+  font-size: 20px;
+  color:#000000;
+  font-family: "Orbitron", sans-serif;
+  margin: 0;
+}
 
 
-
-
+.customerShowDiscriptionInnerList input{
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 16px;
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  padding: 10px;
+}
 
 
 
