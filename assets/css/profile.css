@@ -10,12 +10,12 @@ body {
   background: #eeeeee;
   color: #eeeeee;
 }
+
 .smallBody{
   margin: 0;
   font-family: 'Inter', sans-serif;
   display: flex;
   height: 100vh;
-  background: #252323;
   color: #eeeeee;
 }
 .navProduct{

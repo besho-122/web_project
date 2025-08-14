@@ -12,10 +12,22 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link href="./assets/css/homePage.css" rel="stylesheet">
+ 
+
   <title>Motor Yard</title>
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true ? 'true' : 'false';
+?>
+<script>
+    localStorage.setItem('isLoggedIn', '<?php echo $isLoggedIn; ?>');
+</script>
 
 </head>
+
 
 <body>
   <!-- nav section --->
@@ -26,7 +38,7 @@
       </a>
       <button class="navbar-toggler"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
         aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-       <a href="./pages/login.html" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
+       <a onclick="return profileOrLogin(event)" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
       </button>
 
     </div>
@@ -37,22 +49,19 @@
       <a href="#" class="navbar__link"><i data-feather="home"></i><span>Home</span></a>
     </li>
     <li class="navbar__item">
-      <a href="#" class="navbar__link"><i data-feather="message-square"></i><span>Messages</span></a>        
+      <a href="./pages/products.php" class="navbar__link" onclick="return checkLogin(event)" ><i class="fa-solid fa-car fa-lg" style="color: #ffffff;"></i><span>Cars</span></a>        
     </li>
     <li class="navbar__item">
-      <a href="#" class="navbar__link"><i data-feather="users"></i><span>Customers</span></a>        
+      <a href="./pages/filter.php" class="navbar__link"  onclick="return checkLogin(event)"><i class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff;"></i><span>FindYourCar</span></a>        
     </li>
     <li class="navbar__item">
-      <a href="#" class="navbar__link"><i data-feather="folder"></i><span>Projects</span></a>        
+      <a href="./pages/products.php" class="navbar__link"  onclick="return checkLogin(event)"><i data-feather="archive"></i><span>Resources</span></a>        
     </li>
     <li class="navbar__item">
-      <a href="#" class="navbar__link"><i data-feather="archive"></i><span>Resources</span></a>        
+      <a href="#contactSection" class="navbar__link"><i data-feather="help-circle"></i><span>Help</span></a>        
     </li>
     <li class="navbar__item">
-      <a href="#" class="navbar__link"><i data-feather="help-circle"></i><span>Help</span></a>        
-    </li>
-    <li class="navbar__item">
-      <a href="#" class="navbar__link"><i data-feather="settings"></i><span>Settings</span></a>        
+      <a href="#" class="navbar__link"  onclick="return checkLogin(event)"><i data-feather="settings"></i><span>Settings</span></a>        
     </li>
   </ul>
 </nav>
@@ -289,7 +298,41 @@
   </section>
 
   
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<script>
+
+  toastr.options = {
+    positionClass: "toast-bottom-right",
+    closeButton: true,
+    progressBar: true,
+    timeOut: "3000"
+  };
+
+
+  function checkLogin(event) {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+      return true;
+    } else {
+      if (event) event.preventDefault();
+      toastr.error('Please log in to access this page.', 'You are not logged in!');
+      return false;
+    }
+  }
+
+  function profileOrLogin(event){
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+      window.location.href = './pages/profile.php';
+    } else {
+      if (event) event.preventDefault();
+      window.location.href = './pages/login.html';
+    }
+
+  }
+</script>
 
 
 
@@ -315,14 +358,19 @@
         el: '.swiper-pagination',
       },
     });
+
+
+    
+
+ 
 </script>
 
-<script src="./assets/js/homePage.js"></script>
+<script src="./assets/js/homePage.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </body>
 
 </html>

@@ -15,6 +15,7 @@
     <title>Motor Yard - Profile</title>
 </head>
 <body >
+  <?php require("../api/config.php"); ?>
     <nav class="navbar navbar-expand-lg bg-body-tertiary navProduct">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="100px"></a>
@@ -24,26 +25,30 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link " aria-current="page" href="../index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="">Link</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Products</a>
+          <a class="nav-link" href="../pages/products.php">Models</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+          <a class="nav-link dropdown-toggle " href="../pages/filter.php" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+            Products
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <?php
+            $sql = "SELECT * FROM Company";
+            $result = $dp->query($sql);
+            if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                  echo '<li ><a class="dropdown-item nav-item-dropdown" data-id="' . $row["id"] . '" href="#">' . $row["Name"] . '</a></li>';
+              }
+            }
+            ?>
           </ul>
         </li>
-       
       
      
       <form class="d-flex" role="search">
@@ -71,7 +76,7 @@
         
          </ul>
          
-          <a href="../pages/login.html" > <i class="fa-solid fa-user fa-lg firstUserIcon" id="logTitle" style="color: #ffffff;"></i></a>
+          <a href="#" > <i class="fa-solid fa-user fa-lg firstUserIcon " id="logTitle" style="color: #ffffff;"></i></a>
       
     </div>
   </div>
@@ -104,7 +109,7 @@
         </a>
       </nav>
     </div>
-    <div class="logout" role="button" tabindex="0" aria-label="Log out" title="Log Out">
+    <div class="logout" role="button" tabindex="0" aria-label="Log out" title="Log Out" onclick="return logout(event)">
       <svg viewBox="0 0 24 24"><path d="M16 13v-2H7V8l-5 4 5 4v-3h9zM20 19h-7v-2h7v-6h-7v-2h7v10z"/></svg>
       Log Out
     </div>
@@ -215,6 +220,14 @@
 
 </form>
 </div>
+    <script >
+      function logout(e){
+    e.preventDefault();
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = '../api/logout.php';
+  }
+
+    </script>
 
     
     <script src="../assets/js/profile.js"></script>

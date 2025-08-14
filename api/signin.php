@@ -1,27 +1,27 @@
-<?php 
+<?php
+session_start();
 require("config.php");
 
-if (isset($_POST['emailLogin'])&& isset($_POST['passwordLogin'])) {
+if (isset($_POST['emailLogin']) && isset($_POST['passwordLogin'])) {
     $email = $_POST['emailLogin'];
     $password = $_POST['passwordLogin'];
-
-    $sql = "Select * from Users where email = '$email' and Password = '$password'";
+    $sql = "SELECT * FROM Users WHERE email = '$email' AND Password = '$password'";
     $result = $dp->query($sql);
-    if ($result->num_rows > 0) {
+
+    if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
-         if ($row['role'] == 'admin') {
-            
 
-            redirect("../pages/dashboard.php");
-           
-        }
-        else {
-             redirect("../pages/products.html");
-        }
+        $_SESSION['isLoggedIn'] = true;
+        $_SESSION['user_id']    = $row['id'] ?? null;
+        $_SESSION['role']       = $row['role'] ?? 'user';
+
+        $next = ($row['role'] === 'admin') ? '../pages/dashboard.php' : '../index.php';
+
+        header("Location: ../pages/loading.php?status=success&next=" . urlencode($next));
+        exit;
     } else {
-        redirect("../pages/login.html");
+        $_SESSION['isLoggedIn'] = false;
+        header("Location: ../pages/loading.php?status=error&next=" . urlencode("../pages/login.html"));
+        exit;
     }
-    
 }
-
-

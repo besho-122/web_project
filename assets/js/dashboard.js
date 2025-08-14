@@ -75,59 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ////////////////////////////////charts/////////////////////////////////////
 
-    const data = {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1,
-        backgroundColor: ['#bbbbbbff', '#5a5a5aff', '#333333ff', '#94290eff', '#000000ff', '#8b8b8bff'],
-      }]
-    };
-
-
-    function handleHover(evt, item, legend) {
-      const colors = legend.chart.data.datasets[0].backgroundColor;
-      colors.forEach((color, index) => {
-        colors[index] = (index === item.index || color.length === 9) ? color : color + '4D';
-      });
-      legend.chart.update();
-    }
-
-    function handleLeave(evt, item, legend) {
-      const colors = legend.chart.data.datasets[0].backgroundColor;
-      colors.forEach((color, index) => {
-        colors[index] = (color.length === 9) ? color.slice(0, -2) : color;
-      });
-      legend.chart.update();
-    }
-
-   const config = {
-  type: 'polarArea',
-  data: data,
-  options: {
-    responsive: false,
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            size: 10, 
-            weight: 'bold' 
-          },
-          color: '#000' 
-        }
-      },
-      tooltip: {
-        bodyFont: {
-          size: 10 
-        }
-      }
-    }
-  }
-};
-
-    const ctx = document.getElementById('pieChart');
-    const myChart = new Chart(ctx, config);
 
 
     //chart2 
@@ -304,6 +251,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   //////show company////////////
+document.addEventListener('click', function (e) {
+  if (!e.target.classList.contains('btncompanyCardDelete')) return;
+
+  const card = e.target.closest('.companyCard');
+  if (!card) return;
+
+  const id   = card.dataset.id;   
+  const name = card.dataset.name || card.querySelector('h1')?.textContent || '';
+
+  if (!id) return;
+
+  if (!confirm('Are you sure you want to delete ' + name + ' ?')) return;
+
+  fetch('../api/deleteCompany.php', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: 'id=' + encodeURIComponent(id)
+  })
+  .then(res => res.text())
+  .then(txt => {
+    if (txt.trim() === 'success') {
+      card.remove();
+    } else {
+      alert('Error: ' + txt);
+    }
+  })
+  .catch(err => {
+    alert('Connection error');
+    console.error(err);
+  });
+});
+
+
+
+
+
+
     function closeCompany() {
     document.querySelector('.companyShow').style.display = 'none';
     document.querySelector('.companyShowDiscription').style.display = 'none';
@@ -319,7 +303,51 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+    function addCompany() {
+    document.querySelector('.addCompany').style.display = 'block';
+    document.querySelector('.toMakeItBlur').style.filter = 'blur(16px)';
+ 
+  }
+
+    function closeAddCompany() {
+    document.querySelector('.addCompany').style.display = 'none';
+    document.querySelector('.toMakeItBlur').style.filter = 'blur(0px)';
+
+  }
+
+
+
   /////////////////////cutomer //////
+
+document.addEventListener('click', function (e) {
+  if (!e.target.classList.contains('btncustomerCardDelete')) return;
+  const card = e.target.closest('.customerCard');
+  if (!card) return;
+  const userName = card.dataset.username;
+  if (!userName) return;
+
+  if (!confirm ('are you sure you want to delete ' + userName + '?')) return;
+
+  fetch('../api/deleteCustomer.php', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: 'userName=' + encodeURIComponent(userName)
+  })
+  .then(res => res.text())
+  .then(txt => {
+    if (txt.trim() === 'success') {
+      card.remove(); 
+    } else {
+      alert('error' + txt);
+    }
+  })
+  .catch(err => {
+    alert('connection error');
+    console.error(err);
+  });
+});
+
+
 
     function closeCustomer() {
     document.querySelector('.customerShow').style.display = 'none';

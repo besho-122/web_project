@@ -14,6 +14,7 @@
   <link href="../assets/css/product.css" rel="stylesheet">
 </head>
 <body>
+   <?php require("../api/config.php"); ?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary navProduct">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="100px"></a>
@@ -23,23 +24,28 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link " aria-current="page" href="../index.php">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Products</a>
+          <a class="nav-link active" href="#">Models</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+          <a class="nav-link dropdown-toggle" href="../pages/filter.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Products
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <?php
+            $sql = "SELECT * FROM Company";
+            $result = $dp->query($sql);
+            if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                  echo '<li ><a class="dropdown-item nav-item-dropdown" data-id="' . $row["id"] . '" href="#">' . $row["Name"] . '</a></li>';
+              }
+            }
+            ?>
           </ul>
         </li>
        
@@ -67,7 +73,7 @@
         
          </ul>
          
-          <a href="../pages/login.html" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
+          <a href="../pages/profile.php" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
       
     </div>
   </div>
@@ -80,57 +86,26 @@
 <h3>Find your new or used <span>Car</span> at a Motor Center.</h3>
 <p>Choose a model series.</p><br>
 <div class="productCards">
-  <div class="card"  style="width:500px">
-  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
-  <div class="card-img-overlay">
-    <h1 class="card-title">911</h1>
-    <p class="card-text">Porche 911</p>
-    
-  </div>
-</div>
-<div class="card"  style="width:500px">
-  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
-  <div class="card-img-overlay">
-    <h1 class="card-title">Panamera</h1>
-    <p class="card-text">Porche Panamera</p>
-    
-  </div>
-</div>
-<div class="card"  style="width:500px">
-  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
-  <div class="card-img-overlay">
-    <h1 class="card-title">911</h1>
-    <p class="card-text">Porche 911</p>
-    
-  </div>
-</div>
-<div class="card"  style="width:500px">
-  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
-  <div class="card-img-overlay">
-    <h1 class="card-title">911</h1>
-    <p class="card-text">Porche 911</p>
-    
-  </div>
-</div>
-<div class="card" style="width:500px">
-  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
-  <div class="card-img-overlay">
-    <h1 class="card-title">911</h1>
-    <p class="card-text">Porche 911</p>
-    
-  </div>
-</div>
-<div class="card" style="width:500px">
-  <img class="cardImg" src="../assets/photos/bmwModel.webp" alt="Card image">
-  <div class="card-img-overlay">
-    <h1 class="card-title">911</h1>
-    <p class="card-text">Porche 911</p>
-    
-  </div>
-</div>
+<?php 
+$sql = "SELECT * FROM `Company`";
+$result = $dp->query($sql);
+$modelseries = $result->fetch_all(MYSQLI_ASSOC);
+
+foreach ($modelseries as $modelserie) {
+    $imgSrc = !empty($modelserie['image']) 
+              ? htmlspecialchars($modelserie['image'], ENT_QUOTES)  : "../assets/photos/bmwModel.webp"; 
+    echo '<a href="filter.php"><div class="card" data-id="' . $modelserie['id'] . '" style="width:500px">
+            <img class="cardImg" src="' . $imgSrc . '" alt="Card image">
+            <div class="card-img-overlay">
+              <h1 class="card-title">' . htmlspecialchars($modelserie['Name'], ENT_QUOTES) . '</h1>
+              <p class="card-text">' . htmlspecialchars($modelserie['Description'], ENT_QUOTES) . '</p>
+            </div>
+          </div></a>';
+}
+?>
 
 </div>
-<button class="btnProduct">Browse all model series</button>
+<a href="filter.php"><button class="btnProduct" >Browse all model series</button> </a>
 <h4>Making it even easier to <span>find</span> your new or pre-owned Car.</h4>
 
 
@@ -147,7 +122,7 @@
         <p>
           New and available. Find your new Porsche vehicle at a Porsche Center near you. Choose from a large selection of available new vehicles.
         </p>
-        <a href="./pages/products.html"> <button>Browse new vehicle inventory</button></a>
+        <a href="./filter.php"  class="newcars"> <button>Browse new vehicle inventory</button></a>
        
       </div>
     </div>
@@ -162,7 +137,7 @@
         <p>
          Peace of mind comes as standard. Porsche Approved used vehicles come with a minimum 12 month warranty and have been prepared by Porsche Technicians using only Porsche Genuine Parts.
         </p>
-        <a href="./pages/products.html"> <button>Browse Porsche Approved inventory</button></a>
+        <a href="./filter.php" class="preownedcars"> <button>Browse Porsche Approved inventory</button></a>
        
       </div>
     </div>
@@ -177,7 +152,7 @@
         <p>
           Driving pleasure doesn't know an age. Find a pre-owned Porsche at one of our official Porsche Centres.
         </p>
-        <a href="./pages/products.html"> <button>Browse used Porsche inventory</button></a>
+        <a href="./filter.php" class="usedcars"> <button>Browse used Porsche inventory</button></a>
        
       </div>
     </div>

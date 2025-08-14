@@ -14,7 +14,8 @@
   <link href="../assets/css/filter.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary navProduct">
+<?php require("../api/config.php"); ?>
+<nav class="navbar navbar-expand-lg bg-body-tertiary navProduct">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="100px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,38 +24,40 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link " aria-current="page" href="../index.php">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Products</a>
+          <a class="nav-link " href="../pages/products.php">Models</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+          <a class="nav-link dropdown-toggle active" href="../pages/filter.php" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+            Products
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <?php
+            $sql = "SELECT * FROM Company";
+            $result = $dp->query($sql);
+            if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                  echo '<li ><a class="dropdown-item nav-item-dropdown" data-id="' . $row["id"] . '" href="#">' . $row["Name"] . '</a></li>';
+              }
+            }
+            ?>
           </ul>
         </li>
        
       
-     
-      <form class="d-flex" role="search">
-         <div class="searchDiv ">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+      
+      <form class="d-flex " role="search">
+        <div class="searchDiv ">
+        <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search"/>
         <i class="fa-solid fa-magnifying-glass fa-xl searchIcon" style="color: #000000;" type="submit" ></i>
         </div>
       </form>
-      <li class="nav-item">
-  <i id="cartIcon" class="fa-solid fa-cart-shopping fa-xl"></i>
-  <span id="cartCount">0</span>
-</li>
+      <li class="nav-item"> <i class="fa-solid fa-cart-shopping fa-xl" style="color: #ffffff;"></i></li>
       
        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -70,11 +73,12 @@
         
          </ul>
          
-          <a href="../pages/login.html" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
+          <a href="../pages/profile.php" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
       
     </div>
   </div>
 </nav>
+
 
 
 <section class="filterFirst">
@@ -92,19 +96,19 @@
         <div class="checkCondition">
             <label class="custom-checkbox ">
                 New
-         <input type="checkbox"  value="New">
+         <input type="checkbox"  value="New" id="new">
          <span class="checkmark"></span>
          </label>
 
            <label class="custom-checkbox" >
                 Used
-            <input type="checkbox"value="Used" >
+            <input type="checkbox"value="Used" id="used" >
             <span class="checkmark"></span>
           </label>
 
           <label class="custom-checkbox" >
                 Approved Pre Owened
-            <input type="checkbox" value="Pre Owened" >
+            <input type="checkbox" value="Pre Owened" id="preowned" >
             <span class="checkmark"></span>
           </label>
         </div>
@@ -121,8 +125,8 @@
         </div>
     </li>
       <li class="modelVarients">
-        Model Variants
-        <div class="varientsChecked">
+        Model
+      <div class="varientsChecked">
   <div class="searchGrandDad">
     <i class="fa-solid fa-magnifying-glass fa-lg searchIcon editSearchIcon" style="color: #000000;" type="submit"></i>
     <div class="searchDad">
@@ -131,37 +135,28 @@
       </form>
     </div>
   </div>
-  <label class="custom-checkbox">
-    Panamera
-    <input type="checkbox" value="Panamera">
-    <span class="checkmark"></span>
-  </label>
+  <?php
+  $sql = "SELECT id, Name FROM Company"; 
+  $result = $dp->query($sql);
 
+  if ($result && $result->num_rows > 0):
+      while($row = $result->fetch_assoc()):
+          $companyId = (int)$row['id']; 
+          $companyName = htmlspecialchars($row['Name'], ENT_QUOTES);
+  ?>
   <label class="custom-checkbox">
-    Panamera S
-    <input type="checkbox" value="Panamera S">
+    <?php echo $companyName; ?>
+    <input type="checkbox" value="<?php echo $companyName; ?> " id="checkbox<?php echo $companyId; ?>">
     <span class="checkmark"></span>
   </label>
-  <label class="custom-checkbox">
-    Panamera T5
-    <input type="checkbox" value="Panamera T5">
-    <span class="checkmark"></span>
-  </label>
-  <label class="custom-checkbox">
-    Panamera MG
-    <input type="checkbox" value="Panamera MG">
-    <span class="checkmark"></span>
-  </label>
-  <label class="custom-checkbox">
-    Panamera GT
-    <input type="checkbox" value="Panamera GT">
-    <span class="checkmark"></span>
-  </label>
-  <label class="custom-checkbox">
-    Panamera Hybrid
-    <input type="checkbox" value="Panamera Hybrid">
-    <span class="checkmark"></span>
-  </label>
+  <?php
+      endwhile;
+  else:
+      echo "<p>No companies found</p>";
+  endif;
+
+  ?>
+
 </div>
     </li>
       <li class="modelGeneration">

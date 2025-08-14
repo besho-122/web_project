@@ -1,6 +1,26 @@
-const message = localStorage.getItem("modelName");
-document.querySelector('.nameModel').innerHTML = message;
+document.addEventListener('DOMContentLoaded', () => {
+  const id = localStorage.getItem('modelId');
+  if (id) {
+    const cb = document.getElementById('checkbox' + id);
+    if (cb) {
+      cb.checked = true; 
+      cb.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
 
+  const modelName = localStorage.getItem('modelName');
+  const nameEl = document.querySelector('.nameModel');
+  if (nameEl && modelName) nameEl.textContent = modelName;
+
+  const condition = localStorage.getItem('condition');
+  if (condition) {
+    const cb2 = document.getElementById(condition.toLowerCase()); 
+    if (cb2) {
+      cb2.checked = true;
+      cb2.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
+});
 
 //Toggle + to - 
 const items = document.querySelectorAll('.sidebar .condition');
@@ -211,7 +231,7 @@ document.querySelector('.yearSelection').appendChild(select);
 //Call sorting
 setupCheckboxSorting('.sidebar .condition input[type="checkbox"]', 'Condition', 'Condition');
 setupSelectSorting('.sidebar .modelSeries select', 'Series', 'Series');
-setupCheckboxSorting('.sidebar .modelVarients input[type="checkbox"]', 'Varients', 'Varients');
+setupCheckboxSorting('.sidebar .modelVarients input[type="checkbox"]', 'Models', 'Models');
 setupCheckboxSorting('.sidebar .modelGeneration input[type="checkbox"]', 'Generation', 'Generation');
 setupSelectSorting('.sidebar .modelYear select', 'Model Year', 'Model Year');
 setupCheckboxSorting('.sidebar .interiorColour input[type="checkbox"]', 'In Color', 'In Color');
@@ -403,3 +423,11 @@ document.querySelectorAll('.btnProduct.two').forEach(btn => {
 
 
 
+//////////////////// doop down //////////////
+document.querySelectorAll('.nav-item-dropdown').forEach(card => {
+  card.addEventListener('click', () => {
+    const modelId = card.dataset.id; 
+    localStorage.setItem("modelId", modelId);
+     window.location.href = "../pages/filter.php";
+  });
+});

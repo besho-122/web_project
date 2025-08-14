@@ -18,6 +18,29 @@
 </head>
 
 <body>
+  <?php  require("../api/config.php"); 
+  $sql = "SELECT Name,id FROM Company";
+$result = $dp->query($sql);
+
+$labels = [];
+$values = [];
+
+if ($result && $result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $labels[] = $row['Name'];
+    $values[] = (int)$row['id'];
+  }
+}
+
+$labels_escaped = array_map(function($s){
+  return str_replace(["\\", "'"], ["\\\\", "\\'"], $s);
+}, $labels);
+$labels_js = "'" . implode("','", $labels_escaped) . "'";
+$values_js = implode(",", $values);
+  
+  
+  
+  ?>
   <div class="toMakeItBlur">
   <div class="menu-icon" onclick="openSidebar()">
     <span class="material-icons-outlined">menu</span>
@@ -42,6 +65,7 @@
   <nav class="navbar">
 
   </nav>
+  
   <main class="main-container">
     <section id="dashboard" class="dashboard">
       <h1 class="pagetitles">DASHBOARD</h1>
@@ -53,21 +77,39 @@
             <div class="carditem1">
               <h3>PRODUCTS</h3>
             </div>
-            <h1 class="odometer-stat" data-value="249"></h1>
+            <?php
+            $sql = "SELECT COUNT(*) as count FROM Users";
+            $result = $dp->query($sql);
+            $row = $result->fetch_assoc();
+            $count = $row['count'];
+            echo "<h1 class='odometer-stat' data-value='$count'></h1>";
+            ?>
           </div>
 
           <div class="card1">
             <div class="carditem1">
               <h3>COMPANIES</h3>
             </div>
-            <h1 class="odometer-stat" data-value="25"></h1>
+            <?php
+            $sql = "SELECT COUNT(*) as count FROM Company";
+            $result = $dp->query($sql);
+            $row = $result->fetch_assoc();
+            $count = $row['count'];
+            echo "<h1 class='odometer-stat' data-value='$count'></h1>";
+            ?>
           </div>
 
           <div class="card1">
             <div class="carditem1">
-              <h3>MODELS</h3>
+              <h3>Customers</h3>
             </div>
-            <h1 class="odometer-stat" data-value="1500"></h1>
+           <?php
+            $sql = "SELECT COUNT(*) as count FROM Users";
+            $result = $dp->query($sql);
+            $row = $result->fetch_assoc();
+            $count = $row['count'];
+            echo "<h1 class='odometer-stat' data-value='$count'></h1>";
+            ?>
           </div>
 
           <div class="card1">
@@ -128,6 +170,42 @@
               <button class="btnProductCardDelete">Delete</button>
             </div>
           </div>
+             <!--Product Card-->
+          <div class="productCard">
+            <div class="productCardInfo">
+              <img src="../assets/photos/side.avif" alt="Card image">
+              <div class="productCardDiscription">
+                <h1 class="productName">Panamera GT 911</h1>
+                <ul>
+                  <li>Product price</li>
+                  <li>Product description</li>
+                  <li>Product category</li>
+                </ul>
+              </div>
+            </div>
+            <div class="productCardText">
+              <button class="btnProductCardEdit" onclick="editProduct()">Edit</button>
+              <button class="btnProductCardDelete">Delete</button>
+            </div>
+          </div>
+             <!--Product Card-->
+          <div class="productCard">
+            <div class="productCardInfo">
+              <img src="../assets/photos/side.avif" alt="Card image">
+              <div class="productCardDiscription">
+                <h1 class="productName">Panamera GT 911</h1>
+                <ul>
+                  <li>Product price</li>
+                  <li>Product description</li>
+                  <li>Product category</li>
+                </ul>
+              </div>
+            </div>
+            <div class="productCardText">
+              <button class="btnProductCardEdit" onclick="editProduct()">Edit</button>
+              <button class="btnProductCardDelete">Delete</button>
+            </div>
+          </div>
           <!--Product Card-->
           <div class="productCard">
             <div class="productCardInfo">
@@ -147,16 +225,7 @@
             </div>
           </div>
         </div>
-        <div class="paginationproduct">
-          <button class="btnPaginationproductPrevious">Previous</button>
-          <button class="btnPaginationproduct">1</button>
-          <button class="btnPaginationproduct">2</button>
-          <button class="btnPaginationproduct">3</button>
-          <button class="btnPaginationproduct">4</button>
-          <button class="btnPaginationproduct">5</button>
-          <button class="btnPaginationproductNext">Next</button>
 
-        </div>
       </div>
     </section>
 
@@ -166,133 +235,80 @@
         <div class="companySearch">
           <input type="text" placeholder="Search for a Company">
           <button class="btncomponies">Search</button>
+          <button  class="btncomponies2 " onclick="addCompany()">Add</button>
+  
         </div>
-        <div class="companiesCards">
-          <div class="companyCard">
-            <img src="../assets/photos/porsche.png" alt="Card image">
-            <div class="companyCardDiscription">
-            <h1>Porsche</h1>
-            <div class="companyCardButtons">
-            <button class="btncompanyCardEdit"  onclick="editCompany()">Edit</button>
-            <button class="btncompanyCardDelete">Delete</button>
-            </div>
-          </div>
+        <div class="companiesCards" id="companyCards" data-delete-url="../api/deleteCompany.php">
+<?php
+$sql = "SELECT id, Name, imagepng FROM Company";
+$result = $dp->query($sql);
 
-          </div>
-           <div class="companyCard">
-            <img src="../assets/photos/porsche.png" alt="Card image">
-            <div class="companyCardDiscription">
-            <h1>Porsche</h1>
-            <div class="companyCardButtons">
-            <button class="btncompanyCardEdit"  onclick="editCompany()">Edit</button>
-            <button class="btncompanyCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-
-           <div class="companyCard">
-            <img src="../assets/photos/porsche.png" alt="Card image">
-            <div class="companyCardDiscription">
-            <h1>Porsche</h1>
-            <div class="companyCardButtons">
-            <button class="btncompanyCardEdit" onclick="editCompany()">Edit</button>
-            <button class="btncompanyCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-
-           <div class="companyCard">
-            <img src="../assets/photos/porsche.png" alt="Card image">
-            <div class="companyCardDiscription">
-            <h1>Porsche</h1>
-            <div class="companyCardButtons">
-            <button class="btncompanyCardEdit"  onclick="editCompany()">Edit</button>
-            <button class="btncompanyCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-
-           <div class="companyCard">
-            <img src="../assets/photos/porsche.png" alt="Card image">
-            <div class="companyCardDiscription">
-            <h1>Porsche</h1>
-            <div class="companyCardButtons">
-            <button class="btncompanyCardEdit"  onclick="editCompany()">Edit</button>
-            <button class="btncompanyCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-           <div class="companyCard">
-            <img src="../assets/photos/porsche.png" alt="Card image">
-            <div class="companyCardDiscription">
-            <h1>Porsche</h1>
-            <div class="companyCardButtons">
-            <button class="btncompanyCardEdit"  onclick="editCompany()"> Edit</button>
-            <button class="btncompanyCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-           <div class="companyCard">
-            <img src="../assets/photos/porsche.png" alt="Card image">
-            <div class="companyCardDiscription">
-            <h1>Porsche</h1>
-            <div class="companyCardButtons">
-            <button class="btncompanyCardEdit"  onclick="editCompany()">Edit</button>
-            <button class="btncompanyCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-           <div class="companyCard">
-            <img src="../assets/photos/porsche.png" alt="Card image">
-            <div class="companyCardDiscription">
-            <h1>Porsche</h1>
-            <div class="companyCardButtons">
-            <button class="btncompanyCardEdit"  onclick="editCompany()">Edit</button>
-            <button class="btncompanyCardDelete">Delete</button>
-            </div>
-          </div>
-          </div>
-          
-        </div>
+if ($result && $result->num_rows > 0):
+  while ($row = $result->fetch_assoc()):
+    $companyId   = (int)$row['id'];
+    $companyName = htmlspecialchars($row['Name'], ENT_QUOTES);
+    $imgSrc = !empty($row['imagepng']) ? htmlspecialchars($row['imagepng'], ENT_QUOTES) : "../assets/photos/porsche.png";
+?>
+  <div class="companyCard" data-id="<?php echo $companyId; ?>">
+    <img src="<?php echo $imgSrc; ?>" alt="Card image">
+    <div class="companyCardDiscription">
+      <h1><?php echo $companyName; ?></h1>
+      <div class="companyCardButtons">
+        <button class="btncompanyCardEdit" onclick="editCompany(<?php echo $companyId; ?>)">Edit</button>
+        <button class="btncompanyCardDelete">Delete</button>
+      </div>
+    </div>
+  </div>
+<?php
+  endwhile;
+else:
+  echo "<p>No companies found</p>";
+endif;
+?>
+</div>
 
       </div>
-    </section>
-    <section id="customers" class="customers">
-      <h1 class="pagetitles">Customers</h1>
-      <div class="customersList">
-        <div class="customerSearch">
-          <input type="text" placeholder="Search for a customer">
-          <button class="btncustomers">Search</button>
-        </div>
-        <div class="customersCards">
-          <?php
-          
-          require("../api/config.php");
-          $sql = "Select * from Users where role = 'user'";
-          $result = $dp->query($sql);
-          if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-              echo "<div class='customerCard'>
-              <img src='../assets/photos/yousef.jpg' alt='Card image'>
-              <div class='customerCardDiscription'>
-              <h1>" . $row['userName'] . "</h1>
-              <div class='customerCardButtons'>
-              <button class='btncustomerCardEdit'  onclick='editCustomer()'>Edit</button>
-              <button class='btncustomerCardDelete'>Delete</button>
-              </div>
+</section>
+
+
+<section id="customers" class="customers">
+  <h1 class="pagetitles">Customers</h1>
+
+  <div class="customersList">
+    <div class="customerSearch">
+      <input type="text" placeholder="Search for a customer">
+      <button class="btncustomers">Search</button>
+    </div>
+
+    <div class="customersCards" id="customerCards" data-delete-url="../api/deleteCustomer.php">
+      <?php
+        $sql = "SELECT userName FROM Users WHERE role = 'user'";
+        $result = $dp->query($sql);
+
+        if ($result && $result->num_rows > 0):
+          while($row = $result->fetch_assoc()):
+            $userName = htmlspecialchars($row['userName'], ENT_QUOTES);
+      ?>
+        <div class="customerCard" data-username="<?php echo $userName; ?>">
+          <img src="../assets/photos/yousef.jpg" alt="Card image">
+          <div class="customerCardDiscription">
+            <h1><?php echo $userName; ?></h1>
+            <div class="customerCardButtons">
+              <button class="btncustomerCardEdit" onclick="editCustomer()">Edit</button>
+              <button class="btncustomerCardDelete">Delete</button>
             </div>
-            </div>";
-            }
-          }
-          ?>
-
-          
-          
-          
+          </div>
         </div>
+      <?php
+          endwhile;
+        else:
+          echo "<p>No customers found</p>";
+        endif;
+      ?>
+    </div>
 
-      </div>
-    </section>
+  </div>
+</section>
 
     <section id="pages" class="pages">
       <h1 class="pagetitles">Main Page</h1>
@@ -346,7 +362,7 @@
         <button class="btnSettings1" onclick="editName()">Edit Name</button>
         <button class="btnSettings2" onclick="editPassword()">Change Password</button>
         <button class="btnSettings3" onclick="editEmail()">Change Email</button>
-        <button class="btnSettings4" onclick="logout()">Logout</button>
+        <button class="btnSettings4" onclick="logout(event)">Logout</button>
         <input id="nameInput" type="text" placeholder="Name">
         <input id="passwordInput" type="password" placeholder="Password">
         <input id="emailInput" type="email" placeholder="Email">
@@ -457,7 +473,31 @@
      
     </div>
   </div>
-  
+  <div class="addCompany">
+    <div class="addCompanyDiscription">
+      <button class="closeAddCompany" onclick="closeAddCompany()">X</button>
+      <div class="addCompanyDiscriptionList">
+        <h1>Add Company</h1>
+     <form id="addCompanyForm" action="../api/addCompany.php" method="post" class="addCompanyDiscriptionInnerList"  enctype="multipart/form-data">
+          <h1>Company Name</h1>
+          <input type="text" placeholder="Company Name" id="companyNameInput" required name="companyName" >
+          <h1>Company Discription</h1>
+          <input type="text" placeholder="Company Name" id="companyDescriptionInput" required name="companyDescription" > 
+          <input type="file" placeholder="img" accept="image/*" id="imageInput" hidden  required name="imagecompany" >
+          <label for="imageInput" class="btnProductShowDiscriptionInnerList" style="cursor: pointer; text-align: center; padding: 5px;">Upload Image</label>
+          <input type="file" placeholder="img" accept="image/*" id="imagepngInput" hidden  required name="imagepngcompany" >
+          <label for="imagepngInput" class="btnProductShowDiscriptionInnerList" style="cursor: pointer; text-align: center; padding: 5px;">Upload Png</label>
+          <button class="btnProductShowDiscriptionInnerList">Add</button>
+
+      </form>
+
+      
+        </div>
+       </div>
+    </div>
+
+
+  <
 
 
 
@@ -468,6 +508,76 @@
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
   <script src="../assets/js/dashboard.js"></script>
+  <script>
+ const labels = [<?= $labels_js ?>];
+  const values = [<?= $values_js ?>];
+
+const palette = [
+  '#000000',    
+  '#555555',   
+  '#888888',    
+  '#94290eff'  
+];
+
+const colors = Array.from({length: labels.length}, (_, i) => palette[i % palette.length]);
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: '# of Votes',
+      data: values,
+      borderWidth: 1,
+      backgroundColor: colors
+    }]
+  };
+
+  function handleHover(evt, item, legend) {
+    const colors = legend.chart.data.datasets[0].backgroundColor;
+    colors.forEach((color, index) => {
+  
+      colors[index] = (index === item.index || color.length === 9) ? color : color + '4D';
+    });
+    legend.chart.update();
+  }
+
+  function handleLeave(evt, item, legend) {
+    const colors = legend.chart.data.datasets[0].backgroundColor;
+    colors.forEach((color, index) => {
+      colors[index] = (color.length === 9) ? color.slice(0, -2) : color;
+    });
+    legend.chart.update();
+  }
+
+  const config = {
+    type: 'polarArea',
+    data: data,
+    options: {
+      responsive: false,
+      plugins: {
+        legend: {
+          onHover: handleHover,
+          onLeave: handleLeave,
+          labels: {
+            font: { size: 10, weight: 'bold' },
+            color: '#000'
+          }
+        },
+        tooltip: {
+          bodyFont: { size: 10 }
+        }
+      }
+    }
+  };
+
+  const ctx = document.getElementById('pieChart');
+  const myChart = new Chart(ctx, config);
+    function logout(e){
+    e.preventDefault();
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = '../api/logout.php';
+  }
+
+
+  </script>
 </body>
 
 </html>

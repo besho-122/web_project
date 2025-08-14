@@ -1,4 +1,5 @@
 //Profile Sections
+
 let password = document.getElementById('password-section');
 let settings = document.getElementById('settings-section');
 let cart = document.getElementById('cart-section');
@@ -126,4 +127,14 @@ document.querySelectorAll('.toggle-button').forEach(toggle => {
 const themeColorPicker = document.getElementById('themeColorPicker');
 themeColorPicker.addEventListener('input', (e) => {
   document.documentElement.style.setProperty('--accent-color', e.target.value);
+});
+
+//////////////////// doop down //////////////
+//////////////////// doop down //////////////
+document.querySelectorAll('.nav-item-dropdown').forEach(card => {
+  card.addEventListener('click', () => {
+    const modelId = card.dataset.id; 
+    localStorage.setItem("modelId", modelId);
+     window.location.href = "../pages/filter.php";
+  });
 });

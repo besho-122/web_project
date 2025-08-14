@@ -1,4 +1,5 @@
 
+
 //hide title
   window.addEventListener('scroll', function() {
       const title = document.getElementById('mainTitle');
@@ -162,11 +163,3 @@ window.addEventListener('scroll', () => {
 
 
 
-
-
-
-
-
-
-
- 
