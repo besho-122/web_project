@@ -163,18 +163,48 @@ aside .logout svg {
   height: 18px;
   fill: #222;
 }
-.image-form-container {
+  .image-form-container {
   position: absolute;
-  width: 910px;
+  width: 57.4vw;
   height: 658px; 
   margin: 0 auto; 
   overflow: hidden;
-  left: 340px;
-  top: 70px;
+  left: 20%;
+  top: 9.4%;
   border-radius: 10px; 
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   background-color: rgba(206, 203, 203, 0.558);
 }
+@media (min-width: 1600px){
+    .image-form-container {
+  position: absolute;
+  width: 57.4vw;
+  height: 658px; 
+  margin: 0 auto; 
+  overflow: hidden;
+  left: 20%;
+  top: 11.9%;
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  background-color: rgba(206, 203, 203, 0.558);
+}
+}
+@media (min-width: 1700px){
+    .image-form-container {
+  position: absolute;
+  width: 57.4vw;
+  height: 658px; 
+  margin: 0 auto; 
+  overflow: hidden;
+  left: 20%;
+  top: 14.9%;
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  background-color: rgba(206, 203, 203, 0.558);
+}
+}
+
+
 .image-form-container img {
   height: 100%;
   width: 100%;
@@ -196,7 +226,7 @@ aside .logout svg {
   }
  h1 {
   font-weight: 600;
-  font-size: 1.8rem;
+  font-size: 2.1rem;
   width: 500px;
   margin-bottom: 0.5rem;
   margin-left: 20px;
@@ -205,18 +235,35 @@ aside .logout svg {
 .profile-form {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  max-width: 750px;
+  gap: 1vw;           
+  max-width: 48vw;
   transform: translate(-20%, -60%);
   position: absolute;
   top: 51%;
-  left: 310px;
+  left: 16.15vw;         
+}
 
-  
+#personal-info {
+  max-width: 34.44vw;  
+  margin-left: 7vw; 
+  .row{
+    min-width: 140px;
+  }
+ 
 }
-#personal-info{
-  max-width: 450px;
+@media (min-width: 1700px) {
+  #personal-info { 
+  margin-left: 5vw; 
+ 
 }
+}
+@media (min-width: 1600px) {
+  #personal-info { 
+  margin-left: 6vw; 
+ 
+}
+}
+
 .hidden{
     display: none;
 }
@@ -316,27 +363,54 @@ aside .logout svg {
 
 
 #cart-section {
-  
-  top: 395px !important;
+  top: 57.57vh !important;
   left: 21.84vw;
-    background-color: #000000;
-   border-top-right-radius: 20px;
-   border-bottom-right-radius: 20px;
-   height:658px;
+  background-color: #000000;
+  border-top-right-radius: 1.04vw;
+  border-bottom-right-radius: 1.04vw;
+  height: 95.93vh;
+  width: 400vw;
+
 }
+@media (min-width: 1600px){
+  #cart-section {
+  top: 57.57vh !important;
+  left: 19.84vw;
+  background-color: #000000;
+  border-top-right-radius: 1.04vw;
+  border-bottom-right-radius: 1.04vw;
+  height: 95.93vh;
+  width: 400vw;
+
+}
+}
+@media (min-width: 1700px){
+  #cart-section {
+  top: 57.57vh !important;
+  left: 19vw;
+  background-color: #000000;
+  border-top-right-radius: 1.04vw;
+  border-bottom-right-radius: 1.04vw;
+  height: 95.93vh;
+  width: 400vw;
+
+}
+}
+
 
 .cart-items-container {
   display: flex;
   flex-wrap: wrap;
-  width: 738px;
-  gap: 70px;
+  width: 48.44vw;
+  gap: 3.65vw;
 }
+
 
 .car-card-small {
  background-color: #000000;
  border-radius: 20px;
  border-top-right-radius: 60px;
-  width: 738px;
+  width:192.18vw;
   text-align: center;
   transition: transform 0.2s ease;
   cursor: pointer;
@@ -375,16 +449,17 @@ aside .logout svg {
 
 
 .pagination {
-   display: flex;
-   gap: 6px;
-   list-style: none;
-   padding: 0;
-   margin: 16px 0;
-   padding-left: 550px;
-   border-radius: 12px;
-   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-   z-index: 999;
+  display: flex;
+  gap: 0.31vw;
+  list-style: none;
+  padding: 0;
+  margin: 0.83vh 0;
+  padding-left: 34.65vw;
+  border-radius: 0.63vw;
+  box-shadow: 0 0.10vw 0.26vw rgba(0, 0, 0, 0.1);
+  z-index: 999;
 }
+
 .page-item .page-link {
     display: inline-block;
     font-size: 20px;
@@ -411,20 +486,65 @@ aside .logout svg {
  }
 
 #password-section{
-  width: 300px;
+  margin-left: 6vw;
+  width: 360px;
   h1{
    margin-bottom: 50px !important;
   }
   top: 270px !important;
   .row{
     margin-top: 10px;
+    margin-left: 6vw;
+    
   }
+  button{
+    margin-left: 0vw;
+    width: 30vw;
+  }
+}
+@media (min-width:1600px) {
+  #password-section{
+  margin-left: 4vw;
+  width: 500px;
+  h1{
+   margin-bottom: 50px !important;
+  }
+  top: 270px !important;
+  .row{
+    margin-top: 10px;
+    margin-left: 6vw;
+    
+  }
+  button{
+    margin-left: 0vw;
+    width: 36vw;
+  }
+}
+}
+@media (min-width:1700px) {
+   #password-section{
+  margin-left: 4vw;
+  width: 550px;
+  h1{
+   margin-bottom: 50px !important;
+  }
+  top: 270px !important;
+  .row{
+    margin-top: 10px;
+    margin-left: 6vw;
+    
+  }
+  button{
+    margin-left: 0vw;
+    width: 36vw;
+  }
+}
 }
 #settings-section {
   max-width: 900px;
   margin: 50px auto;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: 60px;
+  margin-left: 8vw;
 }
 
 #settings-section h1 {

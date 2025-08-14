@@ -117,9 +117,9 @@
         Model Series
         <div class="SeriesSelect">
             <select id="sort" class="selection selectionEdit">
-        <option>Recommended</option>
-        <option>Newest</option>
-        <option>Price (Low to High)</option>
+        <option></option>
+        <option></option>
+        <option></option>
         
       </select>
         </div>
