@@ -331,7 +331,7 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
       window.location.href = './pages/profile.php';
     } else {
       if (event) event.preventDefault();
-      window.location.href = './pages/login.html';
+      window.location.href = './pages/login.php';
     }
 
   }

@@ -195,7 +195,7 @@ foreach ($modelseries as $modelserie) {
   </div>
   <div class="underFooter">
      <p>© 2025 Porsche Sales & Marketplace GmbH General Privacy Policy. Imprint. Open Source Software Notice. Business & Human Rights. The illustrated vehicle images may contain automatically computer generated image material. The representation may differ in part from the actual appearance and/or the product substance of the vehicle.</p>
-     <a href="../index.html"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="200px"></a>
+     <a href="../index.php"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="200px"></a>
   </div>
 </footer>
 </section>

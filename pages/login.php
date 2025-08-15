@@ -11,6 +11,8 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
 <link href="../assets/css/login.css" rel="stylesheet">
 </head>
 <body>
@@ -51,7 +53,7 @@
           <span>or use your email password</span>
           <input type="email"   name="emailLogin" placeholder="Email" />
           <input type="password" name="passwordLogin" placeholder="Password" />
-          <a href="#">Forget Your Password?</a>
+          <a href="#" onclick="forgetPassword()">Forget Your Password?</a>
           <button>Sign In</button>
         </form>
       </div>
@@ -106,9 +108,50 @@
     <!-- Footer -->
     <footer class="footer">
       <p>© 2025 Porsche Middle East and Africa FZE. Legal Notice.Privacy Policy.Open Source Software Notice.Whistleblower System.</p>
-      <a href="../index.html"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="200px"></a>
+      <a href="../index.php"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="200px"></a>
     </footer>
   </section>
+
+
+
+
+
+
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+
+
+<script>
+  (function(){
+    emailjs.init({ publicKey: "ApeL9b3oz5PynbXsm" });
+  })();
+</script>
+
+
+
+
+<script>
+function forgetPassword() {
+  const email = document.querySelector('input[name="emailLogin"]')?.value.trim() || "";
+  if (!email) {
+    iziToast.error({ title: 'Error', message: 'Please enter your email address.', position: 'topRight' });
+    return;
+  }
+  passcode = Math.floor(Math.random() * 1000000);
+  sessionStorage.setItem('resetEmail', email);
+  emailjs.send("service_ohhju66","template_zaqhu6b",{
+  passcode: passcode,
+  email: email,
+});
+ sessionStorage.setItem('resetEmail', email);
+ sessionStorage.setItem('otp', passcode);
+  window.location.href = '../pages/code.php?email=' + encodeURIComponent(email);
+}
+</script>
+
+  
+</script>
 <script src="../assets/js/login.js"></script>
 </body>
 </html>

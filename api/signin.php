@@ -21,7 +21,7 @@ if (isset($_POST['emailLogin']) && isset($_POST['passwordLogin'])) {
         exit;
     } else {
         $_SESSION['isLoggedIn'] = false;
-        header("Location: ../pages/loading.php?status=error&next=" . urlencode("../pages/login.html"));
+        header("Location: ../pages/loading.php?status=error&next=" . urlencode("../pages/login.php"));
         exit;
     }
 }

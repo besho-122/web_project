@@ -23,7 +23,7 @@
     <div class="container-fluid px-5 behind">
         <button class="navbar-toggler"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
         aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-       <a href="./pages/login.html" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
+       <a href="./pages/login.php" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
       </button>
       <a class="brand" href="#">
         <img src="..//assets/photos/title.png" id="mainTitle" alt="" width="100px">
@@ -53,14 +53,14 @@
     </div>
     <h2 class="titleCar"></h2>
     <div class="Buttons">
-        <a href="../pages/products.html" style="text-decoration: none;color: white;">
+        <a href="../pages/products.php" style="text-decoration: none;color: white;">
             <button class="btnProduct firstButton">
                 Change model
             </button>
         </a>
         
         <button class="btnProduct editButton secondButton">Configure</button>
-        <a href="../pages/filter.html">
+        <a href="../pages/filter.php">
             <button class="btnProduct editButton">Find new or used</button>
         </a>
         
@@ -195,7 +195,7 @@
   </div>
   <div class="underFooter">
      <p>© 2025 Porsche Sales & Marketplace GmbH General Privacy Policy. Imprint. Open Source Software Notice. Business & Human Rights. The illustrated vehicle images may contain automatically computer generated image material. The representation may differ in part from the actual appearance and/or the product substance of the vehicle.</p>
-     <a href="../index.html"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="200px"></a>
+     <a href="../index.php"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="200px"></a>
   </div>
 </footer>
 </section>
