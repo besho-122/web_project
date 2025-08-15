@@ -236,8 +236,22 @@ animation-delay: calc(var(--position)*-1s);
     position: absolute;
     top: 275px;
     left: 250px;
+   animation: fromleft ;
+   animation-duration: 1s;
+   animation-timing-function: linear;
+
     
-}
+
+    
+  }
+   @keyframes fromleft {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
 .typeCar{
     display: flex;
     margin-top: 100px;
@@ -625,6 +639,18 @@ border-radius: 10px;
     top: 305px !important;
     left: 290px;
     width: 1150px;
+    animation: fromleft 1s ease-in-out;
+    
+
+    
+  }
+   @keyframes fromleft {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
   }
   .homePageMainSectionText h2 {
     font-size: 7vw;
@@ -632,6 +658,7 @@ border-radius: 10px;
     top: 160px;
 
 }
+
 }
 @media (min-width: 1700px) {
   .modelImage {
@@ -639,6 +666,21 @@ border-radius: 10px;
     top: 335px !important;
     left: 350px;
     width: 1200px;
+   animation: fromleft ;
+   animation-duration: 1s;
+   animation-timing-function: linear;
+
+    
+
+    
+  }
+   @keyframes fromleft {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
   }
   .homePageMainSectionText h2 {
     font-size: 7vw;
