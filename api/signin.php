@@ -12,7 +12,7 @@ if (isset($_POST['emailLogin']) && isset($_POST['passwordLogin'])) {
         $row = $result->fetch_assoc();
 
         $_SESSION['isLoggedIn'] = true;
-        $_SESSION['user_id']    = $row['id'] ?? null;
+        $_SESSION['userName']    = $row['userName'] ?? null;
         $_SESSION['role']       = $row['role'] ?? 'user';
 
         $next = ($row['role'] === 'admin') ? '../pages/dashboard.php' : '../index.php';

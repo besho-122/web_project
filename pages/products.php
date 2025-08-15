@@ -199,7 +199,24 @@ foreach ($modelseries as $modelserie) {
   </div>
 </footer>
 </section>
+ <script>
+ window.addEventListener('load', function() {
+  const savedColor = localStorage.getItem('mainColor');
+  if (savedColor) {
+    document.documentElement.style.setProperty('--main-color', savedColor);
+    colorPicker.value = savedColor; 
+  }});
+    const dark = localStorage.getItem('darkMode');
+    if (dark === 'true') {
+    document.documentElement.style.setProperty('--white-color', '#1e1e1e');
+    document.documentElement.style.setProperty('--text-color', '#ffffffff');
+    document.documentElement.style.setProperty('--gradient-color', 'linear-gradient( #222222ff,#000000,#000000)');
+    document.documentElement.style.setProperty('--back-color', '#ffffffff');
 
+    }
+    else {
+    }
+  </script>
 
 <script src="../assets/js/product.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

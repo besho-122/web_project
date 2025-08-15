@@ -618,3 +618,32 @@ border-radius: 10px;
       color: white;
       border-color: #ca0000b3;
     }
+
+    @media (min-width: 1600px) {
+  .modelImage {
+    position: absolute;
+    top: 305px !important;
+    left: 290px;
+    width: 1150px;
+  }
+  .homePageMainSectionText h2 {
+    font-size: 7vw;
+    margin-left: 290px;
+    top: 160px;
+
+}
+}
+@media (min-width: 1700px) {
+  .modelImage {
+    position: absolute;
+    top: 335px !important;
+    left: 350px;
+    width: 1200px;
+  }
+  .homePageMainSectionText h2 {
+    font-size: 7vw;
+    margin-left: 340px;
+    top: 170px;
+
+}
+}

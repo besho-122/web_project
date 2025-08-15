@@ -55,11 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const displayedCars = cartCars.slice(startIndex, endIndex);
     const carsHtml = displayedCars.map(car => `
       <div class="car-card-small">
+         <button class="btnRemoveFromCart" data-name="${car.name}" onclick="removeFromCart('${car.name}') "><i class="fa fa-times"></i></button>
         <img src="${car.image}" alt="${car.name}" />
         <h3>${car.name}</h3>
         <p>${car.description}</p>
         <a class="btnShowDetails" href="../pages/model.html" data-name="${car.name}">Show Details</a>
       </div>
+      
     `).join('');
     const totalPages = Math.ceil(cartCars.length / itemsPerPage);
     let paginationHtml = `<ul class="pagination">`;
@@ -108,22 +110,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderCart();
 });
+ function removeFromCart(name) {
+  let cartCars = JSON.parse(localStorage.getItem('cartCars')) || [];
+  cartCars = cartCars.filter(car => car.name !== name);
+  localStorage.setItem('cartCars', JSON.stringify(cartCars));
+  renderCart();
+   
+ }
 
-//Settings
-document.querySelectorAll('.toggle-button').forEach(toggle => {
-  toggle.addEventListener('click', () => {
-    toggle.classList.toggle('active');
-    if(toggle.id === 'darkModeToggle'){
-      if(toggle.classList.contains('active')){
-        document.body.style.background = '#1e1e1e';
-        document.body.style.color = '#eee';
-      } else {
-        document.body.style.background = '#f5f6fa';
-        document.body.style.color = '#222';
-      }
-    }
-  });
-});
+
 const themeColorPicker = document.getElementById('themeColorPicker');
 themeColorPicker.addEventListener('input', (e) => {
   document.documentElement.style.setProperty('--accent-color', e.target.value);
@@ -138,3 +133,8 @@ document.querySelectorAll('.nav-item-dropdown').forEach(card => {
      window.location.href = "../pages/filter.php";
   });
 });
+
+/////
+
+
+

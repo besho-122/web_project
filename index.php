@@ -21,9 +21,12 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true ? 'true' : 'false';
+$user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
+
 ?>
 <script>
     localStorage.setItem('isLoggedIn', '<?php echo $isLoggedIn; ?>');
+    localStorage.setItem('userName', '<?php echo $user_id; ?>');
 </script>
 
 </head>
@@ -222,7 +225,7 @@ $isLoggedIn = isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true
           A Porsche is as individual as its owner. It is always an expression of one's own personality.
           We help you find your personal dream vehicle from authorised Porsche Centres.
         </p>
-        <a href="./pages/products.html"> <button>Find your Car</button></a>
+        <a href="./pages/products.php" onclick="return checkLogin(event)"> <button>Find your Car</button></a>
        
       </div>
     </div>

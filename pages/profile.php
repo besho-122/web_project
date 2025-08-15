@@ -11,11 +11,158 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
   <link href="../assets/css/profile.css" rel="stylesheet">
+
     <title>Motor Yard - Profile</title>
 </head>
 <body >
-  <?php require("../api/config.php"); ?>
+
+<?php session_start();
+ require("../api/config.php"); 
+ if (!isset($_SESSION['userName'])) {
+    header("Location: ../login.php");
+    exit;
+}
+
+$currentUsername = $_SESSION['userName'];
+$user = [
+    'userName'     => '',
+    'Email'        => '',
+    'Password'     => '',
+    'FirstName'    => '',
+    'LastName'     => '',
+    'Phone'        => '',
+    'Organization' => '',
+    'Country'      => '',
+    'role'         => '',
+];
+
+
+if (isset($_POST['saveProfile'])) {
+    $firstName    = trim($_POST['firstName'] ?? '');
+    $lastName     = trim($_POST['lastName'] ?? '');
+    $username     = trim($_POST['userName'] ?? '');
+    $email        = trim($_POST['email'] ?? '');
+    $phone        = trim($_POST['phone'] ?? '');
+    $country      = trim($_POST['country'] ?? '');
+    $organization = trim($_POST['organization'] ?? '');
+
+    $stmt = $dp->prepare("
+        UPDATE Users
+           SET FirstName = ?, LastName = ?, userName = ?, Email = ?, Phone = ?, Country = ?, Organization = ?
+         WHERE userName = ?
+    ");
+    if ($stmt) {
+        $stmt->bind_param(
+            "ssssssss",
+            $firstName, $lastName, $username, $email, $phone, $country, $organization, $currentUsername
+        );
+   if ($stmt->execute()) {
+    $_SESSION['userName'] = $username;
+    $currentUsername = $username;
+    echo "
+    <script>
+         iziToast.success({
+            title: 'Success',
+            message: 'Profile updated successfully!',
+            position: 'topRight'
+        });
+    </script>
+    ";
+} else {
+    echo "  <script>
+    iziToast.error({
+            title: 'Error',
+            message: 'Error updating profile.',
+            position: 'topRight'
+        });  </script>
+    ";
+}
+$stmt->close();
+} else {
+    echo "
+    <script>
+           iziToast.warning({
+            title: 'Warning',
+            message: 'Failed to prepare statement.',
+            position: 'topRight'
+        });
+    </script>
+    ";
+}
+}
+/// pass change 
+if (isset($_POST['savePassword'])) {
+    $oldPassword = trim($_POST['oldpassword'] ?? '');
+    $newPassword = trim($_POST['newpassword'] ?? '');
+
+    $stmt = $dp->prepare("SELECT Password FROM Users WHERE userName = ?");
+    $stmt->bind_param("s", $currentUsername);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user   = $result->fetch_assoc();
+    $stmt->close();
+
+    if ($user && $user['Password'] === $oldPassword) { 
+        $stmt = $dp->prepare("UPDATE Users SET Password=? WHERE userName=?");
+        $stmt->bind_param("ss", $newPassword, $currentUsername);
+
+        if ($stmt->execute()) {
+             echo "  <script>
+    iziToast.success({
+            title: 'Success',
+            message: 'Password updated successfully.',
+            position: 'topRight'
+        });  </script>    $stmt->close();
+    ";
+          
+        } else {
+                echo "  <script>
+    iziToast.error({
+            title: 'Error',
+            message: 'Error updating password.',
+            position: 'topRight'
+        });  </script>    $stmt->close();
+    ";
+         
+            
+        }
+    } else {
+        echo "
+        <script>
+               iziToast.warning({
+                title: 'Warning',
+                message: 'Incorrect old password.',
+                position: 'topRight'
+            });
+        </script>    $stmt->close();
+        ";
+
+      
+    }
+}
+/// get item for user 
+
+  $sql = "SELECT * FROM Users WHERE userName = '" . $_SESSION['userName'] . "'";
+  $result = $dp->query($sql);
+
+  if ($result && $result->num_rows > 0) {
+      $row = $result->fetch_assoc();
+      $userName = $row['userName'];
+      $email = $row['Email'];
+      $password = $row['Password'];
+      $firstName = $row['FirstName'];
+      $lastName = $row['LastName'];
+      $phone = $row['Phone'];
+      $organization = $row['Organization'];
+      $role = $row['role'];
+      $country = $row['Country'] ?? '';
+  }
+
+  ?>
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary navProduct">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="100px"></a>
@@ -87,7 +234,7 @@
       <div class="profile-icon" aria-label="User Icon" title="User Profile">
         <i class="fa-solid fa-user fa-sm" id="logTitle" style="color: #ffffffbe;"></i>
       </div>
-      <h2>Welcome, CarFan</h2>
+      <h2>Welcome, <?php echo $userName; ?></h2>
       <nav>
         <a class="information">
           <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8v-10h-8v10zm0-18v6h8V3h-8z"/></svg>
@@ -120,45 +267,49 @@
      
    
     
-   <form id="profile-form">
+   <form id="profile-form"  method="POST">
 
   <!-- Personal Info -->
   <div id="personal-info" class="profile-form active">
     <h1 id="form-title">Your Profile Informations</h1>
     <div class="row">
       <label for="firstName">First name</label>
-      <input id="firstName" type="text" placeholder="Name" />
+      <input id="firstName" type="text" placeholder="Name" name="firstName" value="<?php echo $firstName; ?>" />
     </div>
     <div class="row">
       <label for="lastName">Last name</label>
-      <input id="lastName" type="text" placeholder="Surname" />
+      <input id="lastName" type="text" placeholder="Surname" name = "lastName" value="<?php echo $lastName; ?>" />
     </div>
     <div class="row">
       <label for="username">Username</label>
-      <input id="username" type="text" placeholder="Username" />
+      <input id="username" type="text" placeholder="Username"  name="userName" value="<?php echo $userName; ?>" />
     </div>
     <div class="row">
       <label for="email">Email</label>
-      <input id="email" type="email" placeholder="mail@example.com" />
+      <input id="email" type="email" placeholder="mail@example.com" name="email" value="<?php echo $email; ?>" />
     </div>
     <div class="row">
       <label for="phone">Phone number</label>
-      <input id="phone" type="tel" placeholder="+123 456 789" />
+      <input id="phone" type="tel" placeholder="+123 456 789" name="phone" value="<?php echo $phone; ?>"/>
     </div>
     <div class="row">
       <label for="country">Country, City</label>
-      <select id="country">
-        <option value="usa">USA, New York</option>
-        <option value="uk">UK, London</option>
-        <option value="germany">Germany, Berlin</option>
-        <option value="france">France, Paris</option>
-      </select>
+<select id="country" name="country">
+    <option value="" <?php if ($country == '') echo 'selected'; ?> disabled>-- Select a country --</option>
+    <option value="palestine" <?php if ($country == 'usa') echo 'selected'; ?>>Palestine, Nablus</option>
+    <option value="uk" <?php if ($country == 'uk') echo 'selected'; ?>>UK, London</option>
+    <option value="germany" <?php if ($country == 'germany') echo 'selected'; ?>>Germany, Berlin</option>
+    <option value="france" <?php if ($country == 'france') echo 'selected'; ?>>France, Paris</option>
+    <option value="spain" <?php if ($country == 'spain') echo 'selected'; ?>>Spain, Madrid</option>
+    <option value="italy" <?php if ($country == 'italy') echo 'selected'; ?>>Italy, Rome</option>
+
+</select>
     </div>
     <div class="row">
       <label for="organization">Organization</label>
-      <input id="organization" type="text" placeholder="Organization name" />
+      <input id="organization" type="text" placeholder="Organization name" name="organization" value="<?php echo $organization; ?>" />
     </div>
-    <button type="submit" class="buttonForm">Save</button>
+    <button type="submit" class="buttonForm" name="saveProfile">Save</button>
   </div>
 
   <!-- Cart -->
@@ -170,13 +321,13 @@
     <h1 id="form-title">Change Your Password</h1>
     <div class="row">
       <label for="oldPass">Old Password</label>
-      <input id="oldPass" type="password" placeholder="Old Password" />
+      <input id="oldPass" type="password" placeholder="Old Password" name="oldpassword" />
     </div>
     <div class="row">
       <label for="newPass">New Password</label>
-      <input id="newPass" type="password" placeholder="New Password" />
+      <input id="newPass" type="password" placeholder="New Password"  name="newpassword"/>
     </div>
-    <button type="submit" class="buttonForm">Save</button>
+    <button type="submit" class="buttonForm"  name="savePassword" >Save</button>
   </div>
 
   <!-- Settings -->
@@ -200,13 +351,9 @@
 
     <!-- Language Card -->
     <div class="setting-card">
-      <h2>Language</h2>
-      <p>Choose your preferred language</p>
-      <select>
-        <option>English</option>
-        <option>Arabic</option>
-        <option>French</option>
-      </select>
+      <h2>Reset Settings</h2>
+      <p>Reset all your settings</p>
+      <button type="button" class="reset-button" id="resetSettings">Reset</button>
     </div>
 
     <!-- Privacy Card -->
@@ -220,6 +367,108 @@
 
 </form>
 </div>
+  <script>
+
+
+const colorPicker = document.getElementById('themeColorPicker');
+colorPicker.addEventListener('input', function() {
+  const color = this.value;
+  document.documentElement.style.setProperty('--main-color', color);
+  localStorage.setItem('mainColor', color);
+});
+
+window.addEventListener('load', function() {
+  const savedColor = localStorage.getItem('mainColor');
+  if (savedColor) {
+    document.documentElement.style.setProperty('--main-color', savedColor);
+    colorPicker.value = savedColor; 
+  }
+});
+
+
+
+////////////////////////// reset button //////////
+
+document.addEventListener('DOMContentLoaded', () => {
+    const resetBtn = document.getElementById('resetSettings');
+    if (!resetBtn) return;
+
+    resetBtn.addEventListener('click', (e) => {
+      e.preventDefault(); 
+      const defaultColor = '#B80000';
+      document.documentElement.style.setProperty('--main-color', defaultColor);
+      localStorage.setItem('mainColor', defaultColor);
+      const picker = document.getElementById('themeColorPicker');
+      picker.value = defaultColor;
+      localStorage.setItem('darkMode', 'false');
+      document.body.style.background = '#f5f6fa';
+      document.body.style.color = '#222';
+      const darkToggle = document.getElementById('darkModeToggle');
+      if (darkToggle) darkToggle.classList.remove('active');
+
+      if (window.iziToast) {
+        iziToast.success({
+          title: 'Settings Reset',
+          message: 'All settings have been reset to default.',
+          position: 'topRight'
+        });
+      }
+    });
+  });
+
+//////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const darkToggle = document.getElementById('darkModeToggle');
+
+  const applyDarkMode = (isDark) => {
+    if (isDark) {
+      document.body.style.background = '#1e1e1e';
+      document.body.style.color = '#eee';
+      darkToggle.classList.add('active');
+    } else {
+      document.body.style.background = '#f5f6fa';
+      document.body.style.color = '#222';
+      darkToggle.classList.remove('active');
+    }
+  };
+  const savedMode = localStorage.getItem('darkMode');
+  if (savedMode === 'true') {
+    applyDarkMode(true);
+  } else {
+    applyDarkMode(false);
+  }
+
+  darkToggle.addEventListener('click', () => {
+    const isDark = !darkToggle.classList.contains('active');
+    localStorage.setItem('darkMode', isDark ? 'true' : 'false');
+    applyDarkMode(isDark);
+  });
+});
+</script>
     <script >
       function logout(e){
     e.preventDefault();

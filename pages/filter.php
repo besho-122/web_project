@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link href="../assets/css/filter.css" rel="stylesheet">
+
 </head>
 <body>
 <?php require("../api/config.php"); ?>
@@ -88,6 +89,7 @@
 
 
 </section>
+<div class="filterMain">
  <div class="page-container">
   <aside class="sidebar">
     <ul>
@@ -556,7 +558,7 @@
   
 
 </div>
-
+</div>
 <section>
   <!--Footer-->
 <footer class="footer">
@@ -591,12 +593,30 @@
     </div>
   </div>
   </div>
+
   <div class="underFooter">
      <p>© 2025 Porsche Sales & Marketplace GmbH General Privacy Policy. Imprint. Open Source Software Notice. Business & Human Rights. The illustrated vehicle images may contain automatically computer generated image material. The representation may differ in part from the actual appearance and/or the product substance of the vehicle.</p>
      <a href="../index.html"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="200px"></a>
   </div>
 </footer>
 </section>
+ <script>
+   window.addEventListener('load', function() {
+  const savedColor = localStorage.getItem('mainColor');
+  if (savedColor) {
+    document.documentElement.style.setProperty('--main-color', savedColor);
+    colorPicker.value = savedColor; 
+  }});
+    const dark = localStorage.getItem('darkMode');
+    if (dark === 'true') {
+    document.documentElement.style.setProperty('--black-color', '#ffffffff');
+    document.documentElement.style.setProperty('--gradient-color', 'linear-gradient( #222222ff,#000000,#000000)');
+  
+
+    }
+    else {
+    }
+  </script>
 
 
     <script src="../assets/js/filter.js"></script>

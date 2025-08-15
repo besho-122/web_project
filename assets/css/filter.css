@@ -1,5 +1,15 @@
+:root {
+  --gradient-color: linear-gradient( #eeeeee,#eeeeee,#eeeeee);
+ --black-color: black;
+--main-color: #ca0000b3;
+  
+}
+
+
+
+
 body{
-    background-image: linear-gradient( #eeeeee,#eeeeee,#eeeeee);
+    background-image:var(--gradient-color)!important;
     height:fit-content;
 }
 .navProduct{
@@ -29,7 +39,7 @@ body{
 .nav-link:hover,
 .nav-link:active,
 .nav-link.active {
-  border-bottom-color: #ca0000b3 !important;
+  border-bottom-color: var(--main-color) !important;
 }
 
 
@@ -70,18 +80,25 @@ input[type="search"]::-webkit-search-cancel-button {
     padding-top: 100px;
     margin-left: 70px;
     font-family: "Orbitron", sans-serif;
+    color:var(--black-color) !important;
 }
-
+.filterMain{
+    font-family: "Orbitron", sans-serif;
+    
+    display: flex;
+   
+}
 .page-container {
+ width:100%;
   display: grid;
   grid-template-columns: 380px 1fr;
   gap: 30px;
   padding: 30px;
   margin-left: 40px;
-  width: 1450px;
 }
 
 .sidebar {
+  width:100%;
   background-color: rgb(255, 255, 255);
   border-radius: 15px;
   padding: 20px;
@@ -170,6 +187,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .content-area {
+  width: 80%;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -187,6 +205,8 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .car-card {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   background: white;
   border-radius: 12px;
   overflow: hidden;
@@ -194,13 +214,15 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .pagination {
-    background-color: #ffffff !important;
+  background-color: #ffffff !important;
    display: flex;
+   justify-content: center;
+   align-items: center;
+
    gap: 6px;
    list-style: none;
    padding: 0;
-   margin: 16px 0;
-   padding-left: 400px;
+   margin: 0;
    border-radius: 12px;
    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -273,17 +295,14 @@ input[type="search"]::-webkit-search-cancel-button {
     right: 50px;
 }
 .btnProduct{
+    margin-top:10px;
     background-color: black;
-    margin-top: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
     color: white;
-    padding-left: 15px;
-    padding-right: 15PX;
     border-radius: 5px;
     transition: 0.5s;
     width: 150px;
-    margin-right: 10px;
+    height:70px;
+   
 }
 .btnProduct:hover{
    background-color: rgba(0, 0, 0, 0.808);
@@ -294,7 +313,7 @@ input[type="search"]::-webkit-search-cancel-button {
     span{
         margin-right: 10px;
     }
-    width: 120px !important;
+    width: 150px !important;
 }
 
 .sons{
@@ -355,6 +374,7 @@ width: 150px;
 }
 
 .sort-bar-two {
+  
   background: rgb(255, 255, 255);
   padding: 30px;
   padding-right: 0px !important;
@@ -659,9 +679,9 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .rating-option input[type="radio"]:checked + label {
-      background-color: #ca0000b3;
+      background-color: var(--main-color) !important;
       color: white;
-      border-color: #ca0000b3;
+      border-color: var(--main-color)!important;
 }
 
 .btnProduct2{
@@ -695,7 +715,7 @@ input[type="search"]::-webkit-search-cancel-button {
   position: absolute;
   top: -2px;
   right: -10px;
-  background: #ca0000e7;
+  background: var( --main-color) !important;
   color: white;
   border-radius: 50%;
   padding: 1px 6px;
