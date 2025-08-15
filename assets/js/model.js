@@ -175,7 +175,6 @@ window.addEventListener("DOMContentLoaded", function() {
       api.addEventListener('viewerready', function() {
         apiInstance.getMaterialList(function(err, materials) {
   if (err) return console.error(err);
-  console.log("📜 المواد الموجودة في الموديل:");
   materials.forEach(m => console.log(m.name));
 });
         console.log("Viewer is ready");
