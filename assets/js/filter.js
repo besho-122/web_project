@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  
+
   const modelName = localStorage.getItem('modelName');
   const nameEl = document.querySelector('.nameModel');
   if (nameEl && modelName) nameEl.textContent = modelName;
