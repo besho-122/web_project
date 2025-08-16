@@ -35,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Email'], $_POST['Pass
      $ok = $stmt->execute();
     $stmt->close();
 
-    $nextOnSuccess = '../pages/index.php';
-    $nextOnError   = '../pages/index.php'; 
+    $nextOnSuccess = '../index.php';
+    $nextOnError   = '../index.php'; 
 
     if ($ok) {
         header("Location: ../pages/loading.php?action=signup&status=success&next=" . rawurlencode($nextOnSuccess));

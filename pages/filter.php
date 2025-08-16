@@ -186,6 +186,7 @@
             'colorEleven', 'colorTwelve', 'colorThirteen', 'colorFourteen', 'colorFifteen'
         ];
         $i = 0;
+       
         if ($result && $result->num_rows > 0):
             while ($row = $result->fetch_assoc()):
                 $colorName = htmlspecialchars($row['Exterior']);
@@ -324,10 +325,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $name = htmlspecialchars($row['Name'] ?? '');
         $companyName = htmlspecialchars($row['CompanyName'] ?? '');
-        $imgs = [];
-        for ($i = 1; $i <= 4; $i++) {
-            $imgs[] = htmlspecialchars($row['img'.$i] ?? '');
-        }
+        $imgs = htmlspecialchars($row['img4'] ?? '');
 ?>
 <div class="car-card"
      data-condition="<?= htmlspecialchars($row['Condition'] ?? '') ?>"
@@ -342,14 +340,7 @@ if ($result->num_rows > 0) {
 >
 
     <div class="car-image">
-        <img src="<?= $imgs[0] ?>" alt="<?= $name ?>" />
-        <div class="sons">
-            <?php for($i = 1; $i < 4; $i++): ?>
-                <?php if(!empty($imgs[$i])): ?>
-                    <img src="<?= $imgs[$i] ?>" alt="">
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
+        <img src="<?= $imgs?>" alt="<?= $name ?>" />
     </div>
     <div class="car-info">
         <div class="oneCar">
@@ -364,7 +355,7 @@ if ($result->num_rows > 0) {
         </div>
         <div class="threeCar">
             <strong>Price on request</strong>
-            <button class="btnProduct details">Show Details</button>
+            <button class="btnProduct details"   onclick="window.location.href='../pages/model.php?id=<?= $row['id'] ?>'">Show Details</button>
             <button class="btnProduct two"><span><i class="fa-regular fa-bookmark fa-xl" style="color: #000000;"></i></span>Save</button>
             <strong class="motor">Motor Center Nablus</strong>
         </div>

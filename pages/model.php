@@ -18,7 +18,50 @@
   <link href="../assets/css/model.css" rel="stylesheet">
 </head>
 <body>
-    
+    <?php require("../api/config.php"); 
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+if (!$id) {
+  http_response_code(400);
+  exit('Invalid car id');
+}
+
+$sql = "SELECT * FROM Product WHERE id = ?";
+$stmt = $dp->prepare($sql);
+if (!$stmt) {
+  http_response_code(500);
+  exit('DB prepare failed: ' . $dp->error);
+}
+
+$stmt->bind_param("i", $id);
+$stmt->execute();
+
+$res = $stmt->get_result();
+$car = $res->fetch_assoc();
+
+if (!$car) {
+  http_response_code(404);
+  exit('Car not found');
+}
+$companyID = $car['CompanyId'];
+$sql = "SELECT * FROM Company WHERE id = ?";
+$stmt = $dp->prepare($sql);
+if (!$stmt) {
+  http_response_code(500);
+  exit('DB prepare failed: ' . $dp->error);
+}
+$stmt->bind_param("i", $companyID);
+$stmt->execute();
+$res = $stmt->get_result();
+$company = $res->fetch_assoc();
+$companyName = $company['Name'];
+$name=$car['Name'];
+$model=$car['Model'];
+$Img1 = $car['img1'];
+$Img2 = $car['img2'];
+$Img3 = $car['img3'];
+$Img4 = $car['img4'];
+$Img5 = $car['img5'];
+    ?>
      <nav class=" fixed-top homePageNavbar">
     <div class="container-fluid px-5 behind">
         <button class="navbar-toggler"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
@@ -40,10 +83,10 @@
     <video id="bgVideo" src="../assets/videos/modelPage/Buggati.mp4" autoplay muted loop ></video>
     <div class="homePageMainSectionText ">
       <button id="videoToggle" class="video-btn"><i class="fas fa-pause"></i></button>
-      <h2 class="fade-in-home-text">Panamera</h2>
+      <h2 class="fade-in-home-text"><?= $companyName ?></h2>
     </div>
   </section>
-<img src="../assets/photos/side.avif" 
+<img src="<?= $Img5 ?>"
      alt="" 
      class="modelImage" 
      width="1000px">
@@ -86,7 +129,7 @@
         <p>Cross Torismo</p>
         <p>Sport Torismo</p>
     </div>
-    <h2 class="titleCar"></h2>
+    <h2 class="titleCar"> <?= $name ?></h2>
     <div class="Buttons">
         <a href="../pages/products.php" style="text-decoration: none;color: white;">
             <button class="btnProduct firstButton">
@@ -125,18 +168,18 @@
 
 
         <div>
-            <img src="../assets/photos/front.avif" alt="">
+            <img src="<?= $Img4 ?>" alt="">
         </div>
         
         
     </div>
   </section>
   <section class="threePictureSection">
-    <h1>Learn more about the Panamera</h1>
-    <h1 class="nameModel">911</h1>
+    <h1>Learn more about the <?= $model ?></h1>
+    <h1 class="nameModel"><?= $model ?></h1>
     <div class="threePicture">
       <div class="firstPicture" >
-        <img class="firstPicture" src="../assets/photos/model page/threePicSection/firstpic.avif" alt="">
+        <img class="firstPicture" src="<?= $Img1 ?>" alt="">
       </div>
       <div class="secondPicture"> 
          <div class="secondPictureText">
@@ -147,11 +190,11 @@
             Range combined (WLTP): 442 km
           </p>
         </div>
-        <img  src="../assets/photos/model page/threePicSection/sec.avif" alt="">
+        <img  src="<?= $Img2 ?>" alt="">
       
       </div>
       <div class="thirdPicture">
-        <img  src="../assets/photos/model page/threePicSection/three.avif" alt="">
+        <img  src="<?= $Img3 ?>" alt="">
       </div>
     </div>
   </section>

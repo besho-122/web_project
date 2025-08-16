@@ -250,6 +250,12 @@ input[type="search"]::-webkit-search-cancel-button {
     pointer-events: none;
     opacity: 0.5;
  }
+ .car-image{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+ }
 
 .car-image img {
   width: 450px;

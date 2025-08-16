@@ -146,9 +146,8 @@ h4{
 
 /*Second section*/
 .homePageFourSection{ 
-
-margin-top: 10vh; 
- height: 200vh; 
+ margin-top: 10vh; 
+ height: fit-content; 
  width: 100%;
  color: var(--white-color);
  p{
@@ -296,3 +295,140 @@ position: relative;
       color: var(--white-color);
       border-color: var( --main-color);
     }
+
+
+:root{
+  --main-color:#ca0000b3;
+  --white-color:#fff;
+  --text:#222;
+  --muted:#666;
+  --card-bg:#fff;
+  --shadow: 0 10px 25px rgba(0,0,0,.08);
+  --radius:16px;
+}
+
+.swiper1{
+  margin-top:300px;
+  margin-bottom: 120px;
+  padding: 0 16px;
+  width: 100%;
+  height: auto;                    
+}
+
+.swiper1 .swiper-wrapper{
+  align-items: stretch;             
+}
+
+.swiper1 .swiper-slide{
+  width: clamp(280px, 32vw, 360px);
+  height: auto;
+  display: flex;
+}
+
+.model-card{
+  width: 100%;                    
+  margin: 0 auto;
+  background: var(--card-bg);
+  color: var(--text);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.img-wrap{
+  width: 100%;
+  aspect-ratio: 16 / 9;       
+  overflow: hidden; 
+}
+
+.img-wrap img{
+  width: 100%;
+  height: 60%;
+
+
+  display: block;
+}
+
+
+
+.car-title{
+  font-size: 18px;
+  font-weight: 700;
+  margin: 12px 14px 4px;
+}
+
+.car-sub{
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 14px 10px;
+  line-height: 1.4;
+}
+
+.specs{
+  list-style: none;
+  padding: 0 14px;
+  margin: 0 0 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.specs li{
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+}
+.specs li strong{ font-size: 14px; }
+
+.card-actions{
+  display: flex;
+  justify-content: center;
+  padding: 12px 14px 14px;
+  margin-top: auto; 
+}
+
+.btn{
+  border: 1px solid rgba(0,0,0,.1);
+  background: #f7f7f7;
+  color: #111;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 300px;
+}
+.btn:hover{ filter: brightness(0.97); }
+.btn-fill{
+  background: var(--back-color);
+  color: #fff;
+  border-color: transparent;
+}
+.btn-ghost{
+  background: #242424;
+}
+
+.swiper1 .swiper-button-next,
+.swiper1 .swiper-button-prev{
+  color: var(--main-color);
+}
+.swiper1 .swiper-pagination-bullet{
+
+  background: var(--main-color);
+  
+}
+.swiper1 .swiper-pagination-bullet-active{
+  opacity: 1;
+  background: var(--main-color);
+}
+
+.swiperTitle{
+  margin-top: 0px;
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 120px;
+  font-family: "Orbitron", sans-serif;
+}

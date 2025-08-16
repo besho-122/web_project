@@ -10,7 +10,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
   <link href="../assets/css/product.css" rel="stylesheet">
 </head>
 <body>
@@ -159,6 +161,57 @@ foreach ($modelseries as $modelserie) {
   </div>
 </section>
 
+ <div class="swiper swiper1">
+  <div class ="swiperTitle"><h1>Popular <span>Models</span></h1></div>
+  <div class="swiper-wrapper">
+
+  <?php
+  $sql = "SELECT * FROM `Product`";
+  $result = $dp->query($sql);
+  $products = $result->fetch_all(MYSQLI_ASSOC);
+
+  foreach ($products as $product) {
+      $imgSrc = $product['img5']; 
+      $model = $product['Model'];
+      $name=$product['Name'];
+
+      echo '
+    <div class="swiper-slide">
+      <article class="model-card" >
+      
+
+        <div class="img-wrap" >
+          <img src="' . $imgSrc . '" alt="Model A">
+        </div>
+
+        <h3 class="car-title"> ' . $name . '</h3>
+        <p class="car-sub" >
+          Fuel consumption combined: 9.7–8.9 l/100 km · CO₂ (WLTP): 201–220 g/km
+        </p>
+
+        <ul class="specs">
+          <li><strong>5.1 s</strong><span>0–100 km/h</span></li>
+          <li><strong>220 kW / 300 PS</strong><span>Power</span></li>
+          <li><strong>275 km/h</strong><span>Top speed</span></li>
+        </ul>
+
+        <div class="card-actions" >
+          <button class="btn btn-fill" onclick="window.location.href=\'../pages/model.php?id=' . $product['id'] . '\' ">Show Details</button>
+        </div>
+
+ 
+      </article>
+    </div>
+  ';
+  }
+  ?>
+
+  </div>
+
+ 
+  <div class="swiper-pagination"></div>
+</div>
+
 <section>
   <!--Footer-->
 <footer class="footer">
@@ -216,10 +269,32 @@ foreach ($modelseries as $modelserie) {
     }
     else {
     }
+
+
+ 
+
+
   </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  new Swiper('.swiper1', {
+    speed: 700,
+    parallax: true,
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    spaceBetween: 20,
+    loop: true,
+    autoplay: { delay: 2400, disableOnInteraction: false },
+    pagination: { el: '.swiper1 .swiper-pagination', clickable: true, dynamicBullets: true },
+    navigation: { nextEl: '.swiper1 .swiper-button-next', prevEl: '.swiper1 .swiper-button-prev' }
+  });
+});
+</script>
+
 
 <script src="../assets/js/product.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
