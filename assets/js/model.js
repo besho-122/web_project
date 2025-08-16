@@ -1,7 +1,6 @@
 
 
-const message = localStorage.getItem("carName");
-document.querySelector('.titleCar').innerHTML = message;
+
 
 
 

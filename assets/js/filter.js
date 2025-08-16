@@ -281,7 +281,7 @@ document.querySelector('.yearSelection').appendChild(select);
 setupCheckboxSorting('.sidebar .condition input[type="checkbox"]', 'Condition', 'Condition');
 setupSelectSorting('.sidebar .modelSeries select', 'Model', 'Model');
 document.addEventListener("DOMContentLoaded", () => {
-    setupCheckboxSorting('.sidebar .modelVarients input[type="checkbox"]', 'Company', 'data-name');
+    setupCheckboxSorting('.sidebar .modelVarients input[type="checkbox"]', 'CompanyId', 'CompanyId');
 });
 setupSelectSorting('.sidebar .modelYear select', 'Year', 'Year');
 setupCheckboxSorting('.sidebar .interiorColour input[type="checkbox"]', 'Interior', 'Interior');
@@ -365,22 +365,7 @@ function showFeedback() {
 
 
 
-document.addEventListener('click', (event) => {
-  const btn = event.target.closest('.btnProduct.details');
-  if (btn && btn.closest('.car-card')) {
-    event.preventDefault();
 
-    const card = btn.closest('.car-card');
-    const modelNameElem = card.querySelector('h2');
-    if (!modelNameElem) return;
-
-    const modelName = modelNameElem.textContent.trim();
-    console.log('Show Details clicked:', modelName);
-
-    localStorage.setItem('carName', modelName);
-    window.location.href = "../pages/model.html";
-  }
-});
 
 
 document.addEventListener("DOMContentLoaded", () => {
