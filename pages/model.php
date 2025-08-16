@@ -43,7 +43,42 @@
       <h2 class="fade-in-home-text">Panamera</h2>
     </div>
   </section>
-  <img src="../assets/photos/side.avif" alt="" class="modelImage" width="1000px">
+<img src="../assets/photos/side.avif" 
+     alt="" 
+     class="modelImage" 
+     width="1000px">
+
+<style>
+@media (min-width: 1600px) {
+  .modelImage {
+    position: absolute;
+    top: 305px !important;
+    left: 290px;
+    width: 1150px;
+  }
+  .homePageMainSectionText h2 {
+    font-size: 7vw;
+    margin-left: 290px;
+    top: 160px;
+
+}
+}
+@media (min-width: 1700px) {
+  .modelImage {
+    position: absolute;
+    top: 335px !important;
+    left: 350px;
+    width: 1200px;
+  }
+  .homePageMainSectionText h2 {
+    font-size: 7vw;
+    margin-left: 340px;
+    top: 170px;
+
+}
+}
+</style>
+
 
   <section>
     <div class="typeCar">
@@ -165,7 +200,7 @@
   <h4>Overall, how satisfied are you with the <span>information</span> available on this page?</h4>
   <button class="btnProduct" onclick="showFeedback()">Give Feedback now</button>
 
-  <div class="feedback-container" id="feedback">
+  <div class="feedback-container" id="feedback" style="height: 750px;">
     <div class="rating-scale">
       <span class="rating-label">Very dissatisfied</span>
 

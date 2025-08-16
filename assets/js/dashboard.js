@@ -240,14 +240,353 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.productShowDiscription').style.display = 'none';
     document.querySelector('.toMakeItBlur').style.filter = 'blur(0px)';
   }
+function deleteProduct(productId) {
+    if (!confirm("Are you sure you want to delete this product?")) return;
+
+    const formData = new FormData();
+    formData.append('id', productId);
+
+    fetch('../api/deleteProduct.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.text())
+    .then(data => {
+        if (data.trim() === 'success') {
+            alert('Product deleted successfully!');
+            // Remove the card from the DOM
+            const card = document.querySelector(`.productCard[data-id='${productId}']`);
+            if (card) card.remove();
+        } else {
+            alert('Delete failed: ' + data);
+            console.error(data);
+        }
+    })
+    .catch(err => console.error(err));
+}
 
 
-  function editProduct() {
-    document.querySelector('.productShow').style.display = 'block';
-    document.querySelector('.productShowDiscription').style.display = 'block';
-    document.querySelector('.toMakeItBlur').style.filter = 'blur(16px)';
+ function addProduct() {
+    const modal = document.querySelector('.productShow');
+    modal.style.display = 'block';
+    const modalContent = modal.querySelector('.productShowDiscription');
+    if (modalContent) modalContent.style.display = 'flex';
+    const blurLayer = document.querySelector('.toMakeItBlur');
+    if (blurLayer) blurLayer.style.filter = 'blur(16px)';
 
-  }
+    const form = document.getElementById('productForm');
+    form.action = "../api/addProduct.php"; 
+    form.reset(); 
+    const hiddenId = form.querySelector('input[name="id"]');
+    if (hiddenId) hiddenId.remove();
+    const heading = modal.querySelector('.productShowDiscriptionInner h1');
+    if (heading) heading.textContent = "Add Product";
+    const submitBtn = modal.querySelector('.btnProductShowDiscriptionInnerList');
+    if (submitBtn) submitBtn.textContent = "Add";
+    for (let i = 1; i <= 5; i++) {
+        const input = form.querySelector(`[name="img${i}"]`);
+        if (!input) continue;
+        const label = input.parentElement;
+        const span = label.querySelector('span');
+        if (span) span.style.display = 'block';
+        const preview = label.querySelector(`#imgPreview${i}`);
+        if (preview) preview.remove();
+    }
+
+    ['Condition','MileAge','Exterior','Interior','CompanyId','Model'].forEach(name => {
+        const sel = form.querySelector(`[name="${name}"]`);
+        if (sel) sel.selectedIndex = 0;
+    });
+}
+
+function editProduct(productId) {
+    const modal = document.getElementById('productModal');
+    if (!modal) return;
+    modal.style.display = 'block';
+    const modalContent = modal.querySelector('.productShowDiscription');
+    if (modalContent) modalContent.style.display = 'flex';
+    const blurLayer = document.querySelector('.toMakeItBlur');
+    if (blurLayer) blurLayer.style.filter = 'blur(16px)';
+    const card = document.querySelector(`.productCard[data-id='${productId}']`);
+    if (!card) return;
+    ['Name', 'Price', 'Year'].forEach(name => {
+        const input = document.querySelector(`[name="${name}"]`);
+        if (input) input.value = card.dataset[name.toLowerCase()] || card.dataset[name] || '';
+    });
+    ['Condition', 'MileAge', 'Exterior', 'Interior'].forEach(name => {
+        const select = document.querySelector(`[name="${name}"]`);
+        if (select) {
+            const value = card.dataset[name.toLowerCase()] || card.dataset[name] || '';
+            if (value) select.value = value;
+        }
+    });
+    const companySelect = document.querySelector('[name="CompanyId"]');
+    if (companySelect) {
+        const companyValue = card.dataset.company || '';
+        companySelect.value = companyValue;
+        const event = new Event('change');
+        companySelect.dispatchEvent(event);
+    }
+    const modelSelect = document.querySelector('[name="Model"]');
+    if (modelSelect) {
+        const modelValue = card.dataset.model || '';
+        const optionExists = Array.from(modelSelect.options).some(opt => opt.value == modelValue.toLowerCase().replace(/\s+/g, '-'));
+        if (optionExists) {
+            modelSelect.value = modelValue.toLowerCase().replace(/\s+/g, '-');
+        } else if (modelValue) {
+            const newOption = document.createElement('option');
+            newOption.value = modelValue.toLowerCase().replace(/\s+/g, '-');
+            newOption.textContent = modelValue;
+            newOption.selected = true;
+            modelSelect.appendChild(newOption);
+        }
+    }
+
+    ['img1','img2','img3','img4','img5'].forEach((imgName, index) => {
+        const input = document.querySelector(`[name="${imgName}"]`);
+        if (!input) return;
+        const label = input.parentElement;
+        const span = label.querySelector('span');
+        if (span) span.style.display = 'none';
+        let preview = label.querySelector(`#imgPreview${index+1}`);
+        if (!preview) {
+            preview = document.createElement('img');
+            preview.id = `imgPreview${index+1}`;
+            preview.classList.add('preview');
+            preview.style.width = (imgName === 'img1' || imgName === 'img5') ? '100%' : '120px';
+            preview.style.height = (imgName === 'img1' || imgName === 'img5') ? '100%' : '90px';
+            preview.style.objectFit = 'cover';
+            preview.style.borderRadius = '8px';
+            label.appendChild(preview);
+        }
+        preview.src = card.dataset[imgName] || '';
+    });
+    const heading = modal.querySelector('.productShowDiscriptionInner h1');
+    if (heading) heading.textContent = "Edit Product";
+    const submitBtn = modal.querySelector('.btnProductShowDiscriptionInnerList');
+    if (submitBtn) submitBtn.textContent = "Update";
+    const form = document.getElementById('productForm');
+    if (form) form.action = "../api/updateProduct.php";
+    let hiddenId = form.querySelector('input[name="id"]');
+    if (!hiddenId) {
+        hiddenId = document.createElement('input');
+        hiddenId.type = 'hidden';
+        hiddenId.name = 'id';
+        form.appendChild(hiddenId);
+    }
+    hiddenId.value = productId;
+    form.onsubmit = function(e) {
+        e.preventDefault(); 
+        const formData = new FormData(form);
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.text())
+        .then(data => {
+            if (data.trim() === 'success') {
+                alert('Product updated successfully!');
+                closeProduct();
+                card.dataset.name = formData.get('Name');
+                card.dataset.price = formData.get('Price');
+                card.dataset.year = formData.get('Year');
+                card.dataset.condition = formData.get('Condition');
+                card.dataset.mileage = formData.get('MileAge');
+                card.dataset.exterior = formData.get('Exterior');
+                card.dataset.interior = formData.get('Interior');
+                card.dataset.company = formData.get('CompanyId');
+                card.dataset.model = formData.get('Model');
+                ['img1','img2','img3','img4','img5'].forEach(img => {
+                    if (formData.get(img)) card.dataset[img] = card.dataset[img]; 
+                });
+            } else {
+                alert('Update failed: ' + data);
+                console.error(data);
+            }
+        })
+        .catch(err => console.error(err));
+    };
+}
+
+
+
+
+ //select year
+  document.addEventListener("DOMContentLoaded", () => {
+    const select = document.createElement('select');
+    select.className = 'years-select';
+    select.classList.add('selection');
+
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select Year';
+    select.appendChild(defaultOption);
+
+    for (let year = 2000; year <= 2025; year++) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        select.appendChild(option);
+    }
+
+    const container = document.querySelector('.yearSelection');
+    if(container) container.appendChild(select);
+});
+
+
+
+
+
+function showImage(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const label = input.parentElement; // the label element
+            const span = label.querySelector("span");
+
+            // Hide the "+ Choose" text
+            if (span) {
+                span.style.display = "none";
+            }
+
+            // Check if preview already exists
+            let preview = label.querySelector("img.preview");
+            if (!preview) {
+                preview = document.createElement("img");
+                preview.classList.add("preview");
+
+                // Style the image
+                preview.style.width = "100%";
+                preview.style.height = "100%";
+                preview.style.objectFit = "cover";
+                preview.style.borderRadius = "8px";
+
+                // Add the preview inside the label
+                label.appendChild(preview);
+            }
+
+            // Set the image source
+            preview.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+function showProductForm(product = null) {
+    const container = document.getElementById("productShowContainer");
+
+    // Create unique form id (important when editing multiple products)
+    const formId = product ? `productForm_${product.id}` : "productForm_new";
+
+    // Build HTML dynamically
+    container.innerHTML = `
+    <div class="productShow">
+      <div class="productShowDiscription">
+        <button type="button" class="closeProduct" onclick="closeProduct()">X</button>
+        <div class="productShowDiscriptionList">
+
+          <!-- Hidden form -->
+          <form id="${formId}" action="${product ? "../api/updateProduct.php" : "../api/addProduct.php"}" method="POST" enctype="multipart/form-data" style="display:none;"></form>
+
+          <div class="productShowContainer">
+
+            <div class="productShowImages">
+              <label class="uploadBox">
+                <input type="file" name="img1" form="${formId}" accept="image/*" onchange="showImage(this)" hidden>
+                <span>+ Choose Image</span>
+              </label>
+
+              <div class="productShowImagesthree">
+                ${[2,3,4].map(i => `
+                  <label class="uploadBoxSmall">
+                    <input type="file" name="img${i}" form="${formId}" accept="image/*" onchange="showImage(this)" hidden>
+                    <span>+ Choose</span>
+                  </label>
+                `).join("")}
+              </div>
+
+              <label class="uploadBox2">
+                <input type="file" name="img5" form="${formId}" accept="image/*" onchange="showImage(this)" hidden>
+                <span>+ Choose Image</span>
+              </label>
+            </div>
+
+            <div class="productShowDiscriptionInner">
+              <h1>Product Name</h1>
+              <input type="text" name="Name" form="${formId}" placeholder="Product Name" value="${product ? product.Name : ''}">
+
+              <div class="fatherFilter">
+                <h1>Condition</h1>
+                <select name="Condition" form="${formId}" class="selection">
+                  <option value="" disabled ${!product ? 'selected' : ''}>Condition</option>
+                  <option value="new" ${product?.Condition === "new" ? "selected" : ""}>New</option>
+                  <option value="used" ${product?.Condition === "used" ? "selected" : ""}>Used</option>
+                  <option value="preowned" ${product?.Condition === "preowned" ? "selected" : ""}>Pre-Owned</option>
+                </select>
+
+                <h1>Price</h1>
+                <input type="text" name="Price" form="${formId}" placeholder="Product Price" value="${product ? product.Price : ''}">
+
+                <h1>Year</h1>
+                <input type="text" name="Year" form="${formId}" placeholder="Year" value="${product ? product.Year : ''}">
+              </div>
+
+              <div class="fatherFilter2">
+                <h1>Mileage</h1>
+                <select name="MileAge" form="${formId}" class="selection">
+                  <option value="" disabled ${!product ? 'selected' : ''}>Max. mileage</option>
+                  <option value="5000" ${product?.MileAge == "5000" ? "selected" : ""}>5000</option>
+                  <option value="10000" ${product?.MileAge == "10000" ? "selected" : ""}>10000</option>
+                  <option value="20000" ${product?.MileAge == "20000" ? "selected" : ""}>20000</option>
+                </select>
+              </div>
+
+              <div class="fatherFilter2">
+                <h1>Exterior</h1>
+                <select name="Exterior" form="${formId}" class="selection">
+                  <option value="" disabled ${!product ? 'selected' : ''}>Exterior Color</option>
+                  ${["black","white","silver","crayon","grey","blue","red","yellow","brown","green","violet","gold","orange","pink","beige"]
+                    .map(c => `<option value="${c}" ${product?.Exterior === c ? "selected" : ""}>${c}</option>`).join("")}
+                </select>
+
+                <h1>Interior</h1>
+                <select name="Interior" form="${formId}" class="selection">
+                  <option value="" disabled ${!product ? 'selected' : ''}>Interior Color</option>
+                  ${["black","beige","brown","grey","blue","red","purple","green","white"]
+                    .map(c => `<option value="${c}" ${product?.Interior === c ? "selected" : ""}>${c}</option>`).join("")}
+                </select>
+              </div>
+
+              <div class="fatherFilter3">
+                <h1>Company</h1>
+                <select name="CompanyId" id="companySelect" form="${formId}" class="selection">
+                  <option value="" disabled ${!product ? 'selected' : ''}>Select Company</option>
+                  <option value="74" ${product?.CompanyId == 74 ? "selected" : ""}>Toyota</option>
+                  <option value="73" ${product?.CompanyId == 73 ? "selected" : ""}>Ford</option>
+                  <option value="75" ${product?.CompanyId == 75 ? "selected" : ""}>BMW</option>
+                </select>
+
+                <h1>Model</h1>
+                <select name="Model" id="modelSelect" form="${formId}" class="selection">
+                  <option value="" disabled ${!product ? 'selected' : ''}>Select Model</option>
+                  ${product ? `<option selected>${product.Model}</option>` : ""}
+                </select>
+              </div>
+
+              <button type="submit" form="${formId}" class="btnProductShowDiscriptionInnerList">
+                ${product ? "Update" : "Add"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+}
+
+
+  
 
 
   //////show company////////////
@@ -306,13 +645,11 @@ document.addEventListener('click', function (e) {
     function addCompany() {
     document.querySelector('.addCompany').style.display = 'block';
     document.querySelector('.toMakeItBlur').style.filter = 'blur(16px)';
- 
   }
 
     function closeAddCompany() {
     document.querySelector('.addCompany').style.display = 'none';
     document.querySelector('.toMakeItBlur').style.filter = 'blur(0px)';
-
   }
 
 

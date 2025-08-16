@@ -126,108 +126,107 @@ $values_js = implode(",", $values);
       </div>
     </section>
 
-    <section id="products" class="products">
-      <h1 class="pagetitles">Products</h1>
-      <div class="productsList">
+  <section id="products" class="products">
+    <h1 class="pagetitles">Products</h1>
+
+    <div class="productsList">
+        <!-- Search & Add -->
         <div class="productSearch">
-          <input type="text" placeholder="Search for a product">
-          <button class="btnProduct">Search</button>
-        </div>
-        <div class="productCards">
-          <!--Product Card-->
-          <div class="productCard">
-            <div class="productCardInfo">
-              <img src="../assets/photos/side.avif" alt="Card image">
-              <div class="productCardDiscription">
-                <h1 class="productName"> Panamera GT 911</h1>
-                <ul>
-                  <li>Product price</li>
-                  <li>Product description</li>
-                  <li>Product category</li>
-                </ul>
-              </div>
-            </div>
-            <div class="productCardText">
-              <button class="btnProductCardEdit" onclick="editProduct()">Edit</button>
-              <button class="btnProductCardDelete">Delete</button>
-            </div>
-          </div>
-          <!--Product Card-->
-          <div class="productCard">
-            <div class="productCardInfo">
-              <img src="../assets/photos/side.avif" alt="Card image">
-              <div class="productCardDiscription">
-                <h1 class="productName">Panamera GT 911</h1>
-                <ul>
-                  <li>Product price</li>
-                  <li>Product description</li>
-                  <li>Product category</li>
-                </ul>
-              </div>
-            </div>
-            <div class="productCardText">
-              <button class="btnProductCardEdit" onclick="editProduct()">Edit</button>
-              <button class="btnProductCardDelete">Delete</button>
-            </div>
-          </div>
-             <!--Product Card-->
-          <div class="productCard">
-            <div class="productCardInfo">
-              <img src="../assets/photos/side.avif" alt="Card image">
-              <div class="productCardDiscription">
-                <h1 class="productName">Panamera GT 911</h1>
-                <ul>
-                  <li>Product price</li>
-                  <li>Product description</li>
-                  <li>Product category</li>
-                </ul>
-              </div>
-            </div>
-            <div class="productCardText">
-              <button class="btnProductCardEdit" onclick="editProduct()">Edit</button>
-              <button class="btnProductCardDelete">Delete</button>
-            </div>
-          </div>
-             <!--Product Card-->
-          <div class="productCard">
-            <div class="productCardInfo">
-              <img src="../assets/photos/side.avif" alt="Card image">
-              <div class="productCardDiscription">
-                <h1 class="productName">Panamera GT 911</h1>
-                <ul>
-                  <li>Product price</li>
-                  <li>Product description</li>
-                  <li>Product category</li>
-                </ul>
-              </div>
-            </div>
-            <div class="productCardText">
-              <button class="btnProductCardEdit" onclick="editProduct()">Edit</button>
-              <button class="btnProductCardDelete">Delete</button>
-            </div>
-          </div>
-          <!--Product Card-->
-          <div class="productCard">
-            <div class="productCardInfo">
-              <img src="../assets/photos/side.avif" alt="Card image">
-              <div class="productCardDiscription">
-                <h1 class="productName">Panamera GT 911</h1>
-                <ul>
-                  <li>Product price</li>
-                  <li>Product description</li>
-                  <li>Product category</li>
-                </ul>
-              </div>
-            </div>
-            <div class="productCardText">
-              <button class="btnProductCardEdit" onclick="editProduct()">Edit</button>
-              <button class="btnProductCardDelete">Delete</button>
-            </div>
-          </div>
+            <input type="text" id="searchInput" placeholder="Search for a product">
+            <button class="btnProduct" onclick="searchProduct()">Search</button>
+            <button class="btncomponies2" onclick="addProduct()">Add</button>
         </div>
 
-      </div>
-    </section>
+        <!-- Products cards -->
+       <div class="productCards">
+<?php
+$sql = "SELECT * FROM Product";
+$result = $dp->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $id        = $row['id'] ?? '';
+        $name      = htmlspecialchars($row['Name'] ?? '');
+        $price     = htmlspecialchars($row['Price'] ?? '');
+        $year      = htmlspecialchars($row['Year'] ?? '');
+        $condition = htmlspecialchars($row['Condition'] ?? '');
+        $mileage   = htmlspecialchars($row['MileAge'] ?? '');
+        $exterior  = htmlspecialchars($row['Exterior'] ?? '');
+        $interior  = htmlspecialchars($row['Interior'] ?? '');
+        $company   = htmlspecialchars($row['CompanyId'] ?? '');
+        $model     = htmlspecialchars($row['Model'] ?? '');
+        $img1      = htmlspecialchars($row['img1'] ?? '');
+        $img2      = htmlspecialchars($row['img2'] ?? '');
+        $img3      = htmlspecialchars($row['img3'] ?? '');
+        $img4      = htmlspecialchars($row['img4'] ?? '');
+        $img5      = htmlspecialchars($row['img5'] ?? '');
+
+        echo '
+        <div class="productCard" 
+             data-id="' . $id . '" 
+             data-name="' . $name . '" 
+             data-price="' . $price . '" 
+             data-year="' . $year . '" 
+             data-condition="' . $condition . '" 
+             data-mileage="' . $mileage . '" 
+             data-exterior="' . $exterior . '" 
+             data-interior="' . $interior . '" 
+             data-company="' . $company . '" 
+             data-model="' . $model . '" 
+             data-img1="' . $img1 . '"
+             data-img2="' . $img2 . '"
+             data-img3="' . $img3 . '"
+             data-img4="' . $img4 . '"
+             data-img5="' . $img5 . '">
+             
+            <div class="productCardInfo">
+                <img src="' . $img1 . '" alt="Product Image">
+                <div class="productCardDiscription">
+                    <h1 class="productName">' . $name . '</h1>
+                    <ul>
+                        <li>Price: ' . $price . ' NIS</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="productCardText">
+                <button class="btnProductCardEdit" type="button" onclick="editProduct(' . $id . ')">Edit</button>
+                <button class="btnProductCardDelete" type="button" onclick="deleteProduct(' . $id . ')">Delete</button>
+            </div>
+        </div>
+        ';
+    }
+} else {
+    echo "<p>No products found.</p>";
+}
+?>
+</div>
+
+    </div>
+</section>
+
+
+
+
+<script>
+function addProduct() {
+    window.location.href = "addProductForm.php"; 
+}
+
+
+
+const searchInput = document.getElementById('searchInput');
+const cards = document.querySelectorAll('.productCard');
+
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    cards.forEach(card => {
+        const name = card.querySelector('.productName').textContent.toLowerCase();
+        card.style.display = name.includes(searchTerm) ? "" : "none";
+    });
+});
+
+
+</script>
 
     <section id="companies" class="companies">
       <h1 class="pagetitles">Companies</h1>
@@ -385,41 +384,175 @@ endif;
 
 
 
-  <div class="productShow">
-    <div class="productShowDiscription">
-     <button class="closeProduct" onclick="closeProduct()">X</button>
-     <div class="productShowDiscriptionList">
+<div class="productShow" id="productModal" style="display:none;">
+  <div class="productShowDiscription">
+    <button type="button" class="closeProduct" onclick="closeProduct()">X</button>
+    <div class="productShowDiscriptionList">
       <h1>Product Name</h1>
       <div class="productShowContainer">
 
-      <div class="productShowImages">
-        <img src="../assets/photos/discover1.jpeg" alt="Product Image">
-        <div class="productShowImagesthree ">
-        <img src="../assets/photos/discover2.jpg" alt="Product Image">
-        <img src="../assets/photos/discover2.jpg" alt="Product Image">
-        <img src="../assets/photos/discover3.jpg" alt="Product Image">
+        <!-- Hidden form that won’t affect layout -->
+        <form id="productForm" action="../api/addProduct.php" method="POST" enctype="multipart/form-data" style="display:none;"></form>
+
+        <div class="productShowImages">
+          <label class="uploadBox">
+            <input type="file" name="img1" form="productForm" accept="image/*" onchange="showImage(this)" hidden>
+            <span>+ Choose Image</span>
+          </label>
+          <div class="productShowImagesthree">
+            <label class="uploadBoxSmall">
+              <input type="file" name="img2" form="productForm" accept="image/*" onchange="showImage(this)" hidden>
+              <span>+ Choose</span>
+            </label>
+            <label class="uploadBoxSmall">
+              <input type="file" name="img3" form="productForm" accept="image/*" onchange="showImage(this)" hidden>
+              <span>+ Choose</span>
+            </label>
+            <label class="uploadBoxSmall">
+              <input type="file" name="img4" form="productForm" accept="image/*" onchange="showImage(this)" hidden>
+              <span>+ Choose</span>
+            </label>
+          </div>
+          <div>
+             <label class="uploadBox2">
+               <input type="file" name="img5" form="productForm"  accept="image/*" onchange="showImage(this)" hidden>
+           <span>+ Choose Image</span> </label>
+           </div>
         </div>
-      </div>
-      <div class="productShowDiscriptionInner">
-        <h1>Product Name</h1>
-        <input type="text" placeholder="Product Name">
-        <h1>Product Price</h1>
-        <input type="text" placeholder="Product Price">
-        <h1>Product Category</h1>
-        <input type="text" placeholder="Product Category">
-        <button class="btnProductShowDiscriptionInnerList">Update</button>
-        <button class="btnProductShowDiscriptionInnerList">Delete</button>
-      </div>
-      </div>
-     </div>
 
-    
+        <div class="productShowDiscriptionInner">
+          <h1>Product Name</h1>
+          <input type="text" name="Name" form="productForm" placeholder="Product Name">
 
+          <div class="fatherFilter">
+            <h1>Condition</h1>
+            <select name="Condition" form="productForm"  class="selection">
+              <option value="" disabled selected>Condition</option>
+              <option value="new">New</option>
+              <option value="used">Used</option>
+              <option value="preowned">Pre-Owned</option>
+            </select>
+
+            <h1>Price</h1>
+            <input type="text" name="Price" form="productForm" placeholder="Product Price">
+
+            <h1>Year</h1>
+            <input type="text" name="Year" form="productForm" placeholder="Year">
+          </div>
+
+          <div class="fatherFilter2">
+
+            <h1> MileAge</h1> 
+            <select name="MileAge" form="productForm"  class="selection">
+               <option value="" disabled selected>Max. mileage</option>
+                <option value="5000">5000</option> <option value="10000">10000</option>
+                 <option value="20000">20000</option>
+                 </select>
+          </div>
+
+          <div class="fatherFilter2">
+            <h1>Exterior</h1>
+            <select name="Exterior" form="productForm" id="ExteriorSelect" class="selection">
+              <option value="" disabled selected>Exterior Color</option>
+              <option value="black">Black</option>
+              <option value="white">White</option>
+              <option value="silver">Silver</option>
+              <option value="crayon">Crayon</option>
+              <option value="grey">Grey</option>
+              <option value="blue">Blue</option>
+              <option value="red">Red</option>
+              <option value="yellow">Yellow</option>
+              <option value="brown">Brown</option>
+              <option value="green">Green</option>
+              <option value="violet">Violet</option>
+              <option value="gold">Gold</option>
+              <option value="orange">Orange</option>
+              <option value="pink">Pink</option>
+              <option value="beige">Beige</option>
+            </select>
+
+            <h1>Interior</h1>
+            <select name="Interior" form="productForm" id="interiorSelect" class="selection">
+              <option value="" disabled selected>Interior Color</option>
+              <option value="black">Black</option>
+              <option value="beige">Beige</option>
+              <option value="brown">Brown</option>
+              <option value="grey">Grey</option>
+              <option value="blue">Blue</option>
+              <option value="red">Red</option>
+              <option value="purple">Purple</option>
+              <option value="green">Green</option>
+              <option value="white">White</option>
+            </select>
+          </div>
+
+          <div class="fatherFilter3">
+            <h1>Company</h1>
+<select name="CompanyId" form="productForm" id="companySelect" class="selection">
+  <option value="" disabled selected>Select Company</option>
+  <option value="74">Toyota</option>
+  <option value="73">Ford</option>
+  <option value="75">BMW</option>
+</select>
+
+<h1>Model</h1>
+<select name="Model" form="productForm" id="modelSelect" class="selection">
+  <option value="" disabled selected>Select Model</option>
+</select>
+
+
+          </div>
+
+          <button type="submit" form="productForm" class="btnProductShowDiscriptionInnerList">Add</button>
+        </div>
+
+      </div>
     </div>
-
-    </div>
-   
   </div>
+</div>
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const carModels = {
+        toyota: ["Corolla", "Camry", "RAV4"],
+        ford: ["Mustang", "Focus", "F-150"],
+        bmw: ["X5", "X3", "3 Series"]
+    };
+
+    const companyMap = {
+        "74": "toyota",
+        "73": "ford",
+        "75": "bmw"
+    };
+
+    const companySelect = document.getElementById("companySelect");
+    const modelSelect = document.getElementById("modelSelect");
+
+    companySelect.addEventListener("change", function () {
+        modelSelect.innerHTML = '<option value="" disabled selected>Select Model</option>';
+        const selectedCompanyId = this.value;
+        const selectedCompany = companyMap[selectedCompanyId];
+
+        if (selectedCompany && carModels[selectedCompany]) {
+            carModels[selectedCompany].forEach(model => {
+                const option = document.createElement("option");
+                option.value = model.toLowerCase().replace(/\s+/g, '-');
+                option.textContent = model;
+                modelSelect.appendChild(option);
+            });
+        }
+    });
+});
+</script>
+
+<!--Update Product-->
+
+
 
 
  <div class="companyShow">
@@ -495,6 +628,9 @@ endif;
         </div>
        </div>
     </div>
+
+
+    
 
 
   <
