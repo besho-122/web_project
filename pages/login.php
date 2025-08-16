@@ -16,26 +16,87 @@
 <link href="../assets/css/login.css" rel="stylesheet">
 </head>
 <body>
+  <?php  
+
+$DB_HOST = 'trolley.proxy.rlwy.net:56657';   
+$DB_PORT = 3306;                  
+$DB_NAME = 'webproject';              
+$DB_USER = 'root';
+$DB_PASS = 'NEtoTHvxITFQeGQLDaBHMwDsSfFcwfFy';
+$dp = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME, $DB_PORT);
+function redirect($to){ header('Location: ' . $to); exit; }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Email'], $_POST['Password'], $_POST['UserName'])) {
+    $userName = $_POST['UserName'];
+    $email = $_POST['Email'];
+    $password = $_POST['Password'];
+
+    $stmt = $dp->prepare("INSERT INTO Users (userName, Email, Password) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $userName, $email, $password);
+     $ok = $stmt->execute();
+    $stmt->close();
+
+    $nextOnSuccess = '../pages/index.php';
+    $nextOnError   = '../pages/index.php'; 
+
+    if ($ok) {
+        header("Location: ../pages/loading.php?action=signup&status=success&next=" . rawurlencode($nextOnSuccess));
+        exit;
+    } else {
+        header("Location: ../pages/loading.php?action=signup&status=error&next=" . rawurlencode($nextOnError));
+        exit;
+    }
+}
+
+
+?>
+
     <div class="container" id="container">
       <div class="form-container sign-up">
-        <form id="signUpForm" action="../api/signup.php" method="post">
-          <h1 class="headCeate">Create Account</h1>
-          <div class="social-icons">
-            <a href="javascript:void(0)" id="googleBtn" class="icon" type="button"
-              ><i class="fa-brands fa-google-plus-g"></i
-            ></a>
-            <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
-            <a href="#" class="icon"
-              ><i class="fa-brands fa-linkedin-in"></i
-            ></a>
-          </div>
-          <span>or use your email for registeration</span>
-          <input type="text" name="nameCreate" placeholder="Name" />
-          <input type="email" name="emailCreate" placeholder="Email" />
-          <input type="password" name="passwordCreate" placeholder="Password" />
-          <button>Sign Up</button>
-        </form>
+             
+ <form id="signUpForm" method="post">
+    <h1 class="headCeate">Create Account</h1>
+    <div class="social-icons">
+        <a href="javascript:void(0)" id="googleBtn" class="icon" type="button">
+            <i class="fa-brands fa-google-plus-g"></i>
+        </a>
+        <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+        <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
+    <span>or use your email for registration</span>
+    <input type="text" name="nameCreate" placeholder="Name" />
+    <input type="email" name="emailCreate" placeholder="Email" />
+    <input type="password" name="passwordCreate" placeholder="Password" />
+    <button type="submit">Sign Up</button>
+
+    <!-- Hidden inputs for Google login -->
+    <div id="credentialsDiv" style="display:none;"></div>
+    <input type="hidden" name="UserName" id="nameInput">
+    <input type="hidden" name="Email" id="emailInput">
+    <input type="hidden" name="Password" id="passwordInput">
+</form>
+
+<script>
+const form = document.getElementById("signUpForm");
+const inputs = form.querySelectorAll("input[type=text], input[type=email], input[type=password]");
+const signUpBtn = form.querySelector("button[type=submit]");
+
+// افتراضي بدون action
+form.removeAttribute("action");
+
+// عند الضغط على زر Sign Up
+signUpBtn.addEventListener("click", (e) => {
+    const hasValue = Array.from(inputs).some(i => i.value.trim() !== "");
+    if (hasValue) {
+        form.setAttribute("action", "../api/signup.php");
+    } else {
+        form.removeAttribute("action");
+        e.preventDefault(); // ما يبعث الفورم إذا فاضي
+    }
+});
+</script>
+
+
       </div>
       <div class="form-container sign-in">
         <form id="signInForm" action="../api/signin.php" method="post">
@@ -168,47 +229,64 @@ function forgetPassword() {
     authDomain: "motor-yard.firebaseapp.com",
     projectId: "motor-yard",
     storageBucket: "motor-yard.firebasestorage.app",
-     messagingSenderId: "1075442899321",
-     appId: "1:1075442899321:web:300a4cbf75d0310612b7a8"
-  };
+    messagingSenderId: "1075442899321",
+    appId: "1:1075442899321:web:300a4cbf75d0310612b7a8"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-
- function sendToBackend(user) {
-  console.log("Firebase user:", user); // للتحقق من البيانات في الكونسول
-
-  fetch('../api/signup.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      userName: user.displayName || "NoName",  // تطابق عمود userName في DB
-      Email: user.email || "noemail@firebase.com",                        // تطابق عمود email في DB
-      Password: user.uid                         // تطابق عمود Password في DB
-    })
-  })
-  .then(res => res.text())
-  .then(data => {
-    console.log("PHP Response:", data);       // عرض الرد من PHP
-    alert("تم التسجيل بنجاح! سيتم تحويلك إلى صفحة تسجيل الدخول.");
-    window.location.href = "../pages/login.php";
-  })
-  .catch(err => {
-    console.error(err);
-    alert("حدث خطأ أثناء التسجيل. حاول مرة أخرى.");
-  });
+function generateRandomPassword(length = 5) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+    let pwd = "";
+    for (let i = 0; i < length; i++) {
+        pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return pwd;
 }
 
+const googleBtn = document.getElementById('googleBtn');
+
+googleBtn.addEventListener('click', async () => {
+    googleBtn.disabled = true;
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    try {
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        const randomPassword = generateRandomPassword();
+
+        // Show credentials visually
+        const div = document.getElementById('credentialsDiv');
+        div.innerHTML = `<h1>Name: </h1>
+                         <h1>Email: ${user.email}</h1>
+                         <h1>Password: ${randomPassword}</h1>`;
+        div.style.display = 'block';
+
+        // Fill hidden inputs for form submission
+        document.getElementById('nameInput').value = user.displayName || 'GoogleUser';
+        document.getElementById('emailInput').value = user.email;
+        document.getElementById('passwordInput').value = randomPassword;
+
+        // Optionally auto-submit the form
+        document.getElementById('signUpForm').submit();
+
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    } finally {
+        googleBtn.disabled = false;
+    }
+});
 
 
-    // Google login
-    document.getElementById('googleBtn').addEventListener('click', () => {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .then(result => sendToBackend(result.user))
-        .catch(console.error);
-    });
+
+
+
+
+
+
+
+
 
 </script>
 <script src="../assets/js/login.js"></script>
