@@ -374,166 +374,56 @@
       <img src="../assets/photos/arrow.webp" alt="" class="arrow" width="20px">
     </div>
     </div>
-     <div class="car-card">
-      <div class="car-image">
-        <img src="../assets/photos/discover2.jpg" alt="Porsche Taycan" />
+     <?php
+$sql = "SELECT * FROM Product"; // adjust for filtering/pagination
+$result = $dp->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $name = htmlspecialchars($row['Name'] ?? '');
+        $imgs = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $imgs[] = htmlspecialchars($row['img'.$i] ?? '');
+        }
+?>
+<div class="car-card">
+    <div class="car-image">
+        <img src="<?= $imgs[0] ?>" alt="<?= $name ?>" />
         <div class="sons">
-            <img src="../assets/photos/discover1.jpeg" alt="">
-        <img src="../assets/photos/discover3.jpg" alt="">
-        <img src="../assets/photos/discover2.webp" alt="">
+            <?php for($i = 1; $i < 4; $i++): ?>
+                <?php if(!empty($imgs[$i])): ?>
+                    <img src="<?= $imgs[$i] ?>" alt="">
+                <?php endif; ?>
+            <?php endfor; ?>
         </div>
-        
-      </div>
-      <div class="car-info">
+    </div>
+    <div class="car-info">
         <div class="oneCar">
-            <h2>2023 Porsche Panamera (MY23)</h2>
-        <p>Porsche Approved Pre-Owned</p>
+            <h2><?= $name ?></h2>
+            <p> car condition: <?= htmlspecialchars($row['Condition'] ?? '') ?></p>
         </div>
         <div class="twoCar">
-            <p>Jet Black Metallic · Black</p>
-        <p>Electric · 12,356 km · 01/2024 · 1 previous owner</p>
-        <p>No accidents · 300 kW / 408 hp · Rear-wheel-drive</p>
-        <p>Range combined (WLTP): 442 km</p>
+             <p>Exterior color: <?= htmlspecialchars($row['Exterior'] ?? '') ?></p>
+            <p>Electric · 12,356 km · <?= htmlspecialchars($row['Year'] ?? '') ?> </p>
+            <p>No accidents · 300 kW / 408 hp · Rear-wheel-drive</p>
+            <p>Range combined (WLTP): 442 km</p>
         </div>
         <div class="threeCar">
             <strong>Price on request</strong>
-        <button class="btnProduct details">Show Details</button>
-        <button class="btnProduct two"><span><i class="fa-regular fa-bookmark fa-xl" style="color: #000000;"></i></span>Save</button>
-        <strong class="motor">Motor Center Nablus</strong>
+            <button class="btnProduct details">Show Details</button>
+            <button class="btnProduct two"><span><i class="fa-regular fa-bookmark fa-xl" style="color: #000000;"></i></span>Save</button>
+            <strong class="motor">Motor Center Nablus</strong>
         </div>
-        
-        
         <p>19.6 kWh/100 km Electrical consumption combined (WLTP) 0 g/km CO2 emissions combined (WLTP)</p>
-      </div>
     </div>
- <div class="car-card">
-      <div class="car-image">
-        <img src="../assets/photos/discover2.jpg" alt="Porsche Taycan" />
-        <div class="sons">
-            <img src="../assets/photos/discover1.jpeg" alt="">
-        <img src="../assets/photos/discover3.jpg" alt="">
-        <img src="../assets/photos/discover2.webp" alt="">
-        </div>
-        
-      </div>
-      <div class="car-info">
-        <div class="oneCar">
-            <h2>2023 Porsche Panamera (MY23)</h2>
-        <p>Porsche Approved Pre-Owned</p>
-        </div>
-        <div class="twoCar">
-            <p>Jet Black Metallic · Black</p>
-        <p>Electric · 12,356 km · 01/2024 · 1 previous owner</p>
-        <p>No accidents · 300 kW / 408 hp · Rear-wheel-drive</p>
-        <p>Range combined (WLTP): 442 km</p>
-        </div>
-        <div class="threeCar">
-            <strong>Price on request</strong>
-        <button class="btnProduct details">Show Details</button>
-        <button class="btnProduct two"><span><i class="fa-regular fa-bookmark fa-xl" style="color: #000000;"></i></span>Save</button>
-        <strong class="motor">Motor Center Nablus</strong>
-        </div>
-        
-        
-        <p>19.6 kWh/100 km Electrical consumption combined (WLTP) 0 g/km CO2 emissions combined (WLTP)</p>
-      </div>
-    </div>
- <div class="car-card">
-      <div class="car-image">
-        <img src="../assets/photos/discover2.jpg" alt="Porsche Taycan" />
-        <div class="sons">
-            <img src="../assets/photos/discover1.jpeg" alt="">
-        <img src="../assets/photos/discover3.jpg" alt="">
-        <img src="../assets/photos/discover2.webp" alt="">
-        </div>
-        
-      </div>
-      <div class="car-info">
-        <div class="oneCar">
-            <h2>2023 Porsche Panamera (MY23)</h2>
-        <p>Porsche Approved Pre-Owned</p>
-        </div>
-        <div class="twoCar">
-            <p>Jet Black Metallic · Black</p>
-        <p>Electric · 12,356 km · 01/2024 · 1 previous owner</p>
-        <p>No accidents · 300 kW / 408 hp · Rear-wheel-drive</p>
-        <p>Range combined (WLTP): 442 km</p>
-        </div>
-        <div class="threeCar">
-            <strong>Price on request</strong>
-        <button class="btnProduct details">Show Details</button>
-        <button class="btnProduct two"><span><i class="fa-regular fa-bookmark fa-xl" style="color: #000000;"></i></span>Save</button>
-        <strong class="motor">Motor Center Nablus</strong>
-        </div>
-        
-        
-        <p>19.6 kWh/100 km Electrical consumption combined (WLTP) 0 g/km CO2 emissions combined (WLTP)</p>
-      </div>
-    </div>
-   <div class="car-card">
-      <div class="car-image">
-        <img src="../assets/photos/discover2.jpg" alt="Porsche Taycan" />
-        <div class="sons">
-            <img src="../assets/photos/discover1.jpeg" alt="">
-        <img src="../assets/photos/discover3.jpg" alt="">
-        <img src="../assets/photos/discover2.webp" alt="">
-        </div>
-        
-      </div>
-      <div class="car-info">
-        <div class="oneCar">
-            <h2>2023 Porsche Panamera (MY23)</h2>
-        <p>Porsche Approved Pre-Owned</p>
-        </div>
-        <div class="twoCar">
-            <p>Jet Black Metallic · Black</p>
-        <p>Electric · 12,356 km · 01/2024 · 1 previous owner</p>
-        <p>No accidents · 300 kW / 408 hp · Rear-wheel-drive</p>
-        <p>Range combined (WLTP): 442 km</p>
-        </div>
-        <div class="threeCar">
-            <strong>Price on request</strong>
-        <button class="btnProduct details">Show Details</button>
-        <button class="btnProduct two"><span><i class="fa-regular fa-bookmark fa-xl" style="color: #000000;"></i></span>Save</button>
-        <strong class="motor">Motor Center Nablus</strong>
-        </div>
-        
-        
-        <p>19.6 kWh/100 km Electrical consumption combined (WLTP) 0 g/km CO2 emissions combined (WLTP)</p>
-      </div>
-    </div>
-     <div class="car-card">
-      <div class="car-image">
-        <img src="../assets/photos/discover2.jpg" alt="Porsche Taycan" />
-        <div class="sons">
-            <img src="../assets/photos/discover1.jpeg" alt="">
-        <img src="../assets/photos/discover3.jpg" alt="">
-        <img src="../assets/photos/discover2.webp" alt="">
-        </div>
-        
-      </div>
-      <div class="car-info">
-        <div class="oneCar">
-            <h2>2023 Porsche Panamera (MY23)</h2>
-        <p>Porsche Approved Pre-Owned</p>
-        </div>
-        <div class="twoCar">
-            <p>Jet Black Metallic · Black</p>
-        <p>Electric · 12,356 km · 01/2024 · 1 previous owner</p>
-        <p>No accidents · 300 kW / 408 hp · Rear-wheel-drive</p>
-        <p>Range combined (WLTP): 442 km</p>
-        </div>
-        <div class="threeCar">
-            <strong>Price on request</strong>
-        <button class="btnProduct details">Show Details</button>
-        <button class="btnProduct two"><span><i class="fa-regular fa-bookmark fa-xl" style="color: #000000;"></i></span>Save</button>
-        <strong class="motor">Motor Center Nablus</strong>
-        </div>
-        
-        
-        <p>19.6 kWh/100 km Electrical consumption combined (WLTP) 0 g/km CO2 emissions combined (WLTP)</p>
-      </div>
-    </div>
+</div>
+<?php
+    }
+} else {
+    echo "<p>No cars found.</p>";
+}
+?>
+
 
   <ul class="pagination">
     <li class="page-item">

@@ -185,7 +185,7 @@ animation-delay: calc(var(--position)*-1s);
 
 .homePageMainSectionText h2 {
     font-size: 7vw;
-    margin-left: 270px;
+    margin-left: 280px;
     margin-top: 0px;
     position: absolute;
     top: 150px;
@@ -494,7 +494,6 @@ iframe { width: 100%; height: 80vh; border: none;  }
          padding: 10px;
          text-align: center;
           background: #111;
-          border-radius: 30px;
          }
     .color-btn {
       width: 40px; height: 40px; border-radius: 50%;
@@ -552,7 +551,6 @@ border-radius: 10px;
 /*footer*/
 
 .footer {
-    
     border-top: 1px solid #6c6c6c89;
     width: 100%;
     text-align: center;
@@ -563,9 +561,6 @@ border-radius: 10px;
    
 }
 .underFooter{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
     margin-top: 50px;
     background-color: #000000;
     height: 300px;
