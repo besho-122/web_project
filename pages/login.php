@@ -21,7 +21,7 @@
         <form id="signUpForm" action="../api/signup.php" method="post">
           <h1 class="headCeate">Create Account</h1>
           <div class="social-icons">
-            <a href="#" class="icon"
+            <a href="javascript:void(0)" id="googleBtn" class="icon" type="button"
               ><i class="fa-brands fa-google-plus-g"></i
             ></a>
             <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
@@ -148,9 +148,68 @@ function forgetPassword() {
  sessionStorage.setItem('otp', passcode);
   window.location.href = '../pages/code.php?email=' + encodeURIComponent(email);
 }
+
+// google
+  
+
+
+  
 </script>
 
   
+<!-- Firebase App + Auth SDK -->
+<!-- Firebase Classic (Compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAi0zXMAMmNo7goaD0SMoL69Y7mNoH2qjY",
+    authDomain: "motor-yard.firebaseapp.com",
+    projectId: "motor-yard",
+    storageBucket: "motor-yard.firebasestorage.app",
+     messagingSenderId: "1075442899321",
+     appId: "1:1075442899321:web:300a4cbf75d0310612b7a8"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+
+ function sendToBackend(user) {
+  console.log("Firebase user:", user); // للتحقق من البيانات في الكونسول
+
+  fetch('../api/signup.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      userName: user.displayName || "NoName",  // تطابق عمود userName في DB
+      Email: user.email || "noemail@firebase.com",                        // تطابق عمود email في DB
+      Password: user.uid                         // تطابق عمود Password في DB
+    })
+  })
+  .then(res => res.text())
+  .then(data => {
+    console.log("PHP Response:", data);       // عرض الرد من PHP
+    alert("تم التسجيل بنجاح! سيتم تحويلك إلى صفحة تسجيل الدخول.");
+    window.location.href = "../pages/login.php";
+  })
+  .catch(err => {
+    console.error(err);
+    alert("حدث خطأ أثناء التسجيل. حاول مرة أخرى.");
+  });
+}
+
+
+
+    // Google login
+    document.getElementById('googleBtn').addEventListener('click', () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(result => sendToBackend(result.user))
+        .catch(console.error);
+    });
+
 </script>
 <script src="../assets/js/login.js"></script>
 </body>

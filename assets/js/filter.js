@@ -24,6 +24,47 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+function filterCards() {
+  const cards = document.querySelectorAll('.car-card');
+
+  cards.forEach(card => {
+    let show = true;
+
+    for (const [group, values] of Object.entries(checkedGroups)) {
+      if (!values || values.length === 0) continue;
+
+      const cardValue = card.dataset[group.toLowerCase()] || '';
+
+      // Numeric filters
+      if (group === "Price" || group === "Mileage") {
+        if (Number(cardValue) > Number(values[0])) {
+          show = false;
+          break;
+        }
+      } else if (group === "Company") {
+        // CompanyId is numeric
+        if (!values.includes(cardValue)) {
+          show = false;
+          break;
+        }
+      } else {
+        // Text filters: Condition, Model, Exterior, Interior, Year
+        const matched = values.some(value =>
+          cardValue.toString().toLowerCase().includes(value.toString().toLowerCase())
+        );
+        if (!matched) {
+          show = false;
+          break;
+        }
+      }
+    }
+
+    card.style.display = show ? 'flex' : 'none';
+  });
+}
+
+
+
 //Toggle + to - 
 const items = document.querySelectorAll('.sidebar .condition');
 const itemOne = document.querySelectorAll('.checkCondition');
@@ -108,6 +149,8 @@ function setupCheckboxSorting(checkboxSelector, pText, groupName) {
       const resetBtn = document.querySelector('.resetButton');
     if (resetBtn) {
     resetBtn.style.display = totalChecked > 0 ? 'block' : 'none';
+    filterCards();
+
 }
     });
   });
@@ -158,6 +201,8 @@ function setupSelectSorting(selectSelector, pText, groupName) {
     const resetBtn = document.querySelector('.resetButton');
     if (resetBtn) {
     resetBtn.style.display = totalChecked > 0 ? 'block' : 'none';
+    filterCards();
+
 }
   });
 }
@@ -207,6 +252,8 @@ function setupInputSorting(inputSelector, pText, groupName) {
     const resetBtn = document.querySelector('.resetButton');
     if (resetBtn) {
     resetBtn.style.display = totalChecked > 0 ? 'block' : 'none';
+    filterCards();
+
 }
 
   });
@@ -232,15 +279,38 @@ document.querySelector('.yearSelection').appendChild(select);
 
 //Call sorting
 setupCheckboxSorting('.sidebar .condition input[type="checkbox"]', 'Condition', 'Condition');
-setupSelectSorting('.sidebar .modelSeries select', 'Series', 'Series');
-setupCheckboxSorting('.sidebar .modelVarients input[type="checkbox"]', 'Models', 'Models');
-setupCheckboxSorting('.sidebar .modelGeneration input[type="checkbox"]', 'Generation', 'Generation');
-setupSelectSorting('.sidebar .modelYear select', 'Model Year', 'Model Year');
-setupCheckboxSorting('.sidebar .interiorColour input[type="checkbox"]', 'In Color', 'In Color');
-setupCheckboxSorting('.sidebar .exteriorColour input[type="checkbox"]', 'Ex Color', 'Ex Color');
-setupSelectSorting('.sidebar .mileAge select', 'Mileage', 'Mileage');
-setupSelectSorting('.sidebar .previousOwner select', 'Prev. Owner', 'Prev. Owner');
-setupInputSorting('.sidebar .price input', 'Price', 'Price');
+setupSelectSorting('.sidebar .modelSeries select', 'Model', 'Model');
+document.addEventListener("DOMContentLoaded", () => {
+    setupCheckboxSorting('.sidebar .modelVarients input[type="checkbox"]', 'Company', 'data-name');
+});
+setupSelectSorting('.sidebar .modelYear select', 'Year', 'Year');
+setupCheckboxSorting('.sidebar .interiorColour input[type="checkbox"]', 'Interior', 'Interior');
+setupCheckboxSorting('.sidebar .exteriorColour input[type="checkbox"]', 'Exterior', 'Exterior');
+setupSelectSorting('.sidebar .mileAge select', 'MileAge', 'MileAge');
+
+
+// Select min and max inputs
+const minInput = document.getElementById('priceMin');
+const maxInput = document.getElementById('priceMax');
+const carCards = document.querySelectorAll('.car-card');
+
+function filterByPrice() {
+    const min = parseInt(minInput.value) || 0;
+    const max = parseInt(maxInput.value) || Infinity;
+
+    carCards.forEach(card => {
+        const price = parseInt(card.dataset.price) || 0;
+        if (price >= min && price <= max) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// Add event listeners
+minInput.addEventListener('input', filterByPrice);
+maxInput.addEventListener('input', filterByPrice);
 setupInputSorting('.sidebar .location input', 'Location', 'Location');
 
 
@@ -287,71 +357,6 @@ if (resetBtn) {
 }
 
 
-//Pagination 
-document.addEventListener('DOMContentLoaded', function () {
-  const cards = Array.from(document.querySelectorAll('.car-card'));
-  const itemsPerPage = 3;
-  const paginationUl = document.querySelector('.pagination');
-  if (!paginationUl) return;
-  const totalCards = cards.length;
-  const totalPages = Math.max(1, Math.ceil(totalCards / itemsPerPage));
-  let currentPage = 1;
-  function renderPagination() {
-    paginationUl.innerHTML = '';
-    const prevLi = document.createElement('li');
-    prevLi.className = 'page-item';
-    prevLi.innerHTML = '<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>';
-    paginationUl.appendChild(prevLi);
-    for (let i = 1; i <= totalPages; i++) {
-      const li = document.createElement('li');
-      li.className = 'page-item';
-      li.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`;
-      paginationUl.appendChild(li);
-    }
-    const nextLi = document.createElement('li');
-    nextLi.className = 'page-item';
-    nextLi.innerHTML = '<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>';
-    paginationUl.appendChild(nextLi);
-  }
-  function showPage(page) {
-    if (page < 1) page = 1;
-    if (page > totalPages) page = totalPages;
-    currentPage = page;
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    cards.forEach((card, idx) => {
-      card.style.display = (idx >= start && idx < end) ? '' : 'none';
-    });
-    paginationUl.querySelectorAll('.page-item').forEach(li => li.classList.remove('active', 'disabled'));
-    const activeLink = paginationUl.querySelector(`.page-link[data-page="${page}"]`);
-    if (activeLink) activeLink.parentElement.classList.add('active');
-    const prev = paginationUl.querySelector('.page-link[aria-label="Previous"]');
-    const next = paginationUl.querySelector('.page-link[aria-label="Next"]');
-    if (prev) {
-      if (page === 1) prev.parentElement.classList.add('disabled'); else prev.parentElement.classList.remove('disabled');
-    }
-    if (next) {
-      if (page === totalPages) next.parentElement.classList.add('disabled'); else next.parentElement.classList.remove('disabled');
-    }
-  }
-  paginationUl.addEventListener('click', (e) => {
-    const link = e.target.closest('.page-link');
-    if (!link) return;
-    e.preventDefault();
-    if (link.getAttribute('aria-label') === 'Previous') {
-      if (currentPage > 1) showPage(currentPage - 1);
-      return;
-    }
-    if (link.getAttribute('aria-label') === 'Next') {
-      if (currentPage < totalPages) showPage(currentPage + 1);
-      return;
-    }
-    const p = Number(link.dataset.page);
-    if (p) showPage(p);
-  });
-  renderPagination();
-  showPage(1);
-});
 
 //feedback
 function showFeedback() {
@@ -433,3 +438,8 @@ document.querySelectorAll('.nav-item-dropdown').forEach(card => {
      window.location.href = "../pages/filter.php";
   });
 });
+
+
+
+
+

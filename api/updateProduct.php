@@ -1,10 +1,17 @@
 <?php
+// Clean JSON response for AJAX
+header('Content-Type: application/json');
+ini_set('display_errors', 0);
+error_reporting(0);
+
 require("../api/config.php");
+
+$response = ["success" => false, "message" => "Invalid request"];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $id = (int)$_POST['id'];
 
-    // Map lowercase POST fields to uppercase DB columns
+    // Map POST fields
     $data = [
         'Name'      => $_POST['Name'] ?? '',
         'Price'     => $_POST['Price'] ?? '',
@@ -30,15 +37,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
             if ($res && $res->num_rows > 0) {
                 $row = $res->fetch_assoc();
                 if (!empty($row[$field]) && file_exists(__DIR__ . "/.." . substr($row[$field], 2))) {
-                    unlink(__DIR__ . "/.." . substr($row[$field], 2));
+                    @unlink(__DIR__ . "/.." . substr($row[$field], 2));
                 }
             }
 
             // Save new image
             $filename = time() . "_$i_" . basename($_FILES[$field]['name']);
             $filepath = $uploadDir . $filename;
-            move_uploaded_file($_FILES[$field]['tmp_name'], $filepath);
-            $images[$field] = "../assets/photos/products/" . $filename;
+            if (move_uploaded_file($_FILES[$field]['tmp_name'], $filepath)) {
+                $images[$field] = "../assets/photos/products/" . $filename;
+            }
         }
     }
 
@@ -61,13 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $sql = "UPDATE Product SET " . implode(", ", $updates) . " WHERE id='$id'";
 
     if ($dp->query($sql)) {
-        echo "success";
-        exit;
+        $response = ["success" => true];
     } else {
-        echo "db_error: " . $dp->error;
-        exit;
+        $response = ["success" => false, "message" => $dp->error];
     }
 }
 
-echo "invalid_request";
-?>
+echo json_encode($response);
+exit;

@@ -1,17 +1,22 @@
 <?php 
 require("config.php");
 
-if (isset($_POST['nameCreate'], $_POST['emailCreate'], $_POST['passwordCreate'])) {
-    $name     = $_POST['nameCreate'];
-    $email    = $_POST['emailCreate'];
-    $password = $_POST['passwordCreate'];
+// نقبل حقول الفورم العادي أو تسجيل جوجل
+if (
+    (isset($_POST['nameCreate'], $_POST['emailCreate'], $_POST['passwordCreate'])) ||
+    (isset($_POST['userName'], $_POST['Email'], $_POST['Password']))
+) {
+    // خذ القيم حسب المتوفّر
+    $name     = $_POST['nameCreate']     ?? $_POST['userName'];
+    $email    = $_POST['emailCreate']    ?? $_POST['Email'];
+    $password = $_POST['passwordCreate'] ?? $_POST['Password'];
 
-    $sql = "INSERT INTO Users (userName, email, Password) VALUES ('$name', '$email', '$password')";
+    $sql = "INSERT INTO Users (userName, Email, Password) VALUES ('$name', '$email', '$password')";
     $ok  = $dp->query($sql) === TRUE;
 
-    $nextOnSuccess = '../pages/login.html';
-    $nextOnError   = '../pages/login.html'; 
-
+    // توحيد صفحة التحويل لتتوافق مع باقي الكود
+    $nextOnSuccess = '../pages/login.php';
+    $nextOnError   = '../pages/login.php';
 
     if ($ok) {
         header("Location: ../pages/loading.php?action=signup&status=success&next=" . rawurlencode($nextOnSuccess));

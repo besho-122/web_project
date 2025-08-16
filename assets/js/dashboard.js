@@ -235,17 +235,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /////////////////////////// show product ////////////
 
-  function closeProduct() {
-    document.querySelector('.productShow').style.display = 'none';
-    document.querySelector('.productShowDiscription').style.display = 'none';
-    document.querySelector('.toMakeItBlur').style.filter = 'blur(0px)';
-  }
+ 
+// delete product
 function deleteProduct(productId) {
     if (!confirm("Are you sure you want to delete this product?")) return;
-
     const formData = new FormData();
     formData.append('id', productId);
-
     fetch('../api/deleteProduct.php', {
         method: 'POST',
         body: formData
@@ -254,9 +249,15 @@ function deleteProduct(productId) {
     .then(data => {
         if (data.trim() === 'success') {
             alert('Product deleted successfully!');
-            // Remove the card from the DOM
             const card = document.querySelector(`.productCard[data-id='${productId}']`);
             if (card) card.remove();
+            const counter = document.querySelector('.odometer-stat');
+            if (counter) {
+                let value = parseInt(counter.dataset.value) || 0;
+                value = Math.max(value - 1, 0);
+                counter.dataset.value = value;
+                counter.textContent = value; 
+            }
         } else {
             alert('Delete failed: ' + data);
             console.error(data);
@@ -266,42 +267,64 @@ function deleteProduct(productId) {
 }
 
 
- function addProduct() {
+
+//reset images
+function resetImages(form) {
+    for (let i = 1; i <= 5; i++) {
+        const input = form.querySelector(`[name="img${i}"]`);
+        if (!input) continue;
+        const label = input.parentElement;
+        const existingPreview = label.querySelector(`#imgPreview${i}`);
+        if (existingPreview) existingPreview.remove();
+        const span = label.querySelector('span');
+        if (span) span.style.display = 'block';
+        input.value = '';
+    }
+}
+
+// reset form
+function resetSelects(form) {
+    ['Condition','MileAge','Exterior','Interior','CompanyId','Model'].forEach(name => {
+        const sel = form.querySelector(`[name="${name}"]`);
+        if (sel) sel.selectedIndex = 0;
+        if (name === 'Model' && sel) while (sel.options.length > 1) sel.remove(1);
+    });
+}
+
+// add product
+function addProduct() {
+    const form = document.getElementById('productForm');
+    const form2 = document.querySelector('.productShowImages');
+    form.reset();
+    resetImages(form2);
+    resetSelects(form);
     const modal = document.querySelector('.productShow');
+    if (!modal) return;
     modal.style.display = 'block';
     const modalContent = modal.querySelector('.productShowDiscription');
     if (modalContent) modalContent.style.display = 'flex';
     const blurLayer = document.querySelector('.toMakeItBlur');
     if (blurLayer) blurLayer.style.filter = 'blur(16px)';
-
-    const form = document.getElementById('productForm');
-    form.action = "../api/addProduct.php"; 
-    form.reset(); 
+    form.action = "../api/addProduct.php";
     const hiddenId = form.querySelector('input[name="id"]');
     if (hiddenId) hiddenId.remove();
     const heading = modal.querySelector('.productShowDiscriptionInner h1');
     if (heading) heading.textContent = "Add Product";
     const submitBtn = modal.querySelector('.btnProductShowDiscriptionInnerList');
     if (submitBtn) submitBtn.textContent = "Add";
-    for (let i = 1; i <= 5; i++) {
-        const input = form.querySelector(`[name="img${i}"]`);
-        if (!input) continue;
-        const label = input.parentElement;
-        const span = label.querySelector('span');
-        if (span) span.style.display = 'block';
-        const preview = label.querySelector(`#imgPreview${i}`);
-        if (preview) preview.remove();
-    }
-
-    ['Condition','MileAge','Exterior','Interior','CompanyId','Model'].forEach(name => {
-        const sel = form.querySelector(`[name="${name}"]`);
-        if (sel) sel.selectedIndex = 0;
-    });
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        fetch(form.action, { method: 'POST', body: formData })
+            .finally(() => location.reload());
+    };
 }
 
+// edit product
 function editProduct(productId) {
-    const modal = document.getElementById('productModal');
+    const modal = document.querySelector('.productShow'); 
     if (!modal) return;
+    modal.id = 'productModal'; 
     modal.style.display = 'block';
     const modalContent = modal.querySelector('.productShowDiscription');
     if (modalContent) modalContent.style.display = 'flex';
@@ -322,10 +345,8 @@ function editProduct(productId) {
     });
     const companySelect = document.querySelector('[name="CompanyId"]');
     if (companySelect) {
-        const companyValue = card.dataset.company || '';
-        companySelect.value = companyValue;
-        const event = new Event('change');
-        companySelect.dispatchEvent(event);
+        companySelect.value = card.dataset.company || '';
+        companySelect.dispatchEvent(new Event('change'));
     }
     const modelSelect = document.querySelector('[name="Model"]');
     if (modelSelect) {
@@ -341,32 +362,31 @@ function editProduct(productId) {
             modelSelect.appendChild(newOption);
         }
     }
-
     ['img1','img2','img3','img4','img5'].forEach((imgName, index) => {
         const input = document.querySelector(`[name="${imgName}"]`);
         if (!input) return;
         const label = input.parentElement;
+        const existingPreview = label.querySelector(`#imgPreview${index+1}`);
+        if (existingPreview) existingPreview.remove();
         const span = label.querySelector('span');
         if (span) span.style.display = 'none';
-        let preview = label.querySelector(`#imgPreview${index+1}`);
-        if (!preview) {
-            preview = document.createElement('img');
-            preview.id = `imgPreview${index+1}`;
-            preview.classList.add('preview');
-            preview.style.width = (imgName === 'img1' || imgName === 'img5') ? '100%' : '120px';
-            preview.style.height = (imgName === 'img1' || imgName === 'img5') ? '100%' : '90px';
-            preview.style.objectFit = 'cover';
-            preview.style.borderRadius = '8px';
-            label.appendChild(preview);
-        }
+        const preview = document.createElement('img');
+        preview.id = `imgPreview${index+1}`;
+        preview.classList.add('preview');
+        preview.style.width = (imgName === 'img1' || imgName === 'img5') ? '100%' : '120px';
+        preview.style.height = (imgName === 'img1' || imgName === 'img5') ? '100%' : '90px';
+        preview.style.objectFit = 'cover';
+        preview.style.borderRadius = '8px';
         preview.src = card.dataset[imgName] || '';
+        label.appendChild(preview);
     });
     const heading = modal.querySelector('.productShowDiscriptionInner h1');
     if (heading) heading.textContent = "Edit Product";
     const submitBtn = modal.querySelector('.btnProductShowDiscriptionInnerList');
     if (submitBtn) submitBtn.textContent = "Update";
     const form = document.getElementById('productForm');
-    if (form) form.action = "../api/updateProduct.php";
+    if (!form) return;
+    form.action = "../api/updateProduct.php";
     let hiddenId = form.querySelector('input[name="id"]');
     if (!hiddenId) {
         hiddenId = document.createElement('input');
@@ -375,40 +395,67 @@ function editProduct(productId) {
         form.appendChild(hiddenId);
     }
     hiddenId.value = productId;
-    form.onsubmit = function(e) {
-        e.preventDefault(); 
-        const formData = new FormData(form);
-        fetch(form.action, {
-            method: 'POST',
-            body: formData
-        })
-        .then(res => res.text())
-        .then(data => {
-            if (data.trim() === 'success') {
-                alert('Product updated successfully!');
-                closeProduct();
-                card.dataset.name = formData.get('Name');
-                card.dataset.price = formData.get('Price');
-                card.dataset.year = formData.get('Year');
-                card.dataset.condition = formData.get('Condition');
-                card.dataset.mileage = formData.get('MileAge');
-                card.dataset.exterior = formData.get('Exterior');
-                card.dataset.interior = formData.get('Interior');
-                card.dataset.company = formData.get('CompanyId');
-                card.dataset.model = formData.get('Model');
-                ['img1','img2','img3','img4','img5'].forEach(img => {
-                    if (formData.get(img)) card.dataset[img] = card.dataset[img]; 
-                });
-            } else {
-                alert('Update failed: ' + data);
-                console.error(data);
-            }
-        })
-        .catch(err => console.error(err));
-    };
+  form.onsubmit = function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    fetch(form.action, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            return fetch(`../api/getProduct.php?id=${formData.get('id')}`)
+                     .then(res => res.json());
+        } else {
+            throw new Error(data.message || "Update failed");
+        }
+    })
+    .then(product => {
+        const card = document.querySelector(`.productCard[data-id='${product.id}']`);
+        if (!card) return;
+        card.dataset.name = product.Name;
+        card.dataset.price = product.Price;
+        card.dataset.year = product.Year;
+        card.dataset.condition = product.Condition;
+        card.dataset.mileage = product.MileAge;
+        card.dataset.exterior = product.Exterior;
+        card.dataset.interior = product.Interior;
+        card.dataset.company = product.CompanyId;
+        card.dataset.model = product.Model;
+        card.dataset.img1 = product.img1;
+        card.dataset.img2 = product.img2;
+        card.dataset.img3 = product.img3;
+        card.dataset.img4 = product.img4;
+        card.dataset.img5 = product.img5;
+        const nameEl = card.querySelector('.productName');
+        if (nameEl) nameEl.textContent = product.Name;
+        const priceEl = card.querySelector('.productCardDiscription ul li');
+        if (priceEl) priceEl.textContent = `Price: ${product.Price} NIS`;
+        const imgEl = card.querySelector('img');
+        if (imgEl) imgEl.src = product.img1 || '';
+        closeProduct();
+    })
+    .catch(err => {
+        console.error(err);
+        alert("An error occurred while updating the product.");
+    });
+};
+
 }
 
 
+// close product
+function closeProduct() {
+
+    const modal = document.querySelector('.productShow');
+    const modalContent = document.querySelector('.productShowDiscription');
+    const blurLayer = document.querySelector('.toMakeItBlur');
+    if (modal) modal.style.display = 'none';
+    if (modalContent) modalContent.style.display = 'none';
+    if (blurLayer) blurLayer.style.filter = 'blur(0px)';
+    
+}
 
 
  //select year
@@ -441,31 +488,21 @@ function showImage(input) {
     if (input.files && input.files[0]) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            const label = input.parentElement; // the label element
+            const label = input.parentElement;
             const span = label.querySelector("span");
-
-            // Hide the "+ Choose" text
             if (span) {
                 span.style.display = "none";
             }
-
-            // Check if preview already exists
             let preview = label.querySelector("img.preview");
             if (!preview) {
                 preview = document.createElement("img");
                 preview.classList.add("preview");
-
-                // Style the image
                 preview.style.width = "100%";
                 preview.style.height = "100%";
                 preview.style.objectFit = "cover";
                 preview.style.borderRadius = "8px";
-
-                // Add the preview inside the label
                 label.appendChild(preview);
             }
-
-            // Set the image source
             preview.src = e.target.result;
         };
         reader.readAsDataURL(input.files[0]);
@@ -475,11 +512,7 @@ function showImage(input) {
 
 function showProductForm(product = null) {
     const container = document.getElementById("productShowContainer");
-
-    // Create unique form id (important when editing multiple products)
     const formId = product ? `productForm_${product.id}` : "productForm_new";
-
-    // Build HTML dynamically
     container.innerHTML = `
     <div class="productShow">
       <div class="productShowDiscription">
@@ -511,7 +544,6 @@ function showProductForm(product = null) {
                 <span>+ Choose Image</span>
               </label>
             </div>
-
             <div class="productShowDiscriptionInner">
               <h1>Product Name</h1>
               <input type="text" name="Name" form="${formId}" placeholder="Product Name" value="${product ? product.Name : ''}">

@@ -78,7 +78,7 @@ $values_js = implode(",", $values);
               <h3>PRODUCTS</h3>
             </div>
             <?php
-            $sql = "SELECT COUNT(*) as count FROM Users";
+            $sql = "SELECT COUNT(*) as count FROM Product";
             $result = $dp->query($sql);
             $row = $result->fetch_assoc();
             $count = $row['count'];
@@ -384,7 +384,7 @@ endif;
 
 
 
-<div class="productShow" id="productModal" style="display:none;">
+<div class="productShow" id="addProductModal" style="display:none;">
   <div class="productShowDiscription">
     <button type="button" class="closeProduct" onclick="closeProduct()">X</button>
     <div class="productShowDiscriptionList">
@@ -487,21 +487,29 @@ endif;
           </div>
 
           <div class="fatherFilter3">
-            <h1>Company</h1>
-<select name="CompanyId" form="productForm" id="companySelect" class="selection">
-  <option value="" disabled selected>Select Company</option>
-  <option value="74">Toyota</option>
-  <option value="73">Ford</option>
-  <option value="75">BMW</option>
-</select>
+    <h1>Company</h1>
+    <select name="CompanyId" form="productForm" id="companySelect" class="selection">
+        <option value="" disabled selected>Select Company</option>
+        <?php
+        $sql = "SELECT id, Name FROM Company ORDER BY Name ASC";
+        $result = $dp->query($sql);
+        if ($result && $result->num_rows > 0):
+            while ($row = $result->fetch_assoc()):
+                $companyId = (int)$row['id'];
+                $companyName = htmlspecialchars($row['Name']);
+        ?>
+        <option value="<?= $companyId ?>"><?= $companyName ?></option>
+        <?php
+            endwhile;
+        endif;
+        ?>
+    </select>
 
-<h1>Model</h1>
-<select name="Model" form="productForm" id="modelSelect" class="selection">
-  <option value="" disabled selected>Select Model</option>
-</select>
-
-
-          </div>
+    <h1>Model</h1>
+    <select name="Model" form="productForm" id="modelSelect" class="selection">
+        <option value="" disabled selected>Select Model</option>
+    </select>
+</div>
 
           <button type="submit" form="productForm" class="btnProductShowDiscriptionInnerList">Add</button>
         </div>
@@ -516,18 +524,41 @@ endif;
 
 
 
+
+
+
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const carModels = {
-        toyota: ["Corolla", "Camry", "RAV4"],
-        ford: ["Mustang", "Focus", "F-150"],
-        bmw: ["X5", "X3", "3 Series"]
+        toyota: ["Corolla", "Camry", "RAV4", "Hilux", "Land Cruiser"],
+        ford: ["Mustang", "Focus", "F-150", "Explorer", "Ranger"],
+        bmw: ["X5", "X3", "3 Series", "5 Series", "i8"],
+        mercedes: ["C-Class", "E-Class", "S-Class", "GLA", "GLE"],
+        audi: ["A3", "A4", "A6", "Q5", "Q7"],
+        honda: ["Civic", "Accord", "CR-V", "HR-V", "Pilot"],
+        nissan: ["Altima", "Sentra", "Maxima", "Rogue", "X-Trail"],
+        hyundai: ["Elantra", "Sonata", "Tucson", "Santa Fe", "Kona"],
+        kia: ["Rio", "Cerato", "Sportage", "Sorento", "Stinger"],
+        mazda: ["Mazda3", "Mazda6", "CX-3", "CX-5", "MX-5"],
+        porsche: ["911", "Cayenne", "Macan", "Panamera", "Taycan"]
     };
 
+    // Generate companyMap dynamically from the database (top 12 now)
     const companyMap = {
-        "74": "toyota",
-        "73": "ford",
-        "75": "bmw"
+        <?php
+        $sql = "SELECT id, Name FROM Company ORDER BY Name ASC LIMIT 12"; 
+        $result = $dp->query($sql);
+        if ($result && $result->num_rows > 0):
+            $map = [];
+            while ($row = $result->fetch_assoc()):
+                $id = (int)$row['id'];
+                $key = strtolower(preg_replace('/\s+/', '', $row['Name'])); // remove spaces & lowercase
+                $map[] = "\"$id\": \"$key\"";
+            endwhile;
+            echo implode(",\n", $map);
+        endif;
+        ?>
     };
 
     const companySelect = document.getElementById("companySelect");
@@ -549,6 +580,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
+
+
 
 <!--Update Product-->
 

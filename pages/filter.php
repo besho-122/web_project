@@ -94,110 +94,80 @@
   <aside class="sidebar">
     <ul>
       <li class="condition">
-        Condition
-        <div class="checkCondition">
-            <label class="custom-checkbox ">
-                New
-         <input type="checkbox"  value="New" id="new">
-         <span class="checkmark"></span>
-         </label>
-
-           <label class="custom-checkbox" >
-                Used
-            <input type="checkbox"value="Used" id="used" >
+    Condition
+    <div class="checkCondition">
+        <?php
+        $conditions = ['New', 'Used', 'preowned'];
+        foreach ($conditions as $cond):
+        ?>
+        <label class="custom-checkbox">
+            <?= htmlspecialchars($cond) ?>
+            <input type="checkbox" value="<?= htmlspecialchars($cond) ?>">
             <span class="checkmark"></span>
-          </label>
-
-          <label class="custom-checkbox" >
-                Approved Pre Owened
-            <input type="checkbox" value="Pre Owened" id="preowned" >
-            <span class="checkmark"></span>
-          </label>
-        </div>
-    </li>
-      <li class="modelSeries">
-        Model Series
-        <div class="SeriesSelect">
-            <select id="sort" class="selection selectionEdit">
-        <option></option>
-        <option></option>
-        <option></option>
-        
-      </select>
-        </div>
-    </li>
-      <li class="modelVarients">
-        Model
-      <div class="varientsChecked">
-  <div class="searchGrandDad">
-    <i class="fa-solid fa-magnifying-glass fa-lg searchIcon editSearchIcon" style="color: #000000;" type="submit"></i>
-    <div class="searchDad">
-      <form class="d-flex" role="search" onsubmit="return false;">
-        <input id="checkboxSearch" class="form-control" type="search" placeholder="Search" aria-label="Search">
-      </form>
+        </label>
+        <?php endforeach; ?>
     </div>
-  </div>
-  <?php
-  $sql = "SELECT id, Name FROM Company"; 
-  $result = $dp->query($sql);
+</li>
 
-  if ($result && $result->num_rows > 0):
-      while($row = $result->fetch_assoc()):
-          $companyId = (int)$row['id']; 
-          $companyName = htmlspecialchars($row['Name'], ENT_QUOTES);
-  ?>
-  <label class="custom-checkbox">
-    <?php echo $companyName; ?>
-    <input type="checkbox" value="<?php echo $companyName; ?> " id="checkbox<?php echo $companyId; ?>">
-    <span class="checkmark"></span>
-  </label>
-  <?php
-      endwhile;
-  else:
-      echo "<p>No companies found</p>";
-  endif;
 
-  ?>
+      <li class="modelSeries">
+    Model Series
+    <div class="SeriesSelect">
+        <select id="modelSeriesSelect" class="selection selectionEdit">
+            <option value="">Any</option>
+            <?php
+            $sql = "SELECT DISTINCT Model FROM Product ORDER BY Model ASC";
+            $result = $dp->query($sql);
+            if ($result && $result->num_rows > 0):
+                while($row = $result->fetch_assoc()):
+                    $model = htmlspecialchars($row['Model']);
+            ?>
+            <option value="<?= $model ?>"><?= $model ?></option>
+            <?php endwhile; endif; ?>
+        </select>
+    </div>
+</li>
 
-</div>
-    </li>
-      <li class="modelGeneration">
-        Model Generations
-        <div class="generationChecked">
-            <label class="custom-checkbox">
-    E3
-    <input type="checkbox" value="E3">
-    <span class="checkmark"></span>
-  </label>
-
-  <label class="custom-checkbox">
-    E2
-    <input type="checkbox" value="E2">
-    <span class="checkmark"></span>
-  </label>
-  <label class="custom-checkbox">
-    E0
-    <input type="checkbox" value="E0">
-    <span class="checkmark"></span>
-  </label>
-  <label class="custom-checkbox">
-    E1
-    <input type="checkbox" value="E1">
-    <span class="checkmark"></span>
-  </label>
-  <label class="custom-checkbox">
-    E11
-    <input type="checkbox" value="E11">
-    <span class="checkmark"></span>
-  </label>
-  <label class="custom-checkbox">
-    E12
-    <input type="checkbox" value="E12">
-    <span class="checkmark"></span>
-  </label>
+      <li class="modelVarients">
+    Company
+    <div class="varientsChecked">
+        <div class="searchGrandDad">
+            <i class="fa-solid fa-magnifying-glass fa-lg searchIcon editSearchIcon"></i>
+            <div class="searchDad">
+                <form class="d-flex" role="search" onsubmit="return false;">
+                    <input id="checkboxSearch" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                </form>
+            </div>
         </div>
-         
-    </li>
+
+        <?php
+        $sql = "SELECT id, Name FROM Company ORDER BY Name ASC"; 
+        $result = $dp->query($sql);
+
+        if ($result && $result->num_rows > 0):
+            while($row = $result->fetch_assoc()):
+                $companyId = (int)$row['id']; 
+                $companyName = htmlspecialchars($row['Name'], ENT_QUOTES);
+        ?>
+        <label class="custom-checkbox">
+            <?= $companyName ?>
+            <input type="checkbox" 
+                   value="<?= $companyName ?>" 
+                   data-name="<?= $companyName ?>" 
+                   id="checkbox<?= $companyId ?>">
+            <span class="checkmark"></span>
+        </label>
+        <?php
+            endwhile;
+        else:
+            echo "<p>No companies found</p>";
+        endif;
+        ?>
+    </div>
+</li>
+
+
+
       <li class="modelYear">
         Model Year
         <div class="yearSelection">
@@ -205,136 +175,104 @@
         </div>
     </li>
       <li class="exteriorColour">
-        Exterior Colour
-        <div class="exColor">
-           <label class="custom-checkbox">
-            <span class="colorFirst colorType">2</span> Black (4)<input type="checkbox" value="Black"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorSecond colorType">2</span> White (5)<input type="checkbox" value="White"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorThird colorType">2</span> Silver (8)<input type="checkbox" value="Silver"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorFourth colorType">2</span> Crayon (2)<input type="checkbox" value="Crayon"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorFifth colorType">2</span> Grey (22)<input type="checkbox" value="Grey"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorSixth colorType">2</span> Blue (0)<input type="checkbox" value="Blue"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorSeventh colorType">2</span> Red (2)<input type="checkbox" value="Red"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorEight colorType">2</span> Yellow (0)<input type="checkbox" value="Yellow"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorNine colorType">2</span> Brown (0)<input type="checkbox" value="Brown"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorTen colorType">2</span> Green (3)<input type="checkbox" value="Green"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorEleven colorType">2</span> Violet (4)<input type="checkbox" value="Violet"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorTwelve colorType">2</span> Gold (0)<input type="checkbox" value="Gold"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorThirteen colorType" >2</span> Orange (1)<input type="checkbox" value="Orange"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorFourteen colorType">2</span> Pink (3)<input type="checkbox" value="Pink"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorFifteen colorType">2</span> Beige (0)<input type="checkbox" value="Beige"><span class="checkmark"></span>
-           </label>
-        </div>
-    </li>
-      <li class="interiorColour">
-        Interior Colour
-        <div class="intColour">
-             <label class="custom-checkbox">
-            <span class="colorFirst colorType">2</span> Black (4)<input type="checkbox" value="Black"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorSecond colorType">2</span> Beige (5)<input type="checkbox" value="Beige"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorThird colorType">2</span> Brown (8)<input type="checkbox" value="Brown"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorFourth colorType">2</span> Grey (2)<input type="checkbox" value="Grey"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorFifth colorType">2</span> Blue (22)<input type="checkbox" value="Blue"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorSixth colorType">2</span> Red (0)<input type="checkbox" value="Red"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorSeventh colorType">2</span> Purple (2)<input type="checkbox" value="Purple"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorEight colorType">2</span> Green (0)<input type="checkbox" value="Green"><span class="checkmark"></span>
-           </label>
-           <label class="custom-checkbox">
-            <span class="colorNine colorType">2</span> White (0)<input type="checkbox" value="White"><span class="checkmark"></span>
-           </label>
-        </div>
-    </li>
-      <li class="price">
-        Price
-        <div class="priceField">
-            <p>Max. Price</p>
-            <div class="arrowPrice">
-            <input list="sortList" id="sortInput" class="selection selectionEdit inputSelection" placeholder="Any">
-            <div class="sideArrow"><img src="../assets/photos/arrow.webp" alt=""  width="20px"></div>
-            </div>
+    Exterior Colour
+    <div class="exColor">
+        <?php
+        $sql = "SELECT Exterior, COUNT(*) AS Count FROM Product GROUP BY Exterior ORDER BY Exterior ASC";
+        $result = $dp->query($sql);
+        $spanClasses = [
+            'colorFirst', 'colorSecond', 'colorThird', 'colorFourth', 'colorFifth',
+            'colorSixth', 'colorSeventh', 'colorEight', 'colorNine', 'colorTen',
+            'colorEleven', 'colorTwelve', 'colorThirteen', 'colorFourteen', 'colorFifteen'
+        ];
+        $i = 0;
+        if ($result && $result->num_rows > 0):
+            while ($row = $result->fetch_assoc()):
+                $colorName = htmlspecialchars($row['Exterior']);
+                $colorCount = (int)$row['Count'];
+        ?>
+        <label class="custom-checkbox">
+            <span class="<?= $spanClasses[$i] ?> colorType">2</span> <?= $colorName ?> (<?= $colorCount ?>)
+            <input type="checkbox" value="<?= $colorName ?>" class="exteriorFilter">
+            <span class="checkmark"></span>
+        </label>
+        <?php
+                $i++;
+            endwhile;
+        endif;
+        ?>
+    </div>
+</li>
 
-        </div>
-    </li>
+<li class="interiorColour">
+    Interior Colour
+    <div class="intColour">
+        <?php
+        $sql = "SELECT Interior, COUNT(*) AS Count FROM Product GROUP BY Interior";
+        $result = $dp->query($sql);
+        $spanClasses = [
+            'colorFirst', 'colorSecond', 'colorThird', 'colorFourth', 'colorFifth',
+            'colorSixth', 'colorSeventh', 'colorEight', 'colorNine', 'colorTen'
+        ];
+        $i = 0;
+        if ($result && $result->num_rows > 0):
+            while ($row = $result->fetch_assoc()):
+                $colorName = htmlspecialchars($row['Interior']);
+                $colorCount = (int)$row['Count'];
+        ?>
+        <label class="custom-checkbox">
+            <span class="<?= $spanClasses[$i] ?> colorType">2</span> <?= $colorName ?> (<?= $colorCount ?>)
+            <input type="checkbox" value="<?= $colorName ?>"><span class="checkmark"></span>
+        </label>
+        <?php
+                $i++;
+            endwhile;
+        endif;
+        ?>
+    </div>
+</li>
+
+    <li class="price">
+    Price
+    <div class="priceField">
+        <div class="priceInputs" style="display: flex; gap: 8px; align-items: center; justify-content:center;">
+            <input type="number" id="priceMin" class="priceInput minPriceInput" placeholder="Min" step="10000" style="width: 100px;border-radius:5px;text-align:center;">
+            <p style="margin-top:13px;">to</p>
+            <input type="number" id="priceMax" class="priceInput maxPriceInput" placeholder="Max" step="10000" style="width: 100px;border-radius:5px;text-align:center;">
+        <p style="margin-top:14px;">NIS.</p>
+          </div>
+    </div>
+</li>
+
+
       <li class="mileAge">
-        Mile Age
-        <div class="mileField">
-            <p>Max. Mileage</p>
-            <div class="SeriesSelect2 sort-bar">
-           <select id="sort" class="selection milesSelect">
-        <option>Any</option>
-        <option>5,000 km</option>
-        <option>10,000 km</option>
-         <option>20,000 km</option>
-          <option>30,000 km</option>
-           <option>40,000 km</option>
-            <option>50,000 km</option>
-      </select>
-       <img src="../assets/photos/arrow.webp" alt="" class="arrow" width="20px">
-        </div>
+    Mile Age
+    <div class="mileField">
+        <p>Max. Mileage</p>
+        <div class="SeriesSelect2 sort-bar">
+            <select id="sort" class="selection milesSelect">
+                <option>Any</option>
+                <?php
+                // Fetch distinct mileage values from the database, ordered ascending
+                $sql = "SELECT DISTINCT MileAge FROM Product ORDER BY MileAge ASC";
+                $result = $dp->query($sql);
 
+                if ($result && $result->num_rows > 0):
+                    while($row = $result->fetch_assoc()):
+                        $mileage = (int)$row['MileAge'];
+                        $formattedMileage = number_format($mileage) . ' km';
+                ?>
+                <option value="<?= $mileage ?>"><?= $formattedMileage ?></option>
+                <?php
+                    endwhile;
+                endif;
+                ?>
+            </select>
+            <img src="../assets/photos/arrow.webp" alt="" class="arrow" width="20px">
         </div>
-    </li>
-      <li class="previousOwner">
-        Previous Owner
-         <div class="ownerField">
-            <p>Max. Owners</p>
-            <div class="SeriesSelect2 sort-bar">
-           <select id="sort" class="selection milesSelect">
-        <option>Any</option>
-        <option>Max. 1</option>
-        <option>Max. 2</option>
-         <option>Max. 3</option>
-          <option>Max. 4</option>
-           <option>Max. 5</option>
-            <option>Max. 6</option>
-      </select>
-       <img src="../assets/photos/arrow.webp" alt="" class="arrow" width="20px">
-        </div>
+    </div>
+</li>
 
-        </div>
-    </li>
       <li class="location">
         Location
         <div class="priceField">
@@ -377,18 +315,32 @@
     </div>
     </div>
      <?php
-$sql = "SELECT * FROM Product"; // adjust for filtering/pagination
+$sql = "SELECT p.*, c.Name AS CompanyName 
+        FROM Product p
+        LEFT JOIN Company c ON p.CompanyId = c.id";
 $result = $dp->query($sql);
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $name = htmlspecialchars($row['Name'] ?? '');
+        $companyName = htmlspecialchars($row['CompanyName'] ?? '');
         $imgs = [];
         for ($i = 1; $i <= 4; $i++) {
             $imgs[] = htmlspecialchars($row['img'.$i] ?? '');
         }
 ?>
-<div class="car-card">
+<div class="car-card"
+     data-condition="<?= htmlspecialchars($row['Condition'] ?? '') ?>"
+     data-model="<?= htmlspecialchars($row['Model'] ?? '') ?>"
+     data-company="<?= htmlspecialchars($row['CompanyName'] ?? '') ?>" 
+     data-companyid="<?= htmlspecialchars($row['CompanyId'] ?? '') ?>"   
+     data-year="<?= htmlspecialchars($row['Year'] ?? '') ?>"
+     data-exterior="<?= htmlspecialchars($row['Exterior'] ?? '') ?>"
+     data-interior="<?= htmlspecialchars($row['Interior'] ?? '') ?>"
+     data-price="<?= htmlspecialchars($row['Price'] ?? '') ?>"
+     data-mileage="<?= htmlspecialchars($row['MileAge'] ?? '') ?>"
+>
+
     <div class="car-image">
         <img src="<?= $imgs[0] ?>" alt="<?= $name ?>" />
         <div class="sons">
