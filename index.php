@@ -64,7 +64,7 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
       <a href="#contactSection" class="navbar__link" title="Contact"><i data-feather="help-circle"></i><span>Help</span></a>        
     </li>
     <li class="navbar__item">
-      <a href="../pages/profile.php" class="navbar__link"  title="Settings" onclick="return checkLogin(event)"><i data-feather="settings"></i><span>Settings</span></a>        
+      <a href="../pages/profile.php?tab=settings" class="navbar__link"  title="Settings" onclick="return checkLogin(event)"><i data-feather="settings"></i><span>Settings</span></a>        
     </li>
   </ul>
 </nav>

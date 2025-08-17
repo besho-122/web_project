@@ -105,16 +105,20 @@ document.querySelectorAll('aside nav .Orders').forEach(button => {
   }
 
   cartSection.addEventListener('click', (e) => {
+
     const btn = e.target.closest('.btnRemoveFromCart');
     if (!btn) return;
 
     const id = btn.getAttribute('data-id');
     if (!id) return;
-
+   
     let cartCars = getCart();
     cartCars = cartCars.filter(car => String(car.id) !== String(id));
     setCart(cartCars);
    window.renderCart && window.renderCart();
+    updateCartCount();
+
+   
   });
 
   document.addEventListener('DOMContentLoaded', renderCart);
@@ -125,7 +129,7 @@ document.querySelectorAll('aside nav .Orders').forEach(button => {
   cartCars = cartCars.filter(car => car.name !== name);
   localStorage.setItem('cartCars', JSON.stringify(cartCars));
  window.renderCart && window.renderCart();
-   
+ 
  }
 
 
@@ -175,6 +179,7 @@ document.addEventListener("click", async (e) => {
       localStorage.removeItem("cartCars");
       window.renderCart?.();
       toast.ok("Purchase completed successfully!");
+        updateCartCount();
     } else {
       toast.err(out?.message || "Something went wrong!");
     }
@@ -203,3 +208,38 @@ window.addEventListener('storage', (e) => {
   if (e.key === 'cartCars') updateCartCount();
 });
 
+
+///// /form another page to cart function besho //
+(function () {
+  const openTabFromURL = () => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = (params.get('tab') || '').toLowerCase(); 
+    if (!tab) return;
+    const clickIf = (selector) => document.querySelector(selector)?.click();
+
+    switch (tab) {
+      case 'cart':
+        clickIf('aside nav .cart');
+        window.renderCart && window.renderCart();
+        (typeof updateCartCount === 'function') && updateCartCount();
+        break;
+      case 'settings':
+        clickIf('aside nav .Settings');
+        break;
+      case 'password':
+        clickIf('aside nav .password');
+        break;
+      case 'orders':
+        clickIf('aside nav .Orders');
+        break;
+      default:
+        clickIf('aside nav .information');
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', openTabFromURL);
+  } else {
+    openTabFromURL();
+  }
+})();
