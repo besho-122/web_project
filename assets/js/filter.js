@@ -368,48 +368,65 @@ function showFeedback() {
 
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  const saveButtons = document.querySelectorAll('.btnProduct.two');
-  const cartCount = document.getElementById('cartCount');
+function getCart(){ try { return JSON.parse(localStorage.getItem('cartCars')) || []; } catch { return []; } }
+function setCart(c){ localStorage.setItem('cartCars', JSON.stringify(c)); }
 
-  let count = 0;
+function updateCartCount(){
+  const count = getCart().length; 
+  const el = document.getElementById('cartCount');
+  if (!el) return;
+  el.textContent = count;
+  el.style.display = count > 0 ? 'inline-block' : 'none';
+}
 
-  saveButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (btn.classList.contains('saved')) {
-        return;
-      }
-      btn.classList.add('saved'); 
-      count++;
-      cartCount.textContent = count;
-
-      if (count > 0) {
-        cartCount.style.display = 'inline-block';
-
-        cartCount.classList.remove('animate-count');
-        void cartCount.offsetWidth; // force reflow
-        cartCount.classList.add('animate-count');
-      }
-    });
-  });
-});
+const toast = {
+  success(msg){ if (window.iziToast) iziToast.success({title:'Success', message:msg, position:'topRight'}); else miniToast(msg, 'success'); },
+  info(msg){ if (window.iziToast) iziToast.info({title:'Info', message:msg, position:'topRight'}); else miniToast(msg, 'info'); },
+  error(msg){ if (window.iziToast) iziToast.error({title:'Error', message:msg, position:'topRight'}); else miniToast(msg, 'error'); }
+};
+function miniToast(msg, type='info'){
+  const box = document.createElement('div');
+  box.textContent = msg;
+  box.style.cssText = `
+    position:fixed; right:16px; top:16px; z-index:9999;
+    padding:10px 14px; border-radius:10px; color:#fff; font:600 14px/1.3 sans-serif;
+    box-shadow:0 6px 18px rgba(0,0,0,.25); opacity:.98;`;
+  box.style.background = type==='success' ? '#00cf0aff' : type==='error' ? '#d40000ff' : '#0062d1ff';
+  document.body.appendChild(box);
+  setTimeout(()=>{ box.style.transition='opacity .3s'; box.style.opacity='0'; setTimeout(()=>box.remove(), 300); }, 1500);
+}
+document.addEventListener('DOMContentLoaded', updateCartCount);
 
 
-document.querySelectorAll('.btnProduct.two').forEach(btn => {
-  btn.addEventListener('click', () => {
-    let cartCars = JSON.parse(localStorage.getItem('cartCars')) || [];
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.btnProduct.two');
+  if (!btn) return;
 
-    const card = btn.closest('.car-card');
-    const img = card.querySelector('.car-image img').src;
-    const name = card.querySelector('h2').textContent.trim();
-    const description = card.querySelector('.car-info p').textContent.trim();
+  if (btn.dataset.lock === '1') return;
+  btn.dataset.lock = '1';
+  setTimeout(()=>{ btn.dataset.lock = '0'; }, 250);
 
-      cartCars.push({name, image: img, description});
-      localStorage.setItem('cartCars', JSON.stringify(cartCars));
-      console.log('Added to cart:', name);
-      console.log('Current cart:', cartCars);
-    
-  });
+  const card = btn.closest('.car-card');
+  if (!card) return;
+
+  const id   = (card.dataset.id || '').trim();
+  if (!id){ toast.error('Missing product id'); return; }
+
+  const img  = card.dataset.image || '';
+  const name = (card.querySelector('h2')?.textContent || '').trim();
+  const desc = (card.querySelector('.car-info p')?.textContent || '').trim();
+
+  const cart = getCart();
+  const exists = cart.some(it => String(it.id) === String(id));
+
+  if (exists){
+    toast.info(`${name || 'Item'} is already in your cart`);
+  } else {
+    cart.push({ id, name, image: img, description: desc });
+    setCart(cart);
+    updateCartCount();
+    toast.success(`${name || 'Item'} added to cart`);
+  }
 });
 
 

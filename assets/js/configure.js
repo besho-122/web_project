@@ -89,3 +89,22 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   };
 });
+
+/////  cart ///// 
+function getCart(){ try { return JSON.parse(localStorage.getItem('cartCars')) || []; } catch { return []; } }
+
+function updateCartCount(){
+  const count = getCart().length; 
+  const el = document.getElementById('cartCount');
+  if (!el) return;
+  el.textContent = count;
+  el.style.display = count > 0 ? 'inline-block' : 'none';
+}
+
+document.addEventListener('DOMContentLoaded', updateCartCount);
+
+
+window.addEventListener('storage', (e) => {
+  if (e.key === 'cartCars') updateCartCount();
+});
+

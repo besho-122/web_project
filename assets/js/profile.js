@@ -4,12 +4,14 @@ let password = document.getElementById('password-section');
 let settings = document.getElementById('settings-section');
 let cart = document.getElementById('cart-section');
 let profile = document.getElementById('personal-info');
+let orders = document.getElementById('orders-section');
 document.querySelectorAll('aside nav .password').forEach(button => {
   button.addEventListener('click', () => {
     profile.classList.add('hidden');
     password.style.display = 'block';
     settings.style.display = 'none';
     cart.style.display = 'none';
+    orders.style.display = 'none';
   });
 });
 document.querySelectorAll('aside nav .cart').forEach(button => {
@@ -18,6 +20,7 @@ document.querySelectorAll('aside nav .cart').forEach(button => {
     cart.style.display = 'block';
     password.style.display = 'none';
     settings.style.display = 'none';
+    orders.style.display = 'none';
   });
 });
 document.querySelectorAll('aside nav .Settings').forEach(button => {
@@ -26,95 +29,102 @@ document.querySelectorAll('aside nav .Settings').forEach(button => {
     settings.style.display = 'block';
       cart.style.display = 'none';
     password.style.display = 'none';
+    orders.style.display = 'none';
   });
 });
 document.querySelectorAll('aside nav .information').forEach(button => {
   button.addEventListener('click', () => {
-     profile.classList.remove('hidden');
+    profile.classList.remove('hidden');
+    settings.style.display = 'none';
+    cart.style.display = 'none';
+    password.style.display = 'none';
+    orders.style.display = 'none';
+  });
+});
+
+document.querySelectorAll('aside nav .Orders').forEach(button => {
+  button.addEventListener('click', () => {
+     profile.classList.add('hidden');
     settings.style.display = 'none';
       cart.style.display = 'none';
     password.style.display = 'none';
+    orders.style.display = 'block';
   });
 });
 
 
 
-//Cart Reception
-document.addEventListener("DOMContentLoaded", () => {
+(function () {
   const cartSection = document.getElementById('cart-section');
-  let currentPage = 1;
-  const itemsPerPage = 2;
-  function renderCart() {
-    let cartCars = JSON.parse(localStorage.getItem('cartCars')) || [];
-    if (cartCars.length === 0) {
-      cartSection.innerHTML = `<p>No cars in cart.</p>`;
-      return;
-    }
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const displayedCars = cartCars.slice(startIndex, endIndex);
-    const carsHtml = displayedCars.map(car => `
-      <div class="car-card-small">
-         <button class="btnRemoveFromCart" data-name="${car.name}" onclick="removeFromCart('${car.name}') "><i class="fa fa-times"></i></button>
-        <img src="${car.image}" alt="${car.name}" />
-        <h3>${car.name}</h3>
-        <p>${car.description}</p>
-        <a class="btnShowDetails" href="../pages/model.html" data-name="${car.name}">Show Details</a>
-      </div>
-      
-    `).join('');
-    const totalPages = Math.ceil(cartCars.length / itemsPerPage);
-    let paginationHtml = `<ul class="pagination">`;
-    paginationHtml += `
-      <li class="page-item">
-        <a class="page-link" href="#" data-page="${currentPage - 1}" aria-label="Previous" ${currentPage === 1 ? 'style="pointer-events:none;opacity:0.5;"' : ''}>
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-    `;
-    let startPage = Math.max(1, currentPage - 1);
-    let endPage = Math.min(totalPages, startPage + 1);
-    if (endPage - startPage < 1 && startPage > 1) {
-      startPage--;
-    }
-    for (let i = startPage; i <= endPage; i++) {
-      paginationHtml += `
-        <li class="page-item ${i === currentPage ? 'active' : ''}">
-          <a class="page-link" href="#" data-page="${i}">${i}</a>
-        </li>
-      `;
-    }
-    paginationHtml += `
-      <li class="page-item">
-        <a class="page-link" href="#" data-page="${currentPage + 1}" aria-label="Next" ${currentPage === totalPages ? 'style="pointer-events:none;opacity:0.5;"' : ''}>
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    `;
-    paginationHtml += `</ul>`;
-    cartSection.innerHTML = `
-      <div class="cart-items-container">${carsHtml}</div>
-      ${paginationHtml}
-    `;
-    document.querySelectorAll('.page-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const page = parseInt(link.getAttribute('data-page'));
-        if (page >= 1 && page <= totalPages) {
-          currentPage = page;
-          renderCart();
-        }
-      });
-    });
+
+  function getCart() {
+    return JSON.parse(localStorage.getItem('cartCars')) || [];
   }
 
-  renderCart();
-});
+  function setCart(list) {
+    localStorage.setItem('cartCars', JSON.stringify(list));
+  }
+
+  function renderCart() {
+    const cartCars = getCart();
+
+    if (!cartCars.length) {
+      cartSection.innerHTML = `<p class="empty-cart">No cars in cart.</p>`;
+      return;
+    }
+
+    const carsHtml = cartCars.map(car => {
+      const id = car.id ?? '';                
+      const name = car.name ?? 'Unknown';
+      const img = car.image ?? '';
+      const description = car.description ?? '';
+
+      return `
+        <div class="car-card-small" data-id="${id}">
+          <button class="btnRemoveFromCart" data-id="${id}" title="Remove">
+            <i class="fa fa-times"></i>
+          </button>
+          <img src="${img}" alt="${name}" />
+          <h3>${name}</h3>
+          <p>${description}</p>
+          <a class="btnShowDetails" href="../pages/model.php?id=${encodeURIComponent(id)}">Show Details</a>
+        </div>
+      `;
+    }).join('');
+
+
+
+    cartSection.innerHTML = `
+      <div class="cart-items-container">
+        ${carsHtml}
+        <div class="Buynow">
+          <button class="btnBuyNow" >Buy Now</button>
+        </div>
+      </div>
+    `;
+  }
+
+  cartSection.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btnRemoveFromCart');
+    if (!btn) return;
+
+    const id = btn.getAttribute('data-id');
+    if (!id) return;
+
+    let cartCars = getCart();
+    cartCars = cartCars.filter(car => String(car.id) !== String(id));
+    setCart(cartCars);
+   window.renderCart && window.renderCart();
+  });
+
+  document.addEventListener('DOMContentLoaded', renderCart);
+  window.renderCart = renderCart;
+})();
  function removeFromCart(name) {
   let cartCars = JSON.parse(localStorage.getItem('cartCars')) || [];
   cartCars = cartCars.filter(car => car.name !== name);
   localStorage.setItem('cartCars', JSON.stringify(cartCars));
-  renderCart();
+ window.renderCart && window.renderCart();
    
  }
 
@@ -136,5 +146,60 @@ document.querySelectorAll('.nav-item-dropdown').forEach(card => {
 
 /////
 
+// order ////////
 
+
+document.addEventListener("click", async (e) => {
+  const btn = e.target.closest(".btnBuyNow");
+  if (!btn) return;
+
+  const cart = JSON.parse(localStorage.getItem("cartCars") || "[]");
+  const toast = {
+    ok:  (m) => (window.iziToast ? iziToast.success({title:"Success",message:m,position:"topRight"}) : alert(m)),
+    err: (m) => (window.iziToast ? iziToast.error({title:"Error",  message:m,position:"topRight"}) : alert(m)),
+  };
+  if (!cart.length) return toast.err("Your cart is empty!");
+
+  btn.disabled = true;
+  try {
+    const res  = await fetch("../api/order.php", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({cars: cart})
+    });
+
+    let out, raw = await res.text();
+    try { out = JSON.parse(raw); } catch { out = {success:false, message:"Invalid server response"}; }
+
+    if (res.ok && out?.success) {
+      localStorage.removeItem("cartCars");
+      window.renderCart?.();
+      toast.ok("Purchase completed successfully!");
+    } else {
+      toast.err(out?.message || "Something went wrong!");
+    }
+  } catch {
+    toast.err("Failed to process your order.");
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+/////  cart ///// 
+function getCart(){ try { return JSON.parse(localStorage.getItem('cartCars')) || []; } catch { return []; } }
+
+function updateCartCount(){
+  const count = getCart().length; 
+  const el = document.getElementById('cartCount');
+  if (!el) return;
+  el.textContent = count;
+  el.style.display = count > 0 ? 'inline-block' : 'none';
+}
+
+document.addEventListener('DOMContentLoaded', updateCartCount);
+
+
+window.addEventListener('storage', (e) => {
+  if (e.key === 'cartCars') updateCartCount();
+});
 
