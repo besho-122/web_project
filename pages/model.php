@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <link href="../assets/css/model.css" rel="stylesheet">
 </head>
 <body>
@@ -66,7 +68,7 @@ $Img5 = $car['img5'];
     <div class="container-fluid px-5 behind">
         <button class="navbar-toggler"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
         aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-       <a href="./pages/login.php" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
+       <a href="../pages/profile.php" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
       </button>
       <a class="brand" href="#">
         <img src="..//assets/photos/title.png" id="mainTitle" alt="" width="100px">
@@ -198,11 +200,121 @@ $Img5 = $car['img5'];
       </div>
     </div>
   </section>
+
+
+<section class="carsound2">
+  <div class="carsound"> 
+    <div class="carsound__bg"></div>
+    <div class="carsound__overlay"></div>
+
+    <div class="carsound__content">
+      <div>
+        <h1 class="carsound__title">It doesn't just sound good. It also feels good.</h1>
+        <p class="carsound__subtitle">Experience the unique mid-engine sound.</p>
+      </div>
+      <button id="holdBtn" class="soundbtn" aria-label="Hold for sound">
+        <span class="icon-play" aria-hidden="true"></span>
+        <span class="icon-pause" aria-hidden="true"></span>
+        <span class="soundbtn__text">Hold for sound</span>
+        <span class="soundbtn__progress" id="btnProgress"></span>
+      </button>
+    </div>
+
+  <audio id="audio" preload="metadata">
+       <source src="https://assets-v2.porsche.com/int/-/media/Project/PCOM/SharedSite/Models/718/718-Boxster/718-Boxster-Cabriolet/052_Engine-Sound/718-cayman-gts-40-iccr" type="audio/mpeg" />
+  </audio>
+  </div>
+</section>
+
+
+
+
+
   <section class="panoramaSection">
     <h1>Panorama</h1>
     <div id="panorama"></div>
-    
   </section>
+
+
+
+ <div class="swiper swiper1">
+  <div class ="swiperTitle"><h1>Other Models</span></h1></div>
+  <div class="swiper-wrapper">
+
+  <?php
+  $sql = "SELECT * FROM `Product`";
+  $result = $dp->query($sql);
+  $products = $result->fetch_all(MYSQLI_ASSOC);
+
+  foreach ($products as $product) {
+      $imgSrc = $product['img5']; 
+      $model = $product['Model'];
+      $name=$product['Name'];
+
+      echo '
+    <div class="swiper-slide">
+      <article class="model-card" >
+      
+
+        <div class="img-wrap" >
+          <img src="' . $imgSrc . '" alt="Model A">
+        </div>
+
+        <h3 class="car-title"> ' . $name . '</h3>
+        <p class="car-sub" >
+          Fuel consumption combined: 9.7–8.9 l/100 km · CO₂ (WLTP): 201–220 g/km
+        </p>
+
+        <ul class="specs">
+          <li><strong>5.1 s</strong><span>0–100 km/h</span></li>
+          <li><strong>220 kW / 300 PS</strong><span>Power</span></li>
+          <li><strong>275 km/h</strong><span>Top speed</span></li>
+        </ul>
+
+        <div class="card-actions" >
+          <button class="btn3 btn-fill3" onclick="window.location.href=\'../pages/model.php?id=' . $product['id'] . '\' ">Show Details</button>
+        </div>
+
+ 
+      </article>
+    </div>
+  ';
+  }
+  ?>
+
+  </div>
+
+ 
+  <div class="swiper-pagination"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  <section class="exteriorSection">
   <div class="sketchfab-embed-wrapper exterior" >
     <h1 style="color:rgb(0, 0, 0); text-align:center;">Exterior</h1>
@@ -210,32 +322,14 @@ $Img5 = $car['img5'];
   title="Porsche 911 Carrera 4S"
   allow="autoplay; fullscreen; xr-spatial-tracking"
   src="https://sketchfab.com/models/d01b254483794de3819786d93e0e1ebf/embed?autostart=1&preload=1&transparent=0&ui_theme=light&ui_animations=0&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_hint=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_annotations=0&dnt=1"
-  style="width:100%; height:440px;border-radius: 10px;">
+  style="width:100%;;border-radius: 10px;">
 </iframe>
-
-    
-
   </div>
-  
 </section>
 
-<div class="controls" style="background-color:black; margin-bottom: 70px;">
-  <div class="color-btn" style="width:40px;height:40px;background:black;display:inline-block;cursor:pointer;" onclick="changeColor([0,0,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:white;display:inline-block;cursor:pointer;border:1px solid #ccc;" onclick="changeColor([1,1,1])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:silver;display:inline-block;cursor:pointer;" onclick="changeColor([0.75,0.75,0.75])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:#e0cfc4;display:inline-block;cursor:pointer;" onclick="changeColor([0.88,0.81,0.77])" title="Crayon"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:grey;display:inline-block;cursor:pointer;" onclick="changeColor([0.5,0.5,0.5])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:blue;display:inline-block;cursor:pointer;" onclick="changeColor([0,0,1])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:red;display:inline-block;cursor:pointer;" onclick="changeColor([1,0,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:yellow;display:inline-block;cursor:pointer;" onclick="changeColor([1,1,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:brown;display:inline-block;cursor:pointer;" onclick="changeColor([0.6,0.3,0.2])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:green;display:inline-block;cursor:pointer;" onclick="changeColor([0,1,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:violet;display:inline-block;cursor:pointer;" onclick="changeColor([0.93,0.51,0.93])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:gold;display:inline-block;cursor:pointer;" onclick="changeColor([1,0.84,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:orange;display:inline-block;cursor:pointer;" onclick="changeColor([1,0.5,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:pink;display:inline-block;cursor:pointer;" onclick="changeColor([1,0.75,0.8])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:beige;display:inline-block;cursor:pointer;" onclick="changeColor([0.96,0.96,0.86])"></div>
-</div>
+
+
+
 
   <section>
   <!--Footer-->
@@ -277,6 +371,169 @@ $Img5 = $car['img5'];
   </div>
 </footer>
 </section>
+<script>
+(function(){
+  const audio = document.getElementById('audio');
+  const holdBtn = document.getElementById('holdBtn');
+  const btnProgress = document.getElementById('btnProgress');
+
+  let raf = null, holding = false;
+
+  function getDuration(){
+
+    const d = audio.duration;
+    if (Number.isFinite(d) && d > 0) return d;
+  
+    try{
+      if (audio.seekable && audio.seekable.length) {
+        return audio.seekable.end(audio.seekable.length - 1);
+      }
+    }catch(e){}
+    return 0;
+  }
+
+  function updateUI(){
+    const dur = getDuration();
+    const cur = audio.currentTime || 0;
+    const p = dur ? (cur / dur) * 100 : 0; 
+    btnProgress.style.width = p + '%';
+    if (!audio.paused) raf = requestAnimationFrame(updateUI);
+  }
+
+  function startHold(){
+    holding = true;
+    holdBtn.classList.add('is-playing');    
+    audio.play().then(() => { updateUI(); }).catch(()=>{ });
+  }
+  function endHold(){
+    if(!holding) return;
+    holding = false;
+    audio.pause();
+    cancelAnimationFrame(raf);
+    holdBtn.classList.remove('is-playing'); 
+    updateUI(); 
+  }
+  holdBtn.addEventListener('mousedown', startHold);
+  document.addEventListener('mouseup', endHold);
+  holdBtn.addEventListener('mouseleave', endHold);
+  holdBtn.addEventListener('touchstart', e => { e.preventDefault(); startHold(); }, {passive:false});
+  document.addEventListener('touchend', endHold);
+  audio.addEventListener('ended', () => { endHold(); audio.currentTime = audio.duration || audio.currentTime; updateUI(); });
+})();
+</script>
+
+<script>
+(() => {
+  const section = document.querySelector('.panoramaSection');
+  if (!section) return;
+
+  let darkOn = false;
+
+  const addDark = () => {
+    if (darkOn) return;
+    darkOn = true;
+    document.body.classList.add('bg-dark');
+    section.classList.add('is-active');
+  };
+
+  const removeDark = () => {
+    if (!darkOn) return;
+    darkOn = false;
+    document.body.classList.remove('bg-dark');
+    section.classList.remove('is-active');
+  };
+
+
+  const io = new IntersectionObserver(([entry]) => {
+    const r = entry.intersectionRatio;
+    if (r >= 0.45) addDark();
+    else if (r <= 0.4) removeDark();
+  }, {
+    threshold: [0, 0.4, 0.45, 1]
+  });
+
+  io.observe(section);
+})();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  new Swiper('.swiper1', {
+    speed: 700,
+    parallax: true,
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    spaceBetween: 20,
+    loop: true,
+    autoplay: { delay: 2400, disableOnInteraction: false },
+    pagination: { el: '.swiper1 .swiper-pagination', clickable: true, dynamicBullets: true },
+    navigation: { nextEl: '.swiper1 .swiper-button-next', prevEl: '.swiper1 .swiper-button-prev' }
+  });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const iframe = document.getElementById('api-frame');
+  if (!iframe) return;
+  const client = new Sketchfab(iframe);
+  const dbColor = <?php echo json_encode($car['Exterior'] ?? ''); ?>;
+  const toRGB01 = (name) => {
+    const n = String(name||'').trim().toLowerCase();
+    if (/^#([0-9a-f]{6})$/i.test(n)) {
+      const r = parseInt(n.slice(1,3),16)/255, g = parseInt(n.slice(3,5),16)/255, b = parseInt(n.slice(5,7),16)/255;
+      return [r,g,b];
+    }
+    if (n.includes('black')) return [0,0,0];
+    if (n.includes('white')) return [1,1,1];
+    if (n.includes('silver')) return [0.75,0.75,0.75];
+    if (n.includes('gray') || n.includes('grey')) return [0.5,0.5,0.5];
+    if (n.includes('red')) return [1,0,0];
+    if (n.includes('blue')) return [0,0,1];
+    if (n.includes('green')) return [0,1,0];
+    if (n.includes('yellow')) return [1,1,0];
+    if (n.includes('orange')) return [1,0.5,0];
+    if (n.includes('beige')) return [0.96,0.96,0.86];
+    if (n.includes('gold')) return [1,0.84,0];
+    if (n.includes('crayon') || n.includes('chalk')) return [224/255,221/255,215/255];
+    return [0.2,0.2,0.2]; 
+  };
+  client.init('d01b254483794de3819786d93e0e1ebf', {
+     autostart: 1,
+    preload: 1,
+    transparent: 1, 
+    ui_theme: 'light',
+    ui_animations: 0,
+    ui_infos: 0,
+    ui_stop: 0,
+    ui_inspector: 0,
+    ui_watermark_link: 0,
+    ui_watermark: 0,
+    ui_hint: 0,
+    ui_ar: 0,
+    ui_help: 0,
+    ui_settings: 0,
+    ui_vr: 0,
+    ui_annotations: 0,
+    dnt: 1,
+    success(api){
+      api.start();
+      api.addEventListener('viewerready', () => {
+        if (api.setBackground) api.setBackground({ transparent: true });
+        api.getMaterialList((err, mats) => {
+          if (err) return;
+          const paint = mats.find(m => /paint|carpaint|body/i.test(m.name || ''));
+          if (!paint || !paint.channels || !paint.channels.AlbedoPBR) return;
+          paint.channels.AlbedoPBR.color = toRGB01(dbColor);
+          api.setMaterial(paint);
+        });
+      });
+    },
+    error(){ console.error('Sketchfab init error'); }
+  });
+});
+</script>
+
 <script src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
     <script src="../assets/js/model.js"></script>

@@ -175,7 +175,7 @@ if (isset($_POST['savePassword'])) {
           <a class="nav-link " aria-current="page" href="../index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="">Link</a>
+          <a class="nav-link" href="../pages/configure.php">Configure</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../pages/products.php">Models</a>

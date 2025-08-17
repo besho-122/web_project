@@ -162,43 +162,7 @@ countUpRolling(speed, 220, 2000);
     });
     
 //exteroir view 
-window.addEventListener("DOMContentLoaded", function() {
-  var iframe = document.getElementById('api-frame');
-  var client = new Sketchfab(iframe);
-  var apiInstance;
-  var targetMaterialName = "paint";
-  client.init('d01b254483794de3819786d93e0e1ebf', {
-    success: function(api) {
-      apiInstance = api;
-      api.start();
-      api.addEventListener('viewerready', function() {
-        apiInstance.getMaterialList(function(err, materials) {
-  if (err) return console.error(err);
-  materials.forEach(m => console.log(m.name));
-});
-        console.log("Viewer is ready");
-      });
-    },
-    error: function() {
-      console.error('Sketchfab API error');
-    }
-  });
-  window.changeColor = function(rgbArray) {
-    if (!apiInstance) return;
 
-    apiInstance.getMaterialList(function(err, materials) {
-      if (err) return console.error(err);
-
-      var mat = materials.find(m => m.name.includes(targetMaterialName));
-      if (mat) {
-        mat.channels.AlbedoPBR.color = rgbArray;
-        apiInstance.setMaterial(mat);
-      } else {
-        console.warn("Material not found!");
-      }
-    });
-  }
-});
 
     //feedback 
     function showFeedback() {
