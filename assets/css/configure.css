@@ -1,0 +1,242 @@
+:root {
+  --white-color: #ffffff;  
+  --text-color: rgb(0, 0, 0);  
+  --gradient-color: linear-gradient( #ffffff,#eeeeee,#ffffff);
+  --back-color:black;
+  --main-color: #ca0000b3;
+}
+
+body{
+    background-image: var(--gradient-color) !important;
+    height:fit-content;
+    position: relative;
+}
+.navProduct{
+    background-color: rgba(0, 0, 0, 0.916) !important;
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    height: 60px;
+}
+
+
+
+.navbar-brand{
+    margin-left: 100px !important;
+    margin-right: 80px !important;
+}
+.nav-link {
+    margin-left: 15px;
+  color: white !important;
+  font-family: "Orbitron", sans-serif;
+  border-bottom: 4px solid transparent;
+  transition: border-color 0.5s ease-in-out;
+  padding-bottom: 3px;
+
+}
+
+.nav-link:hover,
+.nav-link:active,
+.nav-link.active {
+  border-bottom-color: var( --main-color) !important;
+}
+
+
+.dropdown-item{
+    font-family: "Orbitron", sans-serif;
+}
+.fa-cart-shopping{
+    margin-left: 15px !important;
+    margin-top: 20px;
+}
+.fa-user{
+    margin-right: 80px;
+}
+.me-2{
+    width: 20vw !important;
+    border-radius: 20px !important;
+    margin-left: 50px;
+}
+.searchIcon{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.searchDiv{
+    position: relative;
+
+}
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+
+.card-img-overlay{
+  color: var(--text-color);
+}
+
+
+iframe { width: 100%; height: 100%; border: none;  }
+    .controls { 
+         padding: 10px;
+         text-align: center;
+          background: #111;
+         }
+    .color-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 2px solid #fff; margin: 5px; cursor: pointer;
+      display: inline-block;
+    }
+
+    
+.exteriorSection{
+width: 100%;
+height:80vh;
+margin-top: 100px;
+border-radius: 10px;
+margin-left: auto;
+margin-right: auto;
+margin-bottom:50px;
+
+
+}
+.exterior{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:90%;
+    height: fit-content;
+    margin-bottom: 200px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+.exterior h1{
+    font-size: 40px;
+    font-family: "Orbitron", sans-serif;
+    text-align: center;
+    width: 100%;
+    color: black;
+    padding: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.exterior iframe{
+    width: 100%;
+    height:80vh;
+    border-radius: 10px;
+}
+.exteriorSection h1{
+    font-size: 40px;
+    font-family: "Orbitron", sans-serif;
+    text-align: center;
+    width: 100%;
+    color: black;
+    padding: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer {
+    border-top: 1px solid #6c6c6c89;
+    width: 100%;
+    text-align: center;
+    font-family: "Orbitron", sans-serif;
+    height: fit-content;
+    position: relative;
+    bottom: 0
+}
+.underFooter{
+    margin-top: 50px;
+    background-color: var(--back-color);
+    height: 300px;
+    color: var(--white-color);
+    font-size: small;
+    p{
+        padding-top: 40px;
+        width: 1000px;
+        margin: auto;
+    }
+}
+
+
+.feedback-container {
+      display: none;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .rating-scale {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .rating-label {
+      font-weight: bold;
+    }
+
+    .rating-option input[type="radio"] {
+      display: none;
+    }
+
+    .rating-option label {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .rating-option input[type="radio"]:checked + label {
+      background-color: var( --main-color);
+      color: var(--white-color);
+      border-color: var( --main-color);
+    }
+
+#cartCount {
+  position: absolute;
+  top: -2px;
+  right: -10px;
+  background: var( --main-color) !important;
+  color: rgb(255, 255, 255)!important;
+  border-radius: 50%;
+  padding: 1px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  user-select: none;
+  pointer-events: none;
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.3s;
+  display: none;
+}
+
+.nav-item {
+  position: relative;
+  display: inline-block;
+}

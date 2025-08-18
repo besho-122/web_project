@@ -175,7 +175,7 @@ if (isset($_POST['savePassword'])) {
           <a class="nav-link " aria-current="page" href="../index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="">Link</a>
+          <a class="nav-link" href="../pages/configure.php">Configure</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../pages/products.php">Models</a>
@@ -205,8 +205,7 @@ if (isset($_POST['savePassword'])) {
         </div>
       </form>
       <li class="nav-item">
-  <i id="cartIcon" class="fa-solid fa-cart-shopping fa-xl"></i>
-  <span id="cartCount">0</span>
+   <li class="nav-item"> <i class="fa-solid fa-cart-shopping fa-xl" style="color: #ffffff;"></i><span id="cartCount"></span></li>
 </li>
       
        <li class="nav-item dropdown">
@@ -246,6 +245,13 @@ if (isset($_POST['savePassword'])) {
 </svg>
           Cart
 </a>
+   <a class="Orders">
+         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M7 18a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM6.31 6l1.2 2.68L9.4 13h8.1a1 1 0 00.93-.64l1.6-4.16A1 1 0 0019.1 6H6.31zM3 4h2l3.6 7.59-1.35 2.44A1 1 0 007.9 17h8.72a1 1 0 00.9-.55L21 8H6"/>
+</svg>
+          Orders
+</a>
+
         <a class="password">
           <svg viewBox="0 0 24 24"><path d="M20 6h-3V4H7v2H4v14h16V6zm-9 8h-2v-4h2v4zm6-4h-2v4h2v-4z"/></svg>
           Change Password
@@ -315,6 +321,56 @@ if (isset($_POST['savePassword'])) {
   <!-- Cart -->
   <div id="cart-section" class="profile-form">
   </div>
+
+  <!-- Orders -->
+<div id="orders-section" class="profile-form">
+  <?php 
+   
+    $sel = $dp->prepare('SELECT id, ProductId, ProductName, ProductPrice, Status FROM `Order` WHERE userName = ? ORDER BY id DESC');
+    $sel->bind_param('s', $userName);
+    $sel->execute();
+    $res = $sel->get_result();
+    $orders = $res->fetch_all(MYSQLI_ASSOC);
+
+    if (count($orders) > 0):
+  ?>
+    <section class="ordersSection">
+      <div class="ordersBox">
+        <h1 class="ordersTitle">Orders</h1>
+        <div class="ordersWrap">
+          <table class="ordersTable">
+            <thead class="ordersHead">
+              <tr class="ordersRow">
+                <th class="ordersCell">Order ID</th>
+                <th class="ordersCell">Product ID</th>
+                <th class="ordersCell">Product Name</th>
+                <th class="ordersCell">Product Price</th>
+                <th class="ordersCell">Status</th>
+              </tr>
+            </thead>
+            <tbody class="ordersBody">
+              <?php foreach ($orders as $order): ?>
+              <tr class="ordersRow">
+                <td class="ordersCell"><?php echo htmlspecialchars($order['id']); ?></td>
+                <td class="ordersCell"><?php echo htmlspecialchars($order['ProductId']); ?></td>
+                <td class="ordersCell"><?php echo htmlspecialchars($order['ProductName']); ?></td>
+                <td class="ordersCell"><?php echo htmlspecialchars($order['ProductPrice']); ?></td>
+                <td class="ordersCell"><?php echo htmlspecialchars($order['Status']); ?></td>
+              </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  <?php else: ?>
+    <section class="ordersSection">
+      <div class="ordersBox">
+        <h1 class="ordersTitle">You have no orders yet</h1>
+      </div>
+    </section>
+  <?php endif; ?>
+</div>
 
   <!-- Change Password -->
   <div id="password-section" class="profile-form">

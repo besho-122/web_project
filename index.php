@@ -52,19 +52,19 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
       <a href="#" class="navbar__link"><i data-feather="home"></i><span>Home</span></a>
     </li>
     <li class="navbar__item">
-      <a href="./pages/products.php" class="navbar__link" onclick="return checkLogin(event)" ><i class="fa-solid fa-car fa-lg" style="color: #ffffff;"></i><span>Cars</span></a>        
+      <a href="./pages/products.php" class="navbar__link" title="Cars" onclick="return checkLogin(event)" ><i class="fa-solid fa-car fa-lg" style="color: #ffffff;"></i><span>Cars</span></a>        
     </li>
     <li class="navbar__item">
-      <a href="./pages/filter.php" class="navbar__link"  onclick="return checkLogin(event)"><i class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff;"></i><span>FindYourCar</span></a>        
+      <a href="./pages/filter.php" class="navbar__link"  title="FindYourCar" onclick="return checkLogin(event)"><i class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff;"></i><span>FindYourCar</span></a>        
     </li>
     <li class="navbar__item">
-      <a href="./pages/products.php" class="navbar__link"  onclick="return checkLogin(event)"><i data-feather="archive"></i><span>Resources</span></a>        
+      <a href="./pages/configure.php" class="navbar__link" title="Configure" onclick="return checkLogin(event)"><i data-feather="sun"></i><span>Configure</span></a>        
     </li>
     <li class="navbar__item">
-      <a href="#contactSection" class="navbar__link"><i data-feather="help-circle"></i><span>Help</span></a>        
+      <a href="#contactSection" class="navbar__link" title="Contact"><i data-feather="help-circle"></i><span>Help</span></a>        
     </li>
     <li class="navbar__item">
-      <a href="#" class="navbar__link"  onclick="return checkLogin(event)"><i data-feather="settings"></i><span>Settings</span></a>        
+      <a href="../pages/profile.php?tab=settings" class="navbar__link"  title="Settings" onclick="return checkLogin(event)"><i data-feather="settings"></i><span>Settings</span></a>        
     </li>
   </ul>
 </nav>
