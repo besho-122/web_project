@@ -69,7 +69,14 @@ document.querySelectorAll('aside nav .Orders').forEach(button => {
     const cartCars = getCart();
 
     if (!cartCars.length) {
-      cartSection.innerHTML = `<p class="empty-cart">No cars in cart.</p>`;
+      cartSection.innerHTML = `<h1 class="empty-cart">
+      
+  <span class="word">No</span> 
+  <span class="word special">cars</span> 
+  <span class="word">in</span> 
+  <span class="word">cart</span>
+</h1>
+`;
       return;
     }
 
@@ -176,15 +183,22 @@ document.addEventListener("click", async (e) => {
     try { out = JSON.parse(raw); } catch { out = {success:false, message:"Invalid server response"}; }
 
     if (res.ok && out?.success) {
-      localStorage.removeItem("cartCars");
-      window.renderCart?.();
-      toast.ok("Purchase completed successfully!");
-        updateCartCount();
-    } else {
+  localStorage.removeItem("cartCars");
+  window.renderCart?.();
+  toast.ok("Purchase completed successfully!");
+  
+  // update unseen orders counter
+  let unseen = parseInt(localStorage.getItem("unnoticedOrders") || "0");
+  unseen++;
+  localStorage.setItem("unnoticedOrders", unseen);
+
+  updateNotifications();
+  updateCartCount();
+}
+else {
       toast.err(out?.message || "Something went wrong!");
     }
   } catch {
-    toast.err("Failed to process your order.");
   } finally {
     btn.disabled = false;
   }

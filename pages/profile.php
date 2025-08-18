@@ -321,6 +321,7 @@ if (isset($_POST['savePassword'])) {
   <!-- Cart -->
   <div id="cart-section" class="profile-form">
   </div>
+  
 
   <!-- Orders -->
 <div id="orders-section" class="profile-form">
@@ -366,7 +367,14 @@ if (isset($_POST['savePassword'])) {
   <?php else: ?>
     <section class="ordersSection">
       <div class="ordersBox">
-        <h1 class="ordersTitle">You have no orders yet</h1>
+        <h1 class="ordersTitle title2">You have no orders yet</h1>
+        <script>
+const title = document.querySelector(".title2");
+title.innerHTML = title.textContent
+  .split(" ")
+  .map(word => `<span class="word">${word}</span>`)
+  .join(" ");
+</script>
       </div>
     </section>
   <?php endif; ?>

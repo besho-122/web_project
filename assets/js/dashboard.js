@@ -818,6 +818,41 @@ function cancelImagesThree(){
 
 
 
+function updateNotifications() {
+  const count = parseInt(localStorage.getItem("unnoticedOrders") || "0");
+  const badge = document.querySelector(".cartCount.notifications");
+  const bell  = document.querySelector(".fa-bell");
+
+  if (badge) {
+    if (count > 0) {
+      badge.textContent = count;
+      badge.style.display = "inline-block";
+      if (bell) bell.style.color = "#ffff"; // red if new orders
+    } else {
+      badge.textContent = "";
+      badge.style.display = "none";
+      if (bell) bell.style.color = "#bfbdbdff"; // white if no orders
+    }
+  }
+}
+
+// run once when page loads
+updateNotifications();
+document.querySelector(".fa-bell").addEventListener("click", () => {
+   window.location.hash = "#settings";
+  localStorage.setItem("unnoticedOrders", 0);
+  updateNotifications();
+});
+
+window.addEventListener("storage", (e) => {
+  if (e.key === "unnoticedOrders") {
+    updateNotifications();
+  }
+});
+
+
+
+
 
 
 

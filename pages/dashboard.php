@@ -18,6 +18,7 @@
 </head>
 
 <body>
+  
   <?php  require("../api/config.php"); 
   $sql = "SELECT Name,id FROM Company";
 $result = $dp->query($sql);
@@ -64,8 +65,8 @@ $values_js = implode(",", $values);
     </ul>
     <div class="flexBar">
      
-      <i class="fa-solid fa-bell fa-xl" style="color: #ffffff;"></i>
-      <i class="fa-solid fa-envelope fa-xl" style="color: #ffffff;"></i>
+      <i class="fa-solid fa-bell fa-xl" style="color: #ffffff;" class="notIcon"></i><span class="cartCount notifications">1</span></li>
+      <i class="fa-solid fa-envelope fa-xl" style="color: #ffffff;"></i><span class="cartCount message">2</span></li>
     </div>
     
   </aside>
