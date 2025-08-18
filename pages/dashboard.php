@@ -48,19 +48,26 @@ $values_js = implode(",", $values);
   <aside id="sidebar">
     <div class="sidebar-title">
       <div class="sidebarBrand">
-        <img src="../assets/photos/blacktitle.png">
+        <img src="../assets/photos/yousef.jpg">
+        <h4>Welcome Yousef</h4>
       </div>
       <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
     </div>
 
     <ul class="sidebar-list">
-      <li class="sidebaritem"><a href="#dashboard">Dashboard</a></li>
-      <li class="sidebaritem"><a href="#products">Products</a></li>
-      <li class="sidebaritem"><a href="#companies">Companies</a></li>
-      <li class="sidebaritem"><a href="#customers">Customers</a></li>
-      <li class="sidebaritem"><a href="#pages">Pages</a></li>
-      <li class="sidebaritem"><a href="#settings">Settings</a></li>
+      <li class="sidebaritem"><a href="#dashboard"><i class="fa-solid fa-chart-simple" style="color: #d8d8d8ff;"></i>Dashboard</a></li>
+      <li class="sidebaritem"><a href="#products"><i class="fa-solid fa-car-side" style="color: #d8d8d8ff;"></i>Products</a></li>
+      <li class="sidebaritem"><a href="#companies"><i class="fa-solid fa-copyright" style="color: #d8d8d8ff;"></i>Companies</a></li>
+      <li class="sidebaritem"><a href="#customers"><i class="fa-solid fa-people-group" style="color: #d8d8d8ff;"></i>Customers</a></li>
+      <li class="sidebaritem"><a href="#pages"><i class="fa-solid fa-pen-to-square" style="color: #d8d8d8ff;"></i>Pages</a></li>
+      <li class="sidebaritem"><a href="#settings"><i class="fa-solid fa-bars-staggered" style="color: #d8d8d8ff;"></i>Orders</a></li>
     </ul>
+    <div class="flexBar">
+     
+      <i class="fa-solid fa-bell fa-xl" style="color: #ffffff;"></i>
+      <i class="fa-solid fa-envelope fa-xl" style="color: #ffffff;"></i>
+    </div>
+    
   </aside>
   <nav class="navbar">
 
@@ -69,25 +76,46 @@ $values_js = implode(",", $values);
   <main class="main-container">
     <section id="dashboard" class="dashboard">
       <h1 class="pagetitles">DASHBOARD</h1>
+      <div class="card2 p-4" style="background: linear-gradient(135deg, #4e1106ff, #8a150bff);">
+          <h3>Manage your project in one touch</h3>
+          <p>Let Fillow manage your project automatically with our best AI systems</p>
+  
+          <div class="mt-3 text-end">
+            <img src="https://img.icons8.com/ios-filled/100/ffffff/combo-chart.png" width="60">
+          </div>
+        </div>
       <div class="cards">
 
         <div class="main-cards">
 
           <div class="card1">
             <div class="carditem1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" 
+     stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="3 17 9 11 13 15 21 7"></polyline>
+  <polyline points="14 7 21 7 21 14"></polyline>
+</svg>
+
               <h3>PRODUCTS</h3>
+              
             </div>
             <?php
-            $sql = "SELECT COUNT(*) as count FROM Product";
+            $sql = "SELECT COUNT(*) as count FROM Users";
             $result = $dp->query($sql);
             $row = $result->fetch_assoc();
             $count = $row['count'];
             echo "<h1 class='odometer-stat' data-value='$count'></h1>";
             ?>
+        
           </div>
 
           <div class="card1">
             <div class="carditem1">
+               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" 
+     stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="3 17 9 11 13 15 21 7"></polyline>
+  <polyline points="14 7 21 7 21 14"></polyline>
+</svg>
               <h3>COMPANIES</h3>
             </div>
             <?php
@@ -101,6 +129,11 @@ $values_js = implode(",", $values);
 
           <div class="card1">
             <div class="carditem1">
+               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" 
+     stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="3 17 9 11 13 15 21 7"></polyline>
+  <polyline points="14 7 21 7 21 14"></polyline>
+</svg>
               <h3>Customers</h3>
             </div>
            <?php
@@ -114,9 +147,22 @@ $values_js = implode(",", $values);
 
           <div class="card1">
             <div class="carditem1">
+               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" 
+     stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="3 17 9 11 13 15 21 7"></polyline>
+  <polyline points="14 7 21 7 21 14"></polyline>
+</svg>
               <h3>ORDERS</h3>
+              <?php
+$sql = "SELECT COUNT(*) as count FROM `Order`"; // note the backticks
+$result = $dp->query($sql);
+$row = $result->fetch_assoc();
+$count = $row['count'];
+echo "<h1 class='odometer-stat' data-value='$count'></h1>";
+?>
+
             </div>
-            <h1 class="odometer-stat" data-value="56"></h1>
+            
           </div>
         </div>
       </div>
@@ -133,7 +179,6 @@ $values_js = implode(",", $values);
         <!-- Search & Add -->
         <div class="productSearch">
             <input type="text" id="searchInput" placeholder="Search for a product">
-            <button class="btnProduct" onclick="searchProduct()">Search</button>
             <button class="btncomponies2" onclick="addProduct()">Add</button>
         </div>
 
@@ -232,38 +277,58 @@ searchInput.addEventListener('input', () => {
       <h1 class="pagetitles">Companies</h1>
       <div class="companiesList">
         <div class="companySearch">
-          <input type="text" placeholder="Search for a Company">
-          <button class="btncomponies">Search</button>
+          <input type="text" placeholder="Search for a Company" id="searchCompany" >
           <button  class="btncomponies2 " onclick="addCompany()">Add</button>
   
         </div>
         <div class="companiesCards" id="companyCards" data-delete-url="../api/deleteCompany.php">
 <?php
-$sql = "SELECT id, Name, imagepng FROM Company";
+$sql = "SELECT id, Name, Description, image, imagepng FROM Company";
 $result = $dp->query($sql);
 
 if ($result && $result->num_rows > 0):
   while ($row = $result->fetch_assoc()):
     $companyId   = (int)$row['id'];
     $companyName = htmlspecialchars($row['Name'], ENT_QUOTES);
-    $imgSrc = !empty($row['imagepng']) ? htmlspecialchars($row['imagepng'], ENT_QUOTES) : "../assets/photos/porsche.png";
+    $companyDesc = htmlspecialchars($row['Description'], ENT_QUOTES);
+    $image       = !empty($row['image']) ? htmlspecialchars($row['image'], ENT_QUOTES) : "../assets/photos/Companies/Logos/default.png";
+    $imagePng    = !empty($row['imagepng']) ? htmlspecialchars($row['imagepng'], ENT_QUOTES) : "../assets/photos/Companies/Pngs/default.png";
 ?>
-  <div class="companyCard" data-id="<?php echo $companyId; ?>">
-    <img src="<?php echo $imgSrc; ?>" alt="Card image">
+<div class="companyCard" 
+     data-id="<?php echo $companyId; ?>" 
+     data-companyname="<?php echo $companyName; ?>" 
+     data-companydescription="<?php echo $companyDesc; ?>"
+     data-image="<?php echo $image; ?>"
+     data-imagepng="<?php echo $imagePng; ?>">
+    <img src="<?php echo $imagePng; ?>" alt="PNG image">
     <div class="companyCardDiscription">
-      <h1><?php echo $companyName; ?></h1>
+      <h1 class="nameCompany"><?php echo $companyName; ?></h1>
       <div class="companyCardButtons">
         <button class="btncompanyCardEdit" onclick="editCompany(<?php echo $companyId; ?>)">Edit</button>
         <button class="btncompanyCardDelete">Delete</button>
       </div>
     </div>
-  </div>
+</div>
 <?php
   endwhile;
-else:
-  echo "<p>No companies found</p>";
 endif;
 ?>
+
+<script>
+  const inputSearch = document.getElementById('searchCompany');
+const cardes = document.querySelectorAll('.companyCard');
+
+inputSearch.addEventListener('input', () => {
+    const termSerach = inputSearch.value.toLowerCase();
+    cardes.forEach(card => {
+        const names = card.querySelector('.nameCompany').textContent.toLowerCase();
+        card.style.display = names.includes(termSerach) ? "" : "none";
+    });
+});
+
+</script>
+
+
 </div>
 
       </div>
@@ -274,10 +339,6 @@ endif;
   <h1 class="pagetitles">Customers</h1>
 
   <div class="customersList">
-    <div class="customerSearch">
-      <input type="text" placeholder="Search for a customer">
-      <button class="btncustomers">Search</button>
-    </div>
 
     <div class="customersCards" id="customerCards" data-delete-url="../api/deleteCustomer.php">
       <?php
@@ -289,11 +350,11 @@ endif;
             $userName = htmlspecialchars($row['userName'], ENT_QUOTES);
       ?>
         <div class="customerCard" data-username="<?php echo $userName; ?>">
-          <img src="../assets/photos/yousef.jpg" alt="Card image">
+          <img src="../assets/photos/ProfileDash.png" alt="Card image">
           <div class="customerCardDiscription">
             <h1><?php echo $userName; ?></h1>
             <div class="customerCardButtons">
-              <button class="btncustomerCardEdit" onclick="editCustomer()">Edit</button>
+            
               <button class="btncustomerCardDelete">Delete</button>
             </div>
           </div>
@@ -346,35 +407,163 @@ endif;
       </div>
     </section>
 
+<?php
+// Database connection
+$DB_HOST = 'trolley.proxy.rlwy.net';   
+$DB_PORT = 56657;                  
+$DB_NAME = 'webproject';              
+$DB_USER = 'root';
+$DB_PASS = 'NEtoTHvxITFQeGQLDaBHMwDsSfFcwfFy';
 
+$dp = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME, $DB_PORT);
+if ($dp->connect_error) {
+    die("Connection failed: " . $dp->connect_error);
+}
 
+// ----------------- Handle AJAX update -----------------
+if(isset($_POST['update_status'])){
+    $id = intval($_POST['id']);       // use order ID, not product ID
+    $status = $_POST['status'];
 
-    <section id="settings" class="settings">
-      <h1 class="pagetitles">Settings</h1>
-      <div class="settingsList">
-        <img src="../assets/photos/besho.jpg" alt="besho">
-        <div class="settingsDiscription">
-        <h1>Mohammad</h1>
-        <p>Admin</p>
+    if($stmt = $dp->prepare("UPDATE `Order` SET `Status`=? WHERE id=?")) {
+        $stmt->bind_param("si", $status, $id);
+        if($stmt->execute()){
+            echo "Status updated successfully";
+        } else {
+            echo "Error: ".$stmt->error;
+        }
+        $stmt->close();
+    } else {
+        echo "Prepare failed: ".$dp->error;
+    }
+    exit; // stop further output for AJAX
+}
+
+// ----------------- Fetch orders for the table -----------------
+$orderSql = "SELECT id, userName, ProductId, ProductName, ProductPrice, `Status` FROM `Order` ORDER BY id DESC";
+$orderResult = $dp->query($orderSql);
+$orders = [];
+if ($orderResult && $orderResult->num_rows > 0) {
+    while($row = $orderResult->fetch_assoc()) {
+        $orders[] = $row;
+    }
+}
+?>
+
+<section id="settings" class="settings">
+    <h1 class="pagetitles">Orders</h1>
+    <div class="details">
+        <div class="recentOrders">
+            <div class="cardHeader">
+                <h2>Recent Orders</h2>
+                <span><i class="fa-solid fa-list fa-xl" style="color: #ffffff;position:absolute;left:18vw;top:8vh;"></i></span>
+                <a href="#" class="btn" id="viewAllBtn">View All</a>
+            </div>
+
+            <div id="orders-container" style="max-height:400px; overflow:hidden; transition: all 0.3s;">
+                <table cellpadding="10" cellspacing="0" style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-tbody">
+                        <?php foreach(array_slice($orders, 0, 10) as $row): ?>
+                            <?php $statusClass = strtolower(str_replace(" ", "", $row['Status'])); ?>
+                            <tr>
+                                <td><?= htmlspecialchars($row['userName']); ?></td>
+                                <td><?= htmlspecialchars($row['ProductName']); ?></td>
+                                <td>$<?= number_format($row['ProductPrice'], 2); ?></td>
+                                <td>
+                                    <span class="status <?= $statusClass ?>" data-id="<?= $row['id'] ?>">
+                                        <?= htmlspecialchars($row['Status']); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="settingsButtons">
-        <button class="btnSettings1" onclick="editName()">Edit Name</button>
-        <button class="btnSettings2" onclick="editPassword()">Change Password</button>
-        <button class="btnSettings3" onclick="editEmail()">Change Email</button>
-        <button class="btnSettings4" onclick="logout(event)">Logout</button>
-        <input id="nameInput" type="text" placeholder="Name">
-        <input id="passwordInput" type="password" placeholder="Password">
-        <input id="emailInput" type="email" placeholder="Email">
-        <button class="btnSettings5" onclick="applyEditName()">Apply</button>
-        <button class="btnSettings6" onclick="cancelEditName()">Cancel</button>
-        <button class="btnSettings7" onclick="applyEditPassword()">Apply</button>
-        <button class="btnSettings8" onclick="cancelEditPassword()">Cancel</button>
-        <button class="btnSettings9" onclick="applyEditEmail()">Apply</button>
-        <button class="btnSettings10" onclick="cancelEditEmail()">Cancel</button>
-        
-        </div>
+    </div>
+</section>
 
+<script>
+// Event delegation: click status to update DB and class
+document.getElementById('orders-tbody').addEventListener('click', function(e){
+    if(e.target && e.target.classList.contains('status')){
+        let elem = e.target;
+        let orderId = elem.getAttribute('data-id');
+        let currentStatus = elem.textContent.trim();
+        let newStatus = (currentStatus.toLowerCase() === 'pending') ? 'Delivered' : 'Pending';
+
+        // === Immediate UI update ===
+        elem.textContent = newStatus;
+        if(newStatus.toLowerCase() === 'delivered'){
+            elem.classList.remove('pending');
+            elem.classList.add('delivered');
+        } else {
+            elem.classList.remove('delivered');
+            elem.classList.add('pending');
+        }
+
+        // === Send AJAX to update DB ===
+        let formData = new FormData();
+        formData.append('update_status', 1);
+        formData.append('id', orderId);
+        formData.append('status', newStatus);
+
+        fetch(window.location.href, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => console.log('DB response:', data))
+        .catch(err => console.error('AJAX error:', err));
+    }
+});
+
+
+// "View All" button: load all orders dynamically
+document.getElementById('viewAllBtn')?.addEventListener('click', function(e){
+    e.preventDefault();
+    const tbody = document.getElementById('orders-tbody');
+    tbody.innerHTML = '';
+
+    const allOrders = <?= json_encode($orders); ?>;
+
+    allOrders.forEach(row => {
+        const statusClass = row.Status.toLowerCase() === 'delivered' ? 'delivered' : 'pending';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row.userName}</td>
+            <td>${row.ProductName}</td>
+            <td>$${parseFloat(row.ProductPrice).toFixed(2)}</td>
+            <td>
+                <span class="status ${statusClass}" data-id="${row.id}">
+                    ${row.Status}
+                </span>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    document.getElementById('orders-container').style.overflowY = 'auto';
+});
+
+</script>
+
+
+
+
+
+
+                </div>
       </div>
+      
     </section>
   </main>
   </div>
@@ -441,13 +630,27 @@ endif;
           </div>
 
           <div class="fatherFilter2">
-
+            <h1> Speed</h1> 
+            <select name="Speed" form="productForm"  class="selection">
+               <option value="" disabled selected>Max. Speed</option>
+                <option value="1">1</option> <option value="1.5">1.5</option>
+                 <option value="2">2</option>
+                 <option value="2.5">2.5</option>
+                 <option value="3">3</option>
+                 <option value="3.5">3.5</option>
+                 <option value="4">4</option>
+                 <option value="4.5">4.5</option>
+                 <option value="5">5</option>
+                 <option value="5.5">5.5</option>
+                 <option value="6">6</option>
+                 </select>
             <h1> MileAge</h1> 
             <select name="MileAge" form="productForm"  class="selection">
                <option value="" disabled selected>Max. mileage</option>
                 <option value="5000">5000</option> <option value="10000">10000</option>
                  <option value="20000">20000</option>
                  </select>
+                 
           </div>
 
           <div class="fatherFilter2">
@@ -588,34 +791,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
- <div class="companyShow">
-    <div class="companyShowDiscription">
-     <button class="closeCompany" onclick="closeCompany()">X</button>
- <div class="companyShowDiscriptionList">
-      <h1>Edit Company</h1>
-      <div class="companyShowDiscriptionInner">
-        <img src="../assets/photos/porsche.png" alt="besho">
-        <div class="companyShowDiscriptionInnerList">
-        <h1>Company Name</h1>
-        <input type="text" placeholder="Company Name">
-        <h1>Company Price</h1>
-        <input type="text" placeholder="Company Price">
-        <h1>Company Category</h1>
-        <input type="text" placeholder="Company Category">
-        <button class="btnProductShowDiscriptionInnerList">Update</button>
-        <button class="btnProductShowDiscriptionInnerList">Delete</button>
 
+   <div class="addCompany" id="editNotAdd">
+    <div class="addCompanyDiscription">
+        <button class="closeAddCompany" onclick="closeCompany()">X</button>
+        <div class="addCompanyDiscriptionList">
+            <h1>Update Company</h1>
+            <form id="editCompanyForm" action="../api/editCompany.php" method="post" class="addCompanyDiscriptionInnerList" enctype="multipart/form-data">
+
+                <!-- Hidden inputs for current images (added, nothing else changed) -->
+                <input type="hidden" name="currentImage" id="currentImageInput" form="editCompanyForm">
+                <input type="hidden" name="currentImagePng" id="currentImagePngInput" form="editCompanyForm">
+
+                <input type="hidden" name="companyId" id="companyIdInputHidden" form="editCompanyForm">
+
+                <h1>Company Name</h1>
+                <input type="text" placeholder="Company Name" id="companyNameInput" required name="companyName" form="editCompanyForm">
+
+                <h1>Company Description</h1>
+                <input type="text" placeholder="Company Description" id="companyDescriptionInput" required name="companyDescription" form="editCompanyForm"> 
+
+                <input type="file" placeholder="img" accept="image/*" id="imageInput" hidden name="imagecompany" form="editCompanyForm">
+                <label for="imageInput" class="btnProductShowDiscriptionInnerList" style="cursor: pointer; text-align: center; padding: 5px;">Update Image</label>
+
+                <input type="file" placeholder="img" accept="image/*" id="imagepngInput" hidden name="imagepngcompany" form="editCompanyForm">
+                <label for="imagepngInput" class="btnProductShowDiscriptionInnerList" style="cursor: pointer; text-align: center; padding: 5px;">Update Png</label>
+
+                <button class="btnProductShowDiscriptionInnerList" type="submit" form="editCompanyForm">Update</button>
+            </form>
         </div>
-
-      </div>
-      
-</div>
     </div>
-   
-  </div>
+</div>
 
 
-  <div>
+     
+
+
     <div class="customerShow">
       <div class="customerShowDiscription">
        <button class="closeCustomer" onclick="closeCustomer()">X</button>
@@ -639,7 +850,7 @@ document.addEventListener("DOMContentLoaded", () => {
      
     </div>
   </div>
-  <div class="addCompany">
+  <div class="addCompany" id="addNotEdit">
     <div class="addCompanyDiscription">
       <button class="closeAddCompany" onclick="closeAddCompany()">X</button>
       <div class="addCompanyDiscriptionList">
@@ -682,10 +893,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const values = [<?= $values_js ?>];
 
 const palette = [
-  '#000000',    
-  '#555555',   
-  '#888888',    
-  '#94290eff'  
+  '#341c1cff',    
+  '#294533ff',   
+  '#a3a1a1ff',    
+  '#580606ff' ,
+  '#0b6864ff',
+  '#151816ff'
 ];
 
 const colors = Array.from({length: labels.length}, (_, i) => palette[i % palette.length]);
@@ -698,6 +911,7 @@ const colors = Array.from({length: labels.length}, (_, i) => palette[i % palette
       backgroundColor: colors
     }]
   };
+  
 
   function handleHover(evt, item, legend) {
     const colors = legend.chart.data.datasets[0].backgroundColor;
@@ -727,7 +941,7 @@ const colors = Array.from({length: labels.length}, (_, i) => palette[i % palette
           onLeave: handleLeave,
           labels: {
             font: { size: 10, weight: 'bold' },
-            color: '#000'
+            color: '#a3a1a1ff'
           }
         },
         tooltip: {

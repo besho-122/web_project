@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         label: '# of Votes',
         data: [12, 19, 3, 5, 2, 3],
         borderWidth: 1,
-        backgroundColor: ['#bbbbbbff', '#5a5a5aff', '#333333ff', '#94290eff', '#000000ff', '#8b8b8bff'],
+        backgroundColor: ['#4f0975ff', '#341c1cff', '#294533ff', '#a71241ff', '#a3a1a1ff', '#580606ff'],
       }]
     };
 
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             size: 10, 
             weight: 'bold' 
           },
-          color: '#000' 
+          color: '#a3a1a1ff' 
         }
       },
       tooltip: {
@@ -654,33 +654,50 @@ document.addEventListener('click', function (e) {
   });
 });
 
+function editCompany(companyId) {
+    const modal = document.querySelector('#editNotAdd'); 
+    if (!modal) return;
+    modal.style.display = 'block';
+
+    const blurLayer = document.querySelector('.toMakeItBlur');
+    if (blurLayer) blurLayer.style.filter = 'blur(16px)';
+
+    const card = document.querySelector(`.companyCard[data-id='${companyId}']`);
+    if (!card) return;
+
+    // Fill text fields
+    document.querySelector('#companyNameInput').value = card.dataset.companyname || '';
+    document.querySelector('#companyDescriptionInput').value = card.dataset.companydescription || '';
+    document.querySelector('#companyIdInputHidden').value = companyId;
+
+    // Prefill hidden inputs with current images
+    document.querySelector('#currentImageInput').value = card.dataset.image || '';
+    document.querySelector('#currentImagePngInput').value = card.dataset.imagepng || '';
+}
+
+
+
+
+
 
 
 
 
 
     function closeCompany() {
-    document.querySelector('.companyShow').style.display = 'none';
-    document.querySelector('.companyShowDiscription').style.display = 'none';
+    document.querySelector('#editNotAdd').style.display = 'none';
     document.querySelector('.toMakeItBlur').style.filter = 'blur(0px)';
   }
 
 
-  function editCompany() {
-    document.querySelector('.companyShow').style.display = 'block';
-    document.querySelector('.companyShowDiscription').style.display = 'block';
-    document.querySelector('.toMakeItBlur').style.filter = 'blur(16px)';
-
-  }
-
 
     function addCompany() {
-    document.querySelector('.addCompany').style.display = 'block';
+    document.querySelector('#addNotEdit').style.display = 'block';
     document.querySelector('.toMakeItBlur').style.filter = 'blur(16px)';
   }
 
     function closeAddCompany() {
-    document.querySelector('.addCompany').style.display = 'none';
+    document.querySelector('#addNotEdit').style.display = 'none';
     document.querySelector('.toMakeItBlur').style.filter = 'blur(0px)';
   }
 

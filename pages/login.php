@@ -81,17 +81,14 @@ const form = document.getElementById("signUpForm");
 const inputs = form.querySelectorAll("input[type=text], input[type=email], input[type=password]");
 const signUpBtn = form.querySelector("button[type=submit]");
 
-// افتراضي بدون action
 form.removeAttribute("action");
-
-// عند الضغط على زر Sign Up
 signUpBtn.addEventListener("click", (e) => {
     const hasValue = Array.from(inputs).some(i => i.value.trim() !== "");
     if (hasValue) {
         form.setAttribute("action", "../api/signup.php");
     } else {
         form.removeAttribute("action");
-        e.preventDefault(); // ما يبعث الفورم إذا فاضي
+        e.preventDefault(); 
     }
 });
 </script>
