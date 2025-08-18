@@ -1,29 +1,26 @@
 <?php
-// Make sure this path is correct
-require("../api/config.php"); // your mysqli connection
+require_once __DIR__ . '/config.php';
+header('Content-Type: application/json; charset=utf-8');
 
-header('Content-Type: text/plain'); // for debugging
-
-if(isset($_POST['id']) && isset($_POST['status'])){
-    $id = intval($_POST['id']);
-    $status = $_POST['status'];
-
-    // Debug: log received values
-    error_log("Received ID: $id, Status: $status");
-
-    // Prepare statement
-    if($stmt = $dp->prepare("UPDATE orders SET Status=? WHERE ProductId=?")) {
-        $stmt->bind_param("si", $status, $id);
-        if($stmt->execute()){
-            echo "Status updated successfully";
-        } else {
-            echo "Error executing query: ".$stmt->error;
-        }
-        $stmt->close();
-    } else {
-        echo "Error preparing statement: ".$dp->error;
-    }
-} else {
-    echo "ID or status not received";
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  echo json_encode(['success'=>false, 'message'=>'Invalid method']); exit;
 }
-?>
+
+$id     = isset($_POST['order_id']) ? (int)$_POST['order_id'] : 0;
+$status = trim($_POST['new_status'] ?? '');
+
+if ($id <= 0 || $status === '') {
+  echo json_encode(['success'=>false, 'message'=>'Missing params']); exit;
+}
+
+$stmt = $dp->prepare("UPDATE `Order` SET `Status`=? WHERE `id`=?");
+if (!$stmt) { echo json_encode(['success'=>false, 'message'=>'Prepare failed: '.$dp->error]); exit; }
+
+$stmt->bind_param('si', $status, $id);
+$ok = $stmt->execute();
+$stmt->close();
+
+echo json_encode([
+  'success' => (bool)$ok,
+  'message' => $ok ? 'Status updated' : 'Execute failed'
+]);

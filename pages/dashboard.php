@@ -493,39 +493,6 @@ if ($orderResult && $orderResult->num_rows > 0) {
 </section>
 
 <script>
-// Event delegation: click status to update DB and class
-document.getElementById('orders-tbody').addEventListener('click', function(e){
-    if(e.target && e.target.classList.contains('status')){
-        let elem = e.target;
-        let orderId = elem.getAttribute('data-id');
-        let currentStatus = elem.textContent.trim();
-        let newStatus = (currentStatus.toLowerCase() === 'pending') ? 'Delivered' : 'Pending';
-
-        // === Immediate UI update ===
-        elem.textContent = newStatus;
-        if(newStatus.toLowerCase() === 'delivered'){
-            elem.classList.remove('pending');
-            elem.classList.add('delivered');
-        } else {
-            elem.classList.remove('delivered');
-            elem.classList.add('pending');
-        }
-
-        // === Send AJAX to update DB ===
-        let formData = new FormData();
-        formData.append('update_status', 1);
-        formData.append('id', orderId);
-        formData.append('status', newStatus);
-
-        fetch(window.location.href, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => console.log('DB response:', data))
-        .catch(err => console.error('AJAX error:', err));
-    }
-});
 
 
 // "View All" button: load all orders dynamically
@@ -962,6 +929,53 @@ const colors = Array.from({length: labels.length}, (_, i) => palette[i % palette
 
 
   </script>
+
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<!--                 email code                                  -->
+<script>
+  (function(){
+    emailjs.init({ publicKey: "ApeL9b3oz5PynbXsm" });
+  })();
+</script>
+
+<script>
+document.getElementById('orders-tbody').addEventListener('click', async (e) => {
+  const el = e.target.closest('.status');
+  if (!el) return;
+  const orderId = el.getAttribute('data-id');
+  const cur     = (el.textContent || '').trim().toLowerCase();
+  const next    = (cur === 'pending') ? 'Delivered' : 'Pending';
+
+  el.textContent = next;
+  el.classList.toggle('delivered', next.toLowerCase() === 'delivered');
+  el.classList.toggle('pending',   next.toLowerCase() !== 'delivered');
+
+  const fd = new FormData();
+  fd.append('order_id', orderId);
+  fd.append('new_status', next);
+  await fetch('../api/updateStatus.php', { method: 'POST', body: fd });
+  if (next.toLowerCase() === 'delivered') {
+    const fd2 = new FormData();
+    fd2.append('order_id', orderId);
+    const r  = await fetch('../api/getUserData.php', { method: 'POST', body: fd2 });
+    const d  = await r.json();
+    if (d && d.success) {
+      await emailjs.send(
+        "service_ohhju66",        
+        "template_order_delivered",  
+        {
+          user_name:    d.userName,
+          email:        d.email,
+          product_name: d.productName,
+          order_id:     d.orderId
+        }
+      );
+    }
+  }
+});
+</script>
 </body>
 
 </html>
