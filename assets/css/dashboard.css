@@ -46,7 +46,7 @@ padding: 0 30px 0 30px;
 position: fixed;
 z-index:100;
 
-top: 0;                       /* مهم */
+top: 0;                    
 left: 0;
 
 }
@@ -116,6 +116,7 @@ position: absolute;
 .flexBar{
   display: flex;
   margin-top: 17vh;
+  align-items: center;
   justify-content: space-around;
 }
 
@@ -216,9 +217,9 @@ color: #cccccf;
   height: 180vh;
   display: flex;
   gap: 10px;
-  justify-content: flex-start;   /* cards start from left */
-  align-items: flex-start;       /* align items to top row */
-  align-content: flex-start;     /* align rows to the top, not center */
+  justify-content: flex-start;   
+  align-items: flex-start;     
+  align-content: flex-start;    
   flex-wrap: wrap;
   overflow: auto;
   padding: 20px 30px;
@@ -1261,7 +1262,20 @@ color: #cccccf;
 }
 
 
-
+.btnVideoCancel22{
+  width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  display: none;
+}
 
 
 
@@ -1320,7 +1334,7 @@ color: #cccccf;
 
 
 
-.imgInput{
+.imgLabel{
   display: none;
    width: 200px;
   height: 30px;
@@ -1330,11 +1344,112 @@ color: #cccccf;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   background-color: #000000;
   color: #ffffff;
-  font-size: 10px;
+   font-size: 20px;
   font-family: "Orbitron", sans-serif;
   z-index: 6;
   text-align: center;
 }
+
+
+
+.imgLabel2{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+
+
+
+
+
+
+.imgLabel3{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+
+
+
+
+
+.imgLabel4{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+
+
+
+.imgLabel5{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+
+
+
+.imgLabel6{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+
+
+
+
+
+
 .btnImagesApply{
   width: 200px;
   height: 30px;
@@ -2377,10 +2492,15 @@ main section {
   transform: translateY(0);
   transition: transform 0.3s;
   background-color: #870606;
+  position: absolute;
+  top: -10px;
+  right: 77px;
+
+
+  
 }
 .notifications{
-  position: absolute;
-  left: 4.5vw;
+  position: relative;
 
 }
 .fa-bell:hover{

@@ -19,7 +19,18 @@
 
 <body>
   
-  <?php  require("../api/config.php"); 
+<?php  require("../api/config.php"); 
+session_start();
+$isLoggedIn = isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true ? 'true' : 'false';
+$user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
+
+?>
+<script>
+    localStorage.setItem('isLoggedIn', '<?php echo $isLoggedIn; ?>');
+    localStorage.setItem('userName', '<?php echo $user_id; ?>');
+</script>
+
+<?php
   $sql = "SELECT Name,id FROM Company";
 $result = $dp->query($sql);
 
@@ -29,7 +40,10 @@ $values = [];
 if ($result && $result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     $labels[] = $row['Name'];
-    $values[] = (int)$row['id'];
+    $sql = "SELECT COUNT(*) as count FROM Product WHERE CompanyId = " . $row['id'];
+    $result2 = $dp->query($sql);
+    $row2 = $result2->fetch_assoc();
+    $values[] = (int)$row2['count'];
   }
 }
 
@@ -38,8 +52,45 @@ $labels_escaped = array_map(function($s){
 }, $labels);
 $labels_js = "'" . implode("','", $labels_escaped) . "'";
 $values_js = implode(",", $values);
-  
-  
+
+// chart two data feedback // bishawi //
+$sql = "
+SELECT 
+  `Value`,
+  CASE `Value`
+    WHEN 1 THEN 'Very dissatisfied'
+    WHEN 2 THEN 'Dissatisfied'
+    WHEN 3 THEN 'Neutral'
+    WHEN 4 THEN 'Satisfied'
+    WHEN 5 THEN 'Very satisfied'
+    ELSE 'Unknown'
+  END AS label,
+  COUNT(*) AS cnt
+FROM `FeedBack`
+GROUP BY `Value`
+ORDER BY `Value` ASC
+";
+
+$result = $dp->query($sql);
+
+$labels2 = [];
+$values2 = [];
+
+if ($result && $result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $labels2[] = $row['label'] ?? 'Unknown';
+    $values2[] = (int)($row['cnt'] ?? 0);
+  }
+} else {
+  $labels2 = ['Very dissatisfied','Dissatisfied','Neutral','Satisfied','Very satisfied'];
+  $values2 = [0,0,0,0,0];
+}
+
+$labels_escaped2 = array_map(function($s){
+  return str_replace(["\\", "'"], ["\\\\", "\\'"], (string)$s);
+}, $labels2);
+$labels_js2 = "'" . implode("','", $labels_escaped2) . "'";
+$values_js2 = implode(",", array_map('intval', $values2));
   
   ?>
   <div class="toMakeItBlur">
@@ -50,7 +101,7 @@ $values_js = implode(",", $values);
     <div class="sidebar-title">
       <div class="sidebarBrand">
         <img src="../assets/photos/yousef.jpg">
-        <h4>Welcome Yousef</h4>
+        <h4>Welcome <?php echo htmlspecialchars($user_id ?? 'Guest', ENT_QUOTES); ?></h4>
       </div>
       <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
     </div>
@@ -66,9 +117,9 @@ $values_js = implode(",", $values);
     <div class="flexBar">
      
       <i class="fa-solid fa-bell fa-xl" style="color: #ffffff;" class="notIcon"></i><span class="cartCount notifications">1</span></li>
-      <i class="fa-solid fa-envelope fa-xl" style="color: #ffffff;"></i><span class="cartCount message">2</span></li>
+     <a href="../api/logout.php"> <i class="fa-solid fa-right-from-bracket fa-xl" style="color: #ffffff;" ></i></a>
     </div>
-    
+ 
   </aside>
   <nav class="navbar">
 
@@ -138,7 +189,7 @@ $values_js = implode(",", $values);
               <h3>Customers</h3>
             </div>
            <?php
-            $sql = "SELECT COUNT(*) as count FROM Users";
+            $sql = "SELECT COUNT(*) as count FROM Users where role = 'user'";
             $result = $dp->query($sql);
             $row = $result->fetch_assoc();
             $count = $row['count'];
@@ -377,32 +428,48 @@ inputSearch.addEventListener('input', () => {
         <div class="pagecards">
           <div class="pagecard1">
             <h1>Video</h1>
-            <video id="bgVideo" src="../assets/videos/homePage/main.mp4" autoplay muted loop ></video>
+              <video id="bgVideo"
+  src="../assets/videos/homePage/main.mp4?v=<?= filemtime(__DIR__ . '/../assets/videos/homePage/main.mp4') ?>"
+  autoplay muted loop></video>
+            
             <button class="btnpagecard1" onclick="changeVideo()">Change Video</button>
-            <input type="file" id="videoInput" accept="video/*" class="videoInput">
+            <input hidden type="file" id="videoInput" accept="video/*" class="videoInput">
+            <label for="videoInput" style="text-align: center;" class="btnVideoCancel">select Video</label>
             <button class="btnVideoApply" onclick="applyVideo()">Apply</button>
-            <button class="btnVideoCancel" onclick="cancelVideo()">Cancel</button>
+            <button class="btnVideoCancel22" onclick="cancelVideo()">Cancel</button>
           </div>
           <div class="pagecard2">
             <h1>News</h1>
-            <img id="newsImage" src="../assets/photos/sectionTwo/2025-Mercedes-AMG.jpg" alt="Discover Image">
+            <img id="newsImage" src="../assets/photos/sectionTwo/img1.jpg" alt="Discover Image">
             <button class="btnpagecard2" onclick="changeImagesTwo()">Change Images</button>
-            <input type="file" id="imageInput1" accept="image/*" class="imgInput">
-            <input type="file" id="imageInput2" accept="image/*" class="imgInput">
-            <input type="file" id="imageInput3" accept="image/*" class="imgInput">
-            <button class="btnImagesApply" onclick="applyImagesTwo()">Apply</button>
-            <button class="btnImagesCancel" onclick="cancelImagesTwo()">Cancel</button>
+            <input hidden type="file" id="imageInput1" accept="image/jpg" class="imgInput">
+    <label for="imageInput1" style="text-align: center;" class="imgLabel">Left Image</label>
+
+    <input hidden type="file" id="imageInput2" accept="image/jpg" class="imgInput">
+    <label for="imageInput2" style="text-align: center;" class="imgLabel2">Center Image</label>
+
+  <input hidden type="file" id="imageInput3" accept="image/jpg" class="imgInput">
+  
+  <label for="imageInput3" style="text-align: center;" class="imgLabel3">Right Image</label>
+
+  <button class="btnImagesApply" onclick="applyImage1()">Apply</button>
+  <button class="btnImagesCancel" onclick="cancelImagesTwo()">Cancel</button>
           </div>
-          <div class="pagecard3">
-            <h1>Discover</h1>
-            <img id="discoverImage" src="../assets/photos/discover2.jpg" alt="Discover Image">
-            <button class="btnpagecard3" onclick="changeImagesThree()">Change Images</button>
-             <input type="file" id="imageInputThree1" accept="image/*" class="imgInputThree">
-            <input type="file" id="imageInputThree2" accept="image/*" class="imgInputThree">
-            <input type="file" id="imageInputThree3" accept="image/*" class="imgInputThree">
-            <button class="btnImagesThreeApply" onclick="applyImagesThree()">Apply</button>
-            <button class="btnImagesThreeCancel" onclick="cancelImagesThree()">Cancel</button>
-          </div>
+       <div class="pagecard3">
+  <h1>Discover</h1>
+  <img id="discoverImage" src="../assets/photos/discover/img2.jpg" alt="Discover Image">
+
+  <button class="btnpagecard3" onclick="changeImagesThree()">Change Images</button>
+  <input hidden type="file" id="imageInputThree1" accept="image/jpg" >
+  <label for="imageInputThree1" style="text-align: center;" class="imgLabel4">Left Image</label>
+  <input  hidden type="file" id="imageInputThree2" accept="image/jpg" >
+  <label for="imageInputThree2" style="text-align: center;" class="imgLabel5">Center Image</label>
+  <input  hidden type="file" id="imageInputThree3" accept="image/jpg"  >
+  <label for="imageInputThree3" style="text-align: center;" class="imgLabel6">Right Image</label>
+
+  <button class="btnImagesThreeApply" onclick="applyImagesThree()">Apply</button>
+  <button class="btnImagesThreeCancel" onclick="cancelImagesThree()">Cancel</button>
+</div>
         </div>
         
       </div>
@@ -856,24 +923,29 @@ document.addEventListener("DOMContentLoaded", () => {
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
   <script src="../assets/js/dashboard.js"></script>
+
+
+
+<!-- chart 1 data gives  -->
+
   <script>
  const labels = [<?= $labels_js ?>];
   const values = [<?= $values_js ?>];
 
 const palette = [
-  '#341c1cff',    
-  '#294533ff',   
-  '#a3a1a1ff',    
-  '#580606ff' ,
-  '#0b6864ff',
-  '#151816ff'
+  '#640000ff',    
+  '#ffffffff',   
+  '#630000ff',    
+  '#5a5a5aff' ,
+  '#612222ff',
+  '#461616ff'
 ];
 
 const colors = Array.from({length: labels.length}, (_, i) => palette[i % palette.length]);
   const data = {
     labels: labels,
     datasets: [{
-      label: '# of Votes',
+      label: 'Number of Products',
       data: values,
       borderWidth: 1,
       backgroundColor: colors
@@ -930,6 +1002,92 @@ const colors = Array.from({length: labels.length}, (_, i) => palette[i % palette
 
   </script>
 
+
+
+
+<!-- chart two give data  -->
+ <script> 
+const labels2 = [<?= $labels_js2 ?>];
+const values2 = [<?= $values_js2 ?>];
+
+const PALETTE = [
+  '#9e0000ff',
+  '#721212ff',
+  '#ff7171ff',
+  '#631c1cff',
+  '#800101ff',
+  '#000000ff'
+];
+
+const colors2 = Array.from({ length: labels2.length }, (_, i) => PALETTE[i % PALETTE.length]);
+const legendHover = window.handleHover || function(evt, item, legend) {
+  const colors = legend.chart.data.datasets[0].backgroundColor;
+  colors.forEach((c, i) => { colors[i] = (i === item.index || (typeof c === 'string' && c.length === 9)) ? c : c + '4D'; });
+  legend.chart.update();
+};
+const legendLeave = window.handleLeave || function(evt, item, legend) {
+  const colors = legend.chart.data.datasets[0].backgroundColor;
+  colors.forEach((c, i) => { colors[i] = (typeof c === 'string' && c.length === 9) ? c.slice(0, -2) : c; });
+  legend.chart.update();
+};
+
+const data2 = {
+  labels: labels2,
+  datasets: [{
+    label: '# of Votes',
+    data: values2,
+    borderWidth: 1,
+    backgroundColor: colors2
+  }]
+};
+
+const config2 = {
+  type: 'doughnut',
+  data: data2,
+  options: {
+    responsive: false,
+    plugins: {
+      legend: {
+        onHover: legendHover,
+        onLeave: legendLeave,
+        labels: {
+          font: { size: 10, weight: 'bold' },
+          color: '#a3a1a1ff'
+        }
+      },
+      tooltip: {
+        bodyFont: { size: 10 }
+      }
+    }
+  }
+};
+
+const ctx2 = document.getElementById('lineChart');
+const myChart2 = new Chart(ctx2, config2);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
 </script>
@@ -971,6 +1129,104 @@ email: d.email,
   }
 });
 </script>
+
+ <!-- / /// / / change video main ////// -->
+
+<script>
+function applyVideo() {
+  const fileInput = document.getElementById("videoInput");
+  const file = fileInput.files[0];
+  if (!file) {
+    alert("Please choose a video file first");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("video", file);
+  fetch("../api/uploadVideo.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.text())
+  .then(msg => {
+    alert(msg);
+    const video = document.getElementById("bgVideo");
+    video.src = "../assets/videos/homePage/main.mp4?ts=" + Date.now(); 
+    video.load();
+    video.play();
+  })
+  .catch(err => console.error("Upload failed:", err));
+}
+</script>
+
+
+
+
+<script>
+function applyImage1() {
+  const input = document.getElementById('imageInput1'); 
+  if (!input || !input.files.length) {
+    alert("Choose an image first");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('img1', input.files[0]);
+
+  fetch("../api/uploadImages.php", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success && data.img1) {
+        const img = document.getElementById('newsImage');
+        img.src = data.img1 + "?ts=" + Date.now();
+        alert("Image updated!");
+      } else {
+        alert("Upload failed: " + (data.message || ''));
+      }
+    })
+    .catch(err => console.error("Upload error:", err));
+}
+</script>
+
+
+
+<script>
+function applyImagesThree() {
+  const input1 = document.getElementById('imageInputThree1');
+  const input2 = document.getElementById('imageInputThree2');
+  const input3 = document.getElementById('imageInputThree3');
+
+  const formData = new FormData();
+  if (input1.files.length) formData.append('discover1', input1.files[0]);
+  if (input2.files.length) formData.append('discover2', input2.files[0]);
+  if (input3.files.length) formData.append('discover3', input3.files[0]);
+
+  if (![...formData.keys()].length) {
+    alert("Choose at least one image");
+    return;
+  }
+
+  fetch("../api/uploadDiscover.php", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        if (data.discover1) {
+          document.getElementById('discoverImage').src = data.discover1 + "?t=" + Date.now();
+        }
+        alert("Discover images updated!");
+      } else {
+        alert("Upload failed: " + (data.message || ''));
+      }
+    })
+    .catch(err => console.error("Upload error:", err));
+}
+
+
+</script>
+
+
+
+
 </body>
 
 </html>
