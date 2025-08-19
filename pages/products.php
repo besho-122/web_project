@@ -73,46 +73,8 @@
   </ul>
 </li>
 
-<!-- Google Translate Element -->
-<div id="google_translate_element" style="display:none;"></div>
 
-<!-- Google Translate Script -->
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'en',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-  }, 'google_translate_element');
-}
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<!-- تغيير اللغة من Dropdown بشكل موثوق -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-  function changeLanguage(lang) {
-    const interval = setInterval(() => {
-      const select = document.querySelector('select.goog-te-combo');
-      if (select) {
-        select.value = lang;
-        select.dispatchEvent(new Event('change'));
-        clearInterval(interval);
-      }
-    }, 500); // يفحص كل نصف ثانية حتى يظهر select
-  }
-
-  const items = document.querySelectorAll('.dropdown-item[data-lang]');
-  items.forEach(item => {
-    item.addEventListener('click', function(e){
-      e.preventDefault();
-      const lang = this.getAttribute('data-lang');
-      changeLanguage(lang);
-    });
-  });
-
-});
-</script>
 
 
         </li>
