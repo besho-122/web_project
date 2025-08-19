@@ -454,3 +454,19 @@ position: relative;
   transition: transform 0.3s;
   display: none;
 }
+
+.goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  font-size: 0; /* يخفي نص "Select Language" أو أي عناصر إضافية */
+}
+
+/* اختياري: يخفي أي إطار iframe إضافي غير ضروري */
+iframe.goog-te-menu-frame {
+  display: none !important;
+}
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}

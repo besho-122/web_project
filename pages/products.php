@@ -62,16 +62,59 @@
       </form>
       <a href="../pages/profile.php?tab=cart"><li class="nav-item"><i class="fa-solid fa-cart-shopping fa-xl" style="color: #ffffff;"></i><span id="cartCount"></span></li></a>
       
-       <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            En
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+      <!-- Dropdown -->
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    En
+  </a>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="ar">Arabic</a></li>
+  </ul>
+</li>
+
+<!-- Google Translate Element -->
+<div id="google_translate_element" style="display:none;"></div>
+
+<!-- Google Translate Script -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- تغيير اللغة من Dropdown بشكل موثوق -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  function changeLanguage(lang) {
+    const interval = setInterval(() => {
+      const select = document.querySelector('select.goog-te-combo');
+      if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+        clearInterval(interval);
+      }
+    }, 500); // يفحص كل نصف ثانية حتى يظهر select
+  }
+
+  const items = document.querySelectorAll('.dropdown-item[data-lang]');
+  items.forEach(item => {
+    item.addEventListener('click', function(e){
+      e.preventDefault();
+      const lang = this.getAttribute('data-lang');
+      changeLanguage(lang);
+    });
+  });
+
+});
+</script>
+
+
         </li>
         
          </ul>
@@ -295,6 +338,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 <script src="../assets/js/product.js"></script>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
