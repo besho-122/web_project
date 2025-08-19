@@ -52,12 +52,13 @@
        
       
       
-      <form class="d-flex " role="search">
-        <div class="searchDiv ">
-        <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search"/>
-        <i class="fa-solid fa-magnifying-glass fa-xl searchIcon" style="color: #000000;" type="submit" ></i>
-        </div>
-      </form>
+      <form class="d-flex" role="search">
+  <div class="searchDiv">
+    <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search"/>
+    <i class="fa-solid fa-magnifying-glass fa-xl searchIcon" style="color: #000000;"></i>
+  </div>
+</form>
+
       <a href="../pages/profile.php?tab=cart"><li class="nav-item"> <i class="fa-solid fa-cart-shopping fa-xl" style="color: #ffffff;"></i><span id="cartCount"></span></li></a>
       
        <li class="nav-item dropdown">
@@ -286,10 +287,11 @@
     </li>
     </ul>
 
-    <button class="resetButton">
-        <span><i class="fa-regular fa-trash-can fa-lg" style="color: #000000;"></i></span>
-        Resest all filters
-    </button>
+    <button type="button" class="resetButton">
+  <span><i class="fa-regular fa-trash-can fa-lg" style="color: #000000;"></i></span>
+  Reset all filters
+</button>
+
   </aside>
 
   <section class="content-area">
@@ -305,71 +307,120 @@
         </div>
     <div class="sort-bar">
        
-      <strong for="sort">Sort By:</strong>
-      <select id="sort" class="selection">
-        <option>Recommended</option>
-        <option>Newest</option>
-        <option>Price (Low to High)</option>
-        
-      </select>
-      <img src="../assets/photos/arrow.webp" alt="" class="arrow" width="20px">
-    </div>
-    </div>
-     <?php
+      
+   <?php
+$sortOption = $_GET['sort'] ?? 'original'; 
 $sql = "SELECT p.*, c.Name AS CompanyName 
         FROM Product p
         LEFT JOIN Company c ON p.CompanyId = c.id";
-$result = $dp->query($sql);
+if ($sortOption === 'newest') {
+    $sql .= " ORDER BY CAST(p.Year AS UNSIGNED) DESC";
+} elseif ($sortOption === 'priceLowHigh') {
+    $sql .= " ORDER BY CAST(p.Price AS DECIMAL(10,2)) ASC";
+}
 
+$result = $dp->query($sql);
+?>
+
+<strong for="sort">Sort By:</strong>
+<select id="sort" class="selection" onchange="window.location.href='?sort='+this.value;">
+    <option value="original" <?= ($_GET['sort'] ?? 'original') === 'original' ? 'selected' : '' ?>>Recommended</option>
+    <option value="newest" <?= ($_GET['sort'] ?? '') === 'newest' ? 'selected' : '' ?>>Newest</option>
+    <option value="priceLowHigh" <?= ($_GET['sort'] ?? '') === 'priceLowHigh' ? 'selected' : '' ?>>Price (Low to High)</option>
+</select>
+<script>
+window.addEventListener('beforeunload', () => {
+    localStorage.setItem('sort', document.getElementById('sort').value);
+    localStorage.setItem('scroll', window.scrollY);
+});
+window.addEventListener('load', () => {
+    const sortValue = localStorage.getItem('sort');
+    if (sortValue) document.getElementById('sort').value = sortValue;
+    const scrollY = localStorage.getItem('scroll');
+    if (scrollY) window.scrollTo(0, scrollY);
+    localStorage.removeItem('sort');
+    localStorage.removeItem('scroll');
+});
+
+</script>
+<img src="../assets/photos/arrow.webp" alt="" class="arrow" width="20px">
+    </div>
+    </div>
+<?php
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $name = htmlspecialchars($row['Name'] ?? '');
         $companyName = htmlspecialchars($row['CompanyName'] ?? '');
         $imgs = htmlspecialchars($row['img4'] ?? '');
 ?>
+
 <div class="car-card"
       data-id="<?= $row['id'] ?>"
-     data-image="<?= htmlspecialchars($row['img5'] ?? '') ?>"
-     data-condition="<?= htmlspecialchars($row['Condition'] ?? '') ?>"
-     data-model="<?= htmlspecialchars($row['Model'] ?? '') ?>"
-     data-company="<?= htmlspecialchars($row['CompanyName'] ?? '') ?>" 
-     data-companyid="<?= htmlspecialchars($row['CompanyId'] ?? '') ?>"   
-     data-year="<?= htmlspecialchars($row['Year'] ?? '') ?>"
-     data-exterior="<?= htmlspecialchars($row['Exterior'] ?? '') ?>"
-     data-interior="<?= htmlspecialchars($row['Interior'] ?? '') ?>"
-     data-price="<?= htmlspecialchars($row['Price'] ?? '') ?>"
-     data-mileage="<?= htmlspecialchars($row['MileAge'] ?? '') ?>"
+      data-image="<?= htmlspecialchars($row['img5'] ?? '') ?>"
+      data-condition="<?= htmlspecialchars($row['Condition'] ?? '') ?>"
+      data-model="<?= htmlspecialchars($row['Model'] ?? '') ?>"
+      data-company="<?= htmlspecialchars($row['CompanyName'] ?? '') ?>"   
+      data-year="<?= htmlspecialchars($row['Year'] ?? '') ?>"
+      data-exterior="<?= htmlspecialchars($row['Exterior'] ?? '') ?>"
+      data-interior="<?= htmlspecialchars($row['Interior'] ?? '') ?>"
+      data-price="<?= htmlspecialchars($row['Price'] ?? '') ?>"
+      data-mileage="<?= htmlspecialchars($row['MileAge'] ?? '') ?>"
 >
 
     <div class="car-image">
-        <img src="<?= $imgs?>" alt="<?= $name ?>" />
+        <img src="<?= $imgs ?>" alt="<?= $name ?>" />
     </div>
+
     <div class="car-info">
         <div class="oneCar">
             <h2><?= $name ?></h2>
-            <p> car condition: <?= htmlspecialchars($row['Condition'] ?? '') ?></p>
+            <p>Car condition: <?= htmlspecialchars($row['Condition'] ?? '') ?></p>
         </div>
         <div class="twoCar">
-             <p>Exterior color: <?= htmlspecialchars($row['Exterior'] ?? '') ?></p>
-            <p>Electric · 12,356 km · <?= htmlspecialchars($row['Year'] ?? '') ?> </p>
+            <p>Exterior color: <?= htmlspecialchars($row['Exterior'] ?? '') ?></p>
+            <p>Electric · <?= htmlspecialchars($row['MileAge'] ?? '') ?> km · <?= htmlspecialchars($row['Year'] ?? '') ?></p>
             <p>No accidents · 300 kW / 408 hp · Rear-wheel-drive</p>
             <p>Range combined (WLTP): 442 km</p>
         </div>
         <div class="threeCar">
             <strong>Price on request</strong>
-            <button class="btnProduct details"   onclick="window.location.href='../pages/model.php?id=<?= $row['id'] ?>'">Show Details</button>
-            <button class="btnProduct two"><span><i class="fa-regular fa-bookmark fa-xl" style="color: #000000;"></i></span>Save</button>
-            <strong class="motor">Motor Center Nablus</strong>
+            <button class="btnProduct details"
+                    onclick="window.location.href='../pages/model.php?id=<?= $row['id'] ?>'">
+                Show Details
+            </button>
+            <button class="btnProduct two">
+                <span><i class="fa-regular fa-bookmark fa-xl" style="color: #000000;"></i></span>
+                Save
+            </button>
+            <strong class="motor"><?= htmlspecialchars($row['CompanyName'] ?? '') ?></strong>
         </div>
-        <p>19.6 kWh/100 km Electrical consumption combined (WLTP) 0 g/km CO2 emissions combined (WLTP)</p>
+        <p>19.6 kWh/100 km Electrical consumption combined (WLTP) · 0 g/km CO2 emissions combined (WLTP)</p>
     </div>
 </div>
+
 <?php
     }
 } else {
     echo "<p>No cars found.</p>";
 }
 ?>
+<!-- your car cards HTML ends here -->
+
+<script>
+const sortSelect = document.getElementById('sort');
+if (sortSelect) {
+    sortSelect.addEventListener('change', () => {
+        const selected = sortSelect.value;
+        let url = window.location.href;
+        url = url.replace(/([?&])sort=[^&]*/,'').replace(/&$/,'');
+        url += (url.includes('?') ? '&' : '?') + 'sort=' + encodeURIComponent(selected);
+        window.location.href = url;
+    });
+} else {
+    console.error('Sort select not found!');
+}
+</script>
+</body>
 
 
   <ul class="pagination">

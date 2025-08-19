@@ -1,54 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const id = localStorage.getItem('modelId');
-  if (id) {
-    const cb = document.getElementById('checkbox' + id);
+  setupCheckboxSorting(
+    '.sidebar .modelVarients input[type="checkbox"]',
+    'Company',
+    'company'     
+  );
+  const savedCompany = localStorage.getItem('modelName');
+  if (savedCompany) {
+    const cb = [...document.querySelectorAll('.sidebar .modelVarients input[type="checkbox"]')]
+                  .find(el => el.value === savedCompany);
     if (cb) {
-      cb.checked = true; 
+      cb.checked = true;
       cb.dispatchEvent(new Event('change', { bubbles: true }));
     }
   }
-
-  
-
-  const modelName = localStorage.getItem('modelName');
-  const nameEl = document.querySelector('.nameModel');
-  if (nameEl && modelName) nameEl.textContent = modelName;
-
-  const condition = localStorage.getItem('condition');
-  if (condition) {
-    const cb2 = document.getElementById(condition.toLowerCase()); 
+  const savedCondition = localStorage.getItem('condition');
+  if (savedCondition) {
+    const cb2 = [...document.querySelectorAll('.sidebar .condition input[type="checkbox"]')]
+                   .find(el => el.value.toLowerCase() === savedCondition.toLowerCase());
     if (cb2) {
       cb2.checked = true;
       cb2.dispatchEvent(new Event('change', { bubbles: true }));
     }
   }
+  const nameEl = document.querySelector('.nameModel');
+  if (nameEl && savedCompany) nameEl.textContent = savedCompany;
+  setTimeout(() => updatePagination(), 0);
 });
 
-function filterCards() {
-  const cards = document.querySelectorAll('.car-card');
 
+
+function filterCards() {
+  const cards = Array.from(document.querySelectorAll('.car-card'));
+  const filteredCards = [];
   cards.forEach(card => {
     let show = true;
-
     for (const [group, values] of Object.entries(checkedGroups)) {
       if (!values || values.length === 0) continue;
-
       const cardValue = card.dataset[group.toLowerCase()] || '';
-
-      // Numeric filters
       if (group === "Price" || group === "Mileage") {
         if (Number(cardValue) > Number(values[0])) {
           show = false;
           break;
         }
       } else if (group === "Company") {
-        // CompanyId is numeric
         if (!values.includes(cardValue)) {
           show = false;
           break;
         }
       } else {
-        // Text filters: Condition, Model, Exterior, Interior, Year
         const matched = values.some(value =>
           cardValue.toString().toLowerCase().includes(value.toString().toLowerCase())
         );
@@ -58,10 +57,12 @@ function filterCards() {
         }
       }
     }
-
     card.style.display = show ? 'flex' : 'none';
+    if (show) filteredCards.push(card);
   });
+  return filteredCards; 
 }
+
 
 
 
@@ -139,6 +140,9 @@ function setupCheckboxSorting(checkboxSelector, pText, groupName) {
                 cb.dispatchEvent(new Event('change'));
               }
             });
+            const savedCompany = localStorage.getItem('modelName');
+     const nameEl = document.querySelector('.nameModel');
+   nameEl.textContent = "";
           });
           sortingOne.appendChild(divCondition);
           sortingOne.appendChild(closeIcon);
@@ -150,6 +154,7 @@ function setupCheckboxSorting(checkboxSelector, pText, groupName) {
     if (resetBtn) {
     resetBtn.style.display = totalChecked > 0 ? 'block' : 'none';
     filterCards();
+    updatePagination();
 
 }
     });
@@ -202,6 +207,7 @@ function setupSelectSorting(selectSelector, pText, groupName) {
     if (resetBtn) {
     resetBtn.style.display = totalChecked > 0 ? 'block' : 'none';
     filterCards();
+    updatePagination();
 
 }
   });
@@ -253,11 +259,32 @@ function setupInputSorting(inputSelector, pText, groupName) {
     if (resetBtn) {
     resetBtn.style.display = totalChecked > 0 ? 'block' : 'none';
     filterCards();
+    updatePagination();
 
 }
 
   });
 }
+function setupCheckboxSortingCompany(selector, checkboxKey, cardKey) {
+    const checkboxes = document.querySelectorAll(selector);
+    const cards = document.querySelectorAll('.car-card');
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+            const checked = [...checkboxes].filter(c => c.checked).map(c => c.value);
+
+            cards.forEach(card => {
+                const company = card.dataset[cardKey]; // ← this matches data-company
+                if (checked.length === 0 || checked.includes(company)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+}
+
 
 
 const select = document.createElement('select');
@@ -281,8 +308,16 @@ document.querySelector('.yearSelection').appendChild(select);
 setupCheckboxSorting('.sidebar .condition input[type="checkbox"]', 'Condition', 'Condition');
 setupSelectSorting('.sidebar .modelSeries select', 'Model', 'Model');
 document.addEventListener("DOMContentLoaded", () => {
-    setupCheckboxSorting('.sidebar .modelVarients input[type="checkbox"]', 'CompanyId', 'CompanyId');
+    setupCheckboxSorting(
+        '.sidebar .modelVarients input[type="checkbox"]',
+        'Company', 
+        'company'     
+    );
+    
+
 });
+ 
+
 setupSelectSorting('.sidebar .modelYear select', 'Year', 'Year');
 setupCheckboxSorting('.sidebar .interiorColour input[type="checkbox"]', 'Interior', 'Interior');
 setupCheckboxSorting('.sidebar .exteriorColour input[type="checkbox"]', 'Exterior', 'Exterior');
@@ -342,19 +377,28 @@ if (resetBtn) {
     for (const group in checkedGroups) {
       checkedGroups[group] = [];
     }
-    document.querySelectorAll('.sidebar input[type="checkbox"]').forEach(cb => cb.checked = false);
-    document.querySelectorAll('.sidebar select').forEach(sel => sel.selectedIndex = -1);
+    document.querySelectorAll('.sidebar input[type="checkbox"]').forEach(cb => {
+      cb.checked = false;
+    });
+    document.querySelectorAll('.sidebar select').forEach(sel => {
+      sel.selectedIndex = -1;
+    });
     document.querySelectorAll('.sidebar input:not([type="checkbox"]):not([type="radio"])').forEach(input => {
       input.value = '';
-      input.dispatchEvent(new Event('input'));
     });
-    document.querySelectorAll('.sidebar select').forEach(sel => sel.dispatchEvent(new Event('change')));
-    document.querySelectorAll('.sidebar input[type="checkbox"]').forEach(cb => cb.dispatchEvent(new Event('change')));
-    resetBtn.style.display = 'none';
     const sortingBy = document.querySelector('.sortingBy');
     if (sortingBy) sortingBy.innerHTML = '';
+    resetBtn.style.display = 'none';
+     const savedCompany = localStorage.getItem('modelName');
+     const nameEl = document.querySelector('.nameModel');
+   nameEl.textContent = "";
+    filterCards();    
+    updatePagination(); 
+    
   });
 }
+
+
 
 
 
@@ -433,15 +477,245 @@ document.addEventListener('click', (e) => {
 
 
 //////////////////// doop down //////////////
-document.querySelectorAll('.nav-item-dropdown').forEach(card => {
-  card.addEventListener('click', () => {
-    const modelId = card.dataset.id; 
-    localStorage.setItem("modelId", modelId);
-     window.location.href = "../pages/filter.php";
+document.querySelectorAll('.nav-item-dropdown').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const companyName = link.textContent.trim(); 
+    const cb = [...document.querySelectorAll('.sidebar .modelVarients input[type="checkbox"]')]
+                  .find(el => el.value === companyName);
+    if (cb) {
+      document.querySelectorAll('.sidebar .modelVarients input[type="checkbox"]').forEach(box => box.checked = false);
+      cb.checked = true;
+      cb.dispatchEvent(new Event('change', { bubbles: true }));
+      localStorage.setItem('modelName', companyName);
+    }
+    
+  const savedCompany = localStorage.getItem('modelName');
+     const nameEl = document.querySelector('.nameModel');
+  if (nameEl && savedCompany) nameEl.textContent = savedCompany;
   });
+  updatePagination();
 });
 
 
 
 
+//Pagination 
+document.addEventListener('DOMContentLoaded', function () {
+  const cards = Array.from(document.querySelectorAll('.car-card'));
+  const itemsPerPage = 3;
+  const paginationUl = document.querySelector('.pagination');
+  if (!paginationUl) return;
+  const totalCards = cards.length;
+  const totalPages = Math.max(1, Math.ceil(totalCards / itemsPerPage));
+  let currentPage = 1;
+  function renderPagination() {
+    paginationUl.innerHTML = '';
+    const prevLi = document.createElement('li');
+    prevLi.className = 'page-item';
+    prevLi.innerHTML = '<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>';
+    paginationUl.appendChild(prevLi);
+    for (let i = 1; i <= totalPages; i++) {
+      const li = document.createElement('li');
+      li.className = 'page-item';
+      li.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`;
+      paginationUl.appendChild(li);
+    }
+    const nextLi = document.createElement('li');
+    nextLi.className = 'page-item';
+    nextLi.innerHTML = '<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>';
+    paginationUl.appendChild(nextLi);
+  }
+  function showPage(page) {
+    if (page < 1) page = 1;
+    if (page > totalPages) page = totalPages;
+    currentPage = page;
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    cards.forEach((card, idx) => {
+      card.style.display = (idx >= start && idx < end) ? '' : 'none';
+    });
+    paginationUl.querySelectorAll('.page-item').forEach(li => li.classList.remove('active', 'disabled'));
+    const activeLink = paginationUl.querySelector(`.page-link[data-page="${page}"]`);
+    if (activeLink) activeLink.parentElement.classList.add('active');
+    const prev = paginationUl.querySelector('.page-link[aria-label="Previous"]');
+    const next = paginationUl.querySelector('.page-link[aria-label="Next"]');
+    if (prev) {
+      if (page === 1) prev.parentElement.classList.add('disabled'); else prev.parentElement.classList.remove('disabled');
+    }
+    if (next) {
+      if (page === totalPages) next.parentElement.classList.add('disabled'); else next.parentElement.classList.remove('disabled');
+    }
+  }
+  paginationUl.addEventListener('click', (e) => {
+    const link = e.target.closest('.page-link');
+    if (!link) return;
+    e.preventDefault();
+    if (link.getAttribute('aria-label') === 'Previous') {
+      if (currentPage > 1) showPage(currentPage - 1);
+      return;
+    }
+    if (link.getAttribute('aria-label') === 'Next') {
+      if (currentPage < totalPages) showPage(currentPage + 1);
+      return;
+    }
+    const p = Number(link.dataset.page);
+    if (p) showPage(p);
+  });
+  renderPagination();
+  showPage(1);
+});
+
+
+function updatePagination() {
+  const filteredCards = filterCards(); // get filtered cards
+  const itemsPerPage = 3;
+  const totalCards = filteredCards.length;
+  const totalPages = Math.max(1, Math.ceil(totalCards / itemsPerPage));
+  let currentPage = 1;
+
+  const paginationUl = document.querySelector('.pagination');
+  if (!paginationUl) return;
+
+  function renderPagination() {
+    paginationUl.innerHTML = '';
+
+    const prevLi = document.createElement('li');
+    prevLi.className = 'page-item';
+    prevLi.innerHTML = '<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>';
+    paginationUl.appendChild(prevLi);
+
+    for (let i = 1; i <= totalPages; i++) {
+      const li = document.createElement('li');
+      li.className = 'page-item';
+      li.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`;
+      paginationUl.appendChild(li);
+    }
+
+    const nextLi = document.createElement('li');
+    nextLi.className = 'page-item';
+    nextLi.innerHTML = '<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>';
+    paginationUl.appendChild(nextLi);
+  }
+
+  function showPage(page) {
+    if (page < 1) page = 1;
+    if (page > totalPages) page = totalPages;
+    currentPage = page;
+
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    filteredCards.forEach((card, idx) => {
+      card.style.display = (idx >= start && idx < end) ? 'flex' : 'none';
+    });
+
+    paginationUl.querySelectorAll('.page-item').forEach(li => li.classList.remove('active', 'disabled'));
+    const activeLink = paginationUl.querySelector(`.page-link[data-page="${page}"]`);
+    if (activeLink) activeLink.parentElement.classList.add('active');
+
+    const prev = paginationUl.querySelector('.page-link[aria-label="Previous"]');
+    const next = paginationUl.querySelector('.page-link[aria-label="Next"]');
+    if (prev) prev.parentElement.classList.toggle('disabled', page === 1);
+    if (next) next.parentElement.classList.toggle('disabled', page === totalPages);
+  }
+
+  paginationUl.addEventListener('click', e => {
+    const link = e.target.closest('.page-link');
+    if (!link) return;
+    e.preventDefault();
+
+    if (link.getAttribute('aria-label') === 'Previous') {
+      showPage(currentPage - 1);
+      return;
+    }
+    if (link.getAttribute('aria-label') === 'Next') {
+      showPage(currentPage + 1);
+      return;
+    }
+
+    const p = Number(link.dataset.page);
+    if (p) showPage(p);
+  });
+
+  renderPagination();
+  showPage(1);
+}
+
+
+const input = document.getElementById('searchInput');
+let matches = [];
+let currentIndex = -1;
+
+// Find and highlight matches without breaking layout
+function highlightMatches(text) {
+    removeHighlights();
+    matches = [];
+    currentIndex = -1;
+    if (!text) return;
+
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    while (walker.nextNode()) {
+        const node = walker.currentNode;
+        const regex = new RegExp(text, 'gi');
+        let match;
+        while ((match = regex.exec(node.textContent)) !== null) {
+            matches.push({ node, start: match.index, end: match.index + match[0].length });
+        }
+    }
+
+    matches.forEach((m, i) => {
+        const span = document.createElement('span');
+        span.textContent = m.node.textContent.slice(m.start, m.end);
+        span.classList.add('highlight');
+        const parent = m.node.parentNode;
+
+        const after = m.node.splitText(m.start);
+        after.textContent = after.textContent.slice(m.end - m.start);
+        parent.insertBefore(span, after);
+        m.node = span; // replace node reference with span
+    });
+
+    if (matches.length > 0) {
+        currentIndex = 0;
+        scrollToCurrent();
+    }
+}
+
+// Remove all highlights
+function removeHighlights() {
+    document.querySelectorAll('.highlight').forEach(span => {
+        const parent = span.parentNode;
+        parent.replaceChild(document.createTextNode(span.textContent), span);
+        parent.normalize();
+    });
+}
+
+// Scroll to the current match
+function scrollToCurrent() {
+    document.querySelectorAll('.current').forEach(c => c.classList.remove('current'));
+    if (currentIndex >= 0 && matches[currentIndex]) {
+        matches[currentIndex].node.classList.add('current');
+        matches[currentIndex].node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+// Navigate with arrows
+input.addEventListener('keydown', e => {
+    if (!matches.length) return;
+    if (e.key === 'ArrowDown' || e.key === 'Enter') {
+        currentIndex = (currentIndex + 1) % matches.length;
+        scrollToCurrent();
+        e.preventDefault();
+    } else if (e.key === 'ArrowUp') {
+        currentIndex = (currentIndex - 1 + matches.length) % matches.length;
+        scrollToCurrent();
+        e.preventDefault();
+    }
+});
+
+// Listen to typing
+input.addEventListener('input', () => {
+    highlightMatches(input.value);
+});
 

@@ -936,7 +936,7 @@ const colors = Array.from({length: labels.length}, (_, i) => palette[i % palette
 <!--                 email code                                  -->
 <script>
   (function(){
-    emailjs.init({ publicKey: "ApeL9b3oz5PynbXsm" });
+    emailjs.init({ publicKey: "3C2Muw3ickuu0FrEq" });
   })();
 </script>
 
@@ -962,16 +962,11 @@ document.getElementById('orders-tbody').addEventListener('click', async (e) => {
     const r  = await fetch('../api/getUserData.php', { method: 'POST', body: fd2 });
     const d  = await r.json();
     if (d && d.success) {
-      await emailjs.send(
-        "service_ohhju66",        
-        "template_order_delivered",  
-        {
-          user_name:    d.userName,
-          email:        d.email,
-          product_name: d.productName,
-          order_id:     d.orderId
-        }
-      );
+      await emailjs.send("service_rj120g6","template_n0bpv6v",{
+name: d.userName,
+car: d.productName,
+email: d.email,
+});
     }
   }
 });
