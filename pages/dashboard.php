@@ -15,6 +15,22 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="../assets/css/dashboard.css">
+  
+<style>
+  #prog1 > svg { filter: drop-shadow(0 8px 22px rgba(0,0,0,.35)); }
+  #prog1 span { 
+      font: 900 18px 'Orbitron', sans-serif; color:white !important; 
+  }
+  .progressbar-text{
+    font: 900 18px 'Orbitron', sans-serif; color:white !important;
+  }
+
+    #prog2 > svg { filter: drop-shadow(0 8px 22px rgba(0,0,0,.35)); }
+  #prog2 span { 
+      font: 900 18px 'Orbitron', sans-serif; color:white !important; 
+  }
+ 
+</style>
 </head>
 
 <body>
@@ -128,14 +144,25 @@ $values_js2 = implode(",", array_map('intval', $values2));
   <main class="main-container">
     <section id="dashboard" class="dashboard">
       <h1 class="pagetitles">DASHBOARD</h1>
+      <div class="card-container">
       <div class="card2 p-4" style="background: linear-gradient(135deg, #4e1106ff, #8a150bff);">
-          <h3>Manage your project in one touch</h3>
-          <p>Let Fillow manage your project automatically with our best AI systems</p>
+          <h3 class="manage">Manage your project in one touch</h3>
+
   
-          <div class="mt-3 text-end">
-            <img src="https://img.icons8.com/ios-filled/100/ffffff/combo-chart.png" width="60">
+          <div class="mt-0 text-end">
+            <img src="https://img.icons8.com/ios-filled/100/ffffff/combo-chart.png" width="50">
           </div>
         </div>
+<div class="card2 p-4" style="  background-color: #20202094;">
+          <h3 class="manage2">Orders to Users</h3>
+         <div id="prog1" style="width:100px;height:100px;"></div>
+        </div>
+        <div class="card2 p-4" style="  background-color: #20202094;">
+           <h3 class="manage2">Deliverd Orders</h3>
+            <div id="prog2" style="width:100px;height:100px;"></div>
+        </div>
+
+       </div>
       <div class="cards">
 
         <div class="main-cards">
@@ -206,7 +233,7 @@ $values_js2 = implode(",", array_map('intval', $values2));
 </svg>
               <h3>ORDERS</h3>
               <?php
-$sql = "SELECT COUNT(*) as count FROM `Order`"; // note the backticks
+$sql = "SELECT COUNT(*) as count FROM `Order`"; 
 $result = $dp->query($sql);
 $row = $result->fetch_assoc();
 $count = $row['count'];
@@ -220,7 +247,8 @@ echo "<h1 class='odometer-stat' data-value='$count'></h1>";
       </div>
       <div class="charts">
         <canvas id="pieChart"></canvas>
-        <canvas id="lineChart"></canvas>
+        <div class="lineChart">
+        <canvas id="lineChart"></canvas></div>
       </div>
     </section>
 
@@ -927,152 +955,295 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <!-- chart 1 data gives  -->
-
-  <script>
- const labels = [<?= $labels_js ?>];
+<script>
+  const labels = [<?= $labels_js ?>];
   const values = [<?= $values_js ?>];
+  const palette = ['#006416','#2bb900','#7fad00','#c78100','#b91c00','#c90000'];
+  const hexWithAlpha = (hex, aa) => (hex.length===7 ? hex+aa : hex.slice(0,7)+aa);
+  const ringColors   = palette.map(c => hexWithAlpha(c, 'FF'));
+  const fillColors   = palette.map(c => hexWithAlpha(c, '55')); 
 
-const palette = [
-  '#640000ff',    
-  '#ffffffff',   
-  '#630000ff',    
-  '#5a5a5aff' ,
-  '#612222ff',
-  '#461616ff'
-];
-
-const colors = Array.from({length: labels.length}, (_, i) => palette[i % palette.length]);
   const data = {
-    labels: labels,
+    labels,
     datasets: [{
       label: 'Number of Products',
       data: values,
-      borderWidth: 1,
-      backgroundColor: colors
+      backgroundColor: fillColors,
+      borderWidth: 0               
     }]
   };
-  
+
+
+  const arcOuterGlow = {
+    id: 'arcOuterGlow',
+    afterDatasetsDraw(chart){
+      const {ctx} = chart, meta = chart.getDatasetMeta(0);
+      if (!meta) return;
+      ctx.save();
+      meta.data.forEach((arc, i) => {
+        const c = ringColors[i % ringColors.length];
+        const {x,y,startAngle,endAngle,outerRadius} =
+          arc.getProps(['x','y','startAngle','endAngle','outerRadius'], true);
+
+        ctx.beginPath();
+        ctx.arc(x, y, outerRadius + 2, startAngle, endAngle);
+        ctx.strokeStyle = c;
+        ctx.lineWidth = 6;
+        ctx.shadowColor = c;
+        ctx.shadowBlur  = 50;   
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+  };
+
+  const arcInnerDarkBorder = {
+    id: 'arcInnerDarkBorder',
+    afterDatasetsDraw(chart){
+      const {ctx} = chart, meta = chart.getDatasetMeta(0);
+      if (!meta) return;
+      ctx.save();
+      meta.data.forEach((arc) => {
+        const {x,y,startAngle,endAngle,innerRadius} =
+          arc.getProps(['x','y','startAngle','endAngle','innerRadius'], true);
+
+        ctx.beginPath();
+        ctx.arc(x, y, innerRadius + 1, startAngle, endAngle);
+        ctx.strokeStyle = 'rgba(0,0,0,0.6)'; // أغمق شوي
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+  };
 
   function handleHover(evt, item, legend) {
     const colors = legend.chart.data.datasets[0].backgroundColor;
     colors.forEach((color, index) => {
-  
-      colors[index] = (index === item.index || color.length === 9) ? color : color + '4D';
+      colors[index] = (index === item.index || color.length === 9) ? color : hexWithAlpha(color, '80');
     });
     legend.chart.update();
   }
-
   function handleLeave(evt, item, legend) {
-    const colors = legend.chart.data.datasets[0].backgroundColor;
-    colors.forEach((color, index) => {
-      colors[index] = (color.length === 9) ? color.slice(0, -2) : color;
+    const dsColors = legend.chart.data.datasets[0].backgroundColor;
+    dsColors.forEach((color, index) => {
+      dsColors[index] = hexWithAlpha(palette[index % palette.length], '55');
     });
     legend.chart.update();
   }
 
   const config = {
-    type: 'polarArea',
-    data: data,
+    type: 'doughnut',
+    data,
     options: {
       responsive: false,
+      cutout: '50%',                       
+      layout: { padding: { top: 12, right: 16, bottom: 36, left: 16 } },
       plugins: {
         legend: {
           onHover: handleHover,
           onLeave: handleLeave,
-          labels: {
-            font: { size: 10, weight: 'bold' },
-            color: '#a3a1a1ff'
-          }
+          labels: { font: { size: 10, weight: 'bold' }, color: '#a3a1a1ff' }
         },
-        tooltip: {
-          bodyFont: { size: 10 }
-        }
+        tooltip: { bodyFont: { size: 10 } }
       }
-    }
+    },
+    plugins: [arcOuterGlow, arcInnerDarkBorder]
   };
 
   const ctx = document.getElementById('pieChart');
   const myChart = new Chart(ctx, config);
-    function logout(e){
+  (function ensureOverflowVisible(){
+    const el = ctx && ctx.parentNode;
+    if (el) el.style.overflow = 'visible';
+  })();
+
+  function logout(e){
     e.preventDefault();
     localStorage.removeItem('isLoggedIn');
     window.location.href = '../api/logout.php';
   }
-
-
-  </script>
-
-
+</script>
 
 
 <!-- chart two give data  -->
- <script> 
+
+<script>
 const labels2 = [<?= $labels_js2 ?>];
 const values2 = [<?= $values_js2 ?>];
-
-const PALETTE = [
-  '#9e0000ff',
-  '#721212ff',
-  '#ff7171ff',
-  '#631c1cff',
-  '#800101ff',
-  '#000000ff'
-];
-
-const colors2 = Array.from({ length: labels2.length }, (_, i) => PALETTE[i % PALETTE.length]);
-const legendHover = window.handleHover || function(evt, item, legend) {
-  const colors = legend.chart.data.datasets[0].backgroundColor;
-  colors.forEach((c, i) => { colors[i] = (i === item.index || (typeof c === 'string' && c.length === 9)) ? c : c + '4D'; });
-  legend.chart.update();
+const BASE = ['#b80202','#6e0101','#7e4b00','#005e00','#1ba300','#00ff00'];
+const glassBg = {
+  id: 'glassBg',
+  beforeDraw(chart, args, opts) {
+    const {ctx, chartArea} = chart;
+    if (!chartArea) return;
+    const {left, right, top, bottom, width, height} = chartArea;
+    const g = ctx.createLinearGradient(left, top, right, bottom);
+    g.addColorStop(0, 'rgba(10,10,20,0.55)');
+    g.addColorStop(1, 'rgba(10,10,20,0.25)');
+    ctx.save();
+    ctx.fillStyle = g;
+    ctx.fillRect(left, top, width, height);
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 1;
+    const step = Math.max(40, Math.floor(height / 6));
+    for (let y = bottom; y >= top; y -= step) {
+      ctx.beginPath(); ctx.moveTo(left, y); ctx.lineTo(right, y); ctx.stroke();
+    }
+    ctx.restore();
+  }
 };
-const legendLeave = window.handleLeave || function(evt, item, legend) {
-  const colors = legend.chart.data.datasets[0].backgroundColor;
-  colors.forEach((c, i) => { colors[i] = (typeof c === 'string' && c.length === 9) ? c.slice(0, -2) : c; });
-  legend.chart.update();
+
+const neonGlow = {
+  id: 'neonGlow',
+  afterDatasetsDraw(chart) {
+    const {ctx} = chart;
+    const meta = chart.getDatasetMeta(0);
+    ctx.save();
+    meta.data.forEach((bar, i) => {
+      const c = BASE[i % BASE.length];
+      ctx.shadowColor = c; ctx.shadowBlur = 24;
+      ctx.strokeStyle = c; ctx.lineWidth = 6;
+      ctx.beginPath(); bar.draw(ctx); ctx.stroke();
+      ctx.shadowBlur = 0;
+    });
+    ctx.restore();
+  }
 };
+
+const valueLabels = {
+  id: 'valueLabels',
+  afterDatasetsDraw(chart, args, pluginOpts) {
+    const {ctx, scales} = chart; const meta = chart.getDatasetMeta(0);
+    const prog = Math.min(1, (chart.getDatasetMeta(0).controller?._cachedMeta?._parsed?.length ? 1 : 1)); 
+    ctx.save();
+    ctx.font = '600 12px ui-sans-serif, system-ui, -apple-system';
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.textBaseline = 'middle';
+    meta.data.forEach((el, i) => {
+      const val = chart.data.datasets[0].data[i];
+      const {x, y} = el.tooltipPosition();
+      const bounce = 8 * Math.sin((performance.now()/300) + i) * 0.08; 
+      ctx.globalAlpha = 0.85;
+      ctx.fillText(val, x + 14, y + bounce);
+    });
+    ctx.restore();
+  }
+};
+
+let hoverRipple = {i: -1, t: 0};
+const ripple = {
+  id: 'ripple',
+  afterDatasetsDraw(chart) {
+    if (hoverRipple.i < 0) return;
+    const meta = chart.getDatasetMeta(0);
+    const el = meta.data[hoverRipple.i];
+    if (!el) return;
+    const {ctx} = chart;
+    const c = BASE[hoverRipple.i % BASE.length];
+    const pos = el.tooltipPosition();
+    const radius = 6 + hoverRipple.t * 22;
+    const alpha = Math.max(0, 0.35 - hoverRipple.t * 0.35);
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, radius, 0, Math.PI*2);
+    ctx.strokeStyle = c; ctx.globalAlpha = alpha; ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.restore();
+    hoverRipple.t += 0.04;
+    if (hoverRipple.t < 1) requestAnimationFrame(() => chart.draw());
+  }
+};
+
+function barGradient(ctx, area, i) {
+  const g = ctx.createLinearGradient(area.left, area.top, area.right, area.bottom);
+  const c = BASE[i % BASE.length];
+  g.addColorStop(0, c + 'CC');   
+  g.addColorStop(0.5, c + '88'); 
+  g.addColorStop(1, c + '22');   
+  return g;
+}
 
 const data2 = {
   labels: labels2,
   datasets: [{
-    label: '# of Votes',
+    label: 'Feedback votes',
     data: values2,
-    borderWidth: 1,
-    backgroundColor: colors2
+    borderColor: (ctx) => BASE[(ctx.dataIndex ?? 0) % BASE.length],
+    borderWidth: 1.5,
+    borderRadius: 12,
+    barPercentage: 0.72,
+    categoryPercentage: 0.68,
+    backgroundColor: (ctx) => {
+      const {chart, dataIndex} = ctx; const area = chart.chartArea;
+      if (!area) return BASE[dataIndex % BASE.length];
+      return barGradient(chart.ctx, area, dataIndex);
+    },
+    hoverBackgroundColor: (ctx) => BASE[(ctx.dataIndex ?? 0) % BASE.length]
   }]
 };
 
 const config2 = {
-  type: 'doughnut',
+  type: 'bar',
   data: data2,
   options: {
-    responsive: false,
+    indexAxis: 'x', 
+    responsive: true,
+    maintainAspectRatio: false,
+    layout: {padding: {left: 10, right: 10, top: 8, bottom: 8}},
     plugins: {
       legend: {
-        onHover: legendHover,
-        onLeave: legendLeave,
-        labels: {
-          font: { size: 10, weight: 'bold' },
-          color: '#a3a1a1ff'
-        }
+        labels: {color: '#cfcfcf', font: {size: 11, weight: '600'}}
       },
       tooltip: {
-        bodyFont: { size: 10 }
+        backgroundColor: 'rgba(0,0,0,0.75)',
+        borderColor: 'rgba(255,255,255,0.12)',
+        borderWidth: 1,
+        bodyFont: {size: 12},
+        callbacks: {
+          label: (ctx) => `Votes: ${ctx.parsed.x}`
+        }
+      }
+    },
+    interaction: {mode: 'nearest', intersect: true},
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: {color: 'rgba(255,255,255,0.07)'},
+        ticks: {color: '#bfbdbd', font: {size: 11}, precision: 0}
+      },
+      x: {
+        grid: {display: false},
+        ticks: {color: '#e3e3e3', font: {size: 12, weight: '600'}}
+      }
+    },
+    animations: {
+      y: {
+        easing: 'easeOutElastic',
+        duration: 1400,
+        from: (ctx) => 0,
+        delay: (ctx) => ctx.dataIndex * 110
+      }
+    },
+    hover: {
+      mode: 'nearest',
+      onHover: (evt, activeEls, chart) => {
+        const canvas = evt.native?.target;
+        if (canvas) canvas.style.cursor = activeEls.length ? 'pointer' : 'default';
+        if (activeEls.length) {
+          hoverRipple = {i: activeEls[0].index, t: 0};
+          requestAnimationFrame(() => chart.draw());
+        }
       }
     }
-  }
+  },
+  plugins: [glassBg, neonGlow, valueLabels, ripple]
 };
 
-const ctx2 = document.getElementById('lineChart');
+const chartId = 'lineChart'; 
+const ctx2 = document.getElementById(chartId).getContext('2d');
 const myChart2 = new Chart(ctx2, config2);
 </script>
-
-
-
-
-
-
-
-
 
 
 
@@ -1223,6 +1394,99 @@ function applyImagesThree() {
 
 
 </script>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/progressbar.js"></script>
+<?php   
+
+$sql = "SELECT ROUND(100 * COUNT(DISTINCT o.userName) / COUNT(DISTINCT u.userName)) AS p
+        FROM Users u
+        LEFT JOIN `Order` o ON o.userName = u.userName";
+
+$stmt = $dp->prepare($sql);
+$stmt->execute();
+$stmt->bind_result($p);
+$stmt->fetch();
+$stmt->close();
+?>
+
+<script>
+  const percent = <?php echo $p; ?>;
+
+  const bar = new ProgressBar.Circle('#prog1', {
+    strokeWidth: 20,
+    trailWidth: 20,
+    color: '#8a150bff',
+    trailColor: '#8a160b6e',
+    easing: 'easeInOut',
+    duration: 3200,
+    text: { autoStyleContainer: true }
+  });
+
+  bar.set(0);
+  bar.animate(percent/100, {
+    step: (state, circle) => circle.setText(Math.round(circle.value()*100) + '%')
+  });
+</script>
+
+
+<?php
+$sql = "
+  SELECT
+    CASE WHEN t.total = 0 THEN 0
+         ELSE ROUND(100 * d.deliv / t.total)
+    END AS p
+  FROM
+    (SELECT COUNT(*) AS deliv FROM `Order` WHERE Status='Delivered') d,
+    (SELECT COUNT(*) AS total FROM `Order`) t
+";
+
+$stmt = $dp->prepare($sql);
+$stmt->execute();
+$stmt->bind_result($p2);
+$stmt->fetch();
+$stmt->close();
+?>
+
+
+
+
+
+<script type="module">
+  const percent = <?php echo $p2; ?>;
+  const bar = new ProgressBar.Circle('#prog2', {
+    strokeWidth: 20, trailWidth: 20,
+    color: '#004d00ff', trailColor: '#004d009f',
+    easing: 'easeInOut', duration: 3200,
+    text: { autoStyleContainer: true }
+  });
+  bar.set(0);
+  bar.animate(percent/100, {
+    step: (s, c) => c.setText(Math.round(c.value()*100) + '%')
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
