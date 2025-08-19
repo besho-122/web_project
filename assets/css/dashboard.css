@@ -46,7 +46,7 @@ padding: 0 30px 0 30px;
 position: fixed;
 z-index:100;
 
-top: 0;                       /* مهم */
+top: 0;                    
 left: 0;
 
 }
@@ -70,8 +70,8 @@ position: absolute;
     
     background-color:#20202094;
     box-shadow: 0 2px 10px 10px rgba(0, 0, 0, 0.35);
-    width: 20vw;
-     margin-left: 58vw;
+    width: 13vw;
+     margin-left: 65vw;
      margin-bottom: 3vh;
   }
   .carditem1{
@@ -87,6 +87,7 @@ position: absolute;
   }
   
 }
+
 .card2 {
       border-radius: 12px;
       background-color: #1e1e1e;
@@ -102,7 +103,7 @@ position: absolute;
     }
     
 .charts{
-  width:64%;
+  width:73%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -112,21 +113,28 @@ position: absolute;
   height: 50vh;
   margin-top: 11.7vh;
   
+  
 }
 .flexBar{
   display: flex;
   margin-top: 17vh;
+  align-items: center;
   justify-content: space-around;
 }
 
+.lineChart{
+  width: 70% !important;
+  height:fit-content !important;
+}
 #pieChart {
   width: 300px !important;
   height:300px !important;
+
   
 }
 #lineChart {
-  width: 300px !important;
-  height:300px !important;
+  width: 100% !important;
+  height:fit-content !important;
 }
 .odometer {
   
@@ -216,9 +224,9 @@ color: #cccccf;
   height: 180vh;
   display: flex;
   gap: 10px;
-  justify-content: flex-start;   /* cards start from left */
-  align-items: flex-start;       /* align items to top row */
-  align-content: flex-start;     /* align rows to the top, not center */
+  justify-content: flex-start;   
+  align-items: flex-start;     
+  align-content: flex-start;    
   flex-wrap: wrap;
   overflow: auto;
   padding: 20px 30px;
@@ -1261,11 +1269,67 @@ color: #cccccf;
 }
 
 
+.btnVideoCancel22{
+  width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  display: none;
+}
+
+.manage{
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+  z-index: 6;
+  margin-bottom: -10px;
+    font-family: "Orbitron", sans-serif;
+}
+
+
+.manage2{
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+  z-index: 6;
+  margin-bottom: 3px;
+  font-family: "Orbitron", sans-serif;
+}
 
 
 
 
 
+
+.card-container{
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+
+}
+
+.card2{
+  background-color: #ffffff;
+  height:170px;
+  width:23%;
+  border-radius:10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding:10px;
+  position: relative;
+  box-shadow: 0 6px 10px 1px rgba(0, 0, 0, 0.342);
+}
 
 
 /*pagecard2*/
@@ -1320,7 +1384,7 @@ color: #cccccf;
 
 
 
-.imgInput{
+.imgLabel{
   display: none;
    width: 200px;
   height: 30px;
@@ -1330,11 +1394,112 @@ color: #cccccf;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   background-color: #000000;
   color: #ffffff;
-  font-size: 10px;
+   font-size: 20px;
   font-family: "Orbitron", sans-serif;
   z-index: 6;
   text-align: center;
 }
+
+
+
+.imgLabel2{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+
+
+
+
+
+
+.imgLabel3{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+
+
+
+
+
+.imgLabel4{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+
+
+
+.imgLabel5{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+
+
+
+.imgLabel6{
+  display: none;
+   width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Orbitron", sans-serif;
+  z-index: 6;
+  text-align: center;
+}
+
+
+
+
+
+
 .btnImagesApply{
   width: 200px;
   height: 30px;
@@ -1910,7 +2075,7 @@ main section {
   border-radius: 10px;
   background-color: black;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.151);
- 
+  
 
 }
 
@@ -2377,10 +2542,15 @@ main section {
   transform: translateY(0);
   transition: transform 0.3s;
   background-color: #870606;
+  position: absolute;
+  top: -10px;
+  right: 77px;
+
+
+  
 }
 .notifications{
-  position: absolute;
-  left: 4.5vw;
+  position: relative;
 
 }
 .fa-bell:hover{

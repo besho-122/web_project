@@ -52,10 +52,10 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
       <a href="#" class="navbar__link"><i data-feather="home"></i><span>Home</span></a>
     </li>
     <li class="navbar__item">
-      <a href="./pages/products.php" class="navbar__link" title="Cars" onclick="return checkLogin(event)" ><i class="fa-solid fa-car fa-lg" style="color: #ffffff;"></i><span>Cars</span></a>        
+      <a href="./pages/products.php" class="navbar__link" title="Cars" onclick="return checkLogin(event)" ><i class="fa-solid fa-car fa-lg" ></i><span>Cars</span></a>        
     </li>
     <li class="navbar__item">
-      <a href="./pages/filter.php" class="navbar__link"  title="FindYourCar" onclick="return checkLogin(event)"><i class="fa-solid fa-magnifying-glass fa-lg" style="color: #ffffff;"></i><span>FindYourCar</span></a>        
+      <a href="./pages/filter.php" class="navbar__link"  title="FindYourCar" onclick="return checkLogin(event)"><i class="fa-solid fa-magnifying-glass fa-lg"></i><span>FindYourCar</span></a>        
     </li>
     <li class="navbar__item">
       <a href="./pages/configure.php" class="navbar__link" title="Configure" onclick="return checkLogin(event)"><i data-feather="sun"></i><span>Configure</span></a>        
@@ -70,7 +70,10 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
 </nav>
   <!-- main section -->
   <section class="homePageMainSection ">
-    <video id="bgVideo" src="./assets/videos/homePage/main.mp4" autoplay muted loop ></video>
+   <video id="bgVideo"
+  src="./assets/videos/homePage/main.mp4?v=<?= filemtime(__DIR__ . '/assets/videos/homePage/main.mp4') ?>"
+  autoplay muted loop>
+</video>
     <div class="homePageMainSectionText ">
       <button id="videoToggle" class="video-btn"><i class="fas fa-pause"></i></button>
       <h2 class="fade-in-home-text">Motors <span class="highlight">For</span> Sells.</h2>
@@ -97,31 +100,53 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
 
 </div>
   </div>
+  <?php require './api/config.php';
+   $sql = "SELECT id FROM Product ORDER BY id DESC LIMIT 1";
+   $result = $dp->query($sql);
+   $row = $result->fetch_assoc();
+   $id = $row['id'];
+   $sql = "SELECT id FROM Product ORDER BY Price DESC LIMIT 1";
+   $result = $dp->query($sql);
+   $row = $result->fetch_assoc();
+   $id2 = $row['id']; 
+    $sql = "SELECT ProductId FROM `Order` ORDER BY id DESC LIMIT 1";
+   $result = $dp->query($sql);
+   $row = $result->fetch_assoc();
+   $id3 = $row['ProductId'];
+
+
+   ?>
   <!-- homePageTwoSection  -->
   <section class="homePageTwoSection " id="mainSection">
     <div class="homePageTwoSectionText">
       <div class="servicesGrid">
+        <a href="../pages/model.php?id=<?php echo $id; ?>" onClick="return checkLogin(event)">
         <div class="serviceCard homePageTwoSectionCard fade-in" >
           <div class="cardOverlay">
-          <h3 class="cardTitle">The Macan Turbo.</h3>
+          <h3 class="cardTitle">The Newest Model.</h3>
           <span class="cardIcon">➜</span>
        </div>
-          <img src="./assets/photos/sectionTwo/car1blue.jpg" alt="">
+          <img src="./assets/photos/sectionTwo/img1.jpg?v=<?= filemtime(__DIR__ . '/assets/photos/sectionTwo/img1.jpg') ?>" alt="">
         </div>
+        </a>
+          <a href="../pages/model.php?id=<?php echo $id2; ?>" onClick="return checkLogin(event)">
         <div class="serviceCard homePageTwoSectionCard fade-in" >
           <div class="cardOverlay">
-          <h3 class="cardTitle">The Cayenne.</h3>
+          <h3 class="cardTitle">The Chepest Model.</h3>
           <span class="cardIcon">➜</span>
        </div>
-          <img src="./assets/photos/sectionTwo/2025-Mercedes-AMG.jpg" alt=""> 
+         <img src="./assets/photos/sectionTwo/img2.jpg?v=<?= filemtime(__DIR__ . '/assets/photos/sectionTwo/img2.jpg') ?>" alt="">
         </div>
+        </a>
+          <a href="../pages/model.php?id=<?php echo $id3; ?>" onClick="return checkLogin(event)">
         <div class="serviceCard homePageTwoSectionCard fade-in" >
           <div class="cardOverlay">
-          <h3 class="cardTitle">The 911 Carrera T.</h3>
+          <h3 class="cardTitle">The Last Orederd Model.</h3>
           <span class="cardIcon">➜</span>
        </div>
-          <img src="./assets/photos/sectionTwo/2025-Lamborghini-Temerario-003-2160.jpg" alt="">
+         <img src="./assets/photos/sectionTwo/img3.jpg?v=<?= filemtime(__DIR__ . '/assets/photos/sectionTwo/img3.jpg') ?>" alt="">
         </div>
+        </a>
       </div>
     </div>
     <p>Macan Turbo Electric: Electrical consumption combined (WLTP): 20.7 – 18.9 kWh/100 km, CO₂-emissions combined (WLTP): 0 g/km | Cayenne: Fuel consumption combined (model range): 11.7 – 10.7 l/100 km, CO₂-emissions combined (model range): 267 – 243 g/km | 911 Carrera T: Fuel consumption combined (model range): 10.9 – 10.4 l/100 km, CO₂-emissions combined (model range): 248 – 237 g/km</p>
@@ -160,8 +185,8 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
           </div>
           <span class="cardIcon2">➜</span>
        </div>
-           <img src="./assets/photos/sectionThree/gtr.jpg" alt="">
-           <video src="./assets/videos/homePage/videos for section 3/gtr.mp4" autoplay muted loop></video>
+           <img src="./assets/photos/sectionThree/bmw.jpg" alt="">
+           <video src="./assets/videos/homePage/videos for section 3/bmw.mp4" autoplay muted loop></video>
          
 
         </div>
@@ -235,33 +260,37 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
 
 <!-- homePageDiscover -->
 <section class="homePageTwoSection " id="discoverSection">
-    <div class="homePageTwoSectionText">
-      <h2>Discover</h2>
-      <div class="servicesGrid">
-        <div class="serviceCard homePageTwoSectionCard fade-in cardDiscover" >
-          <div class="cardOverlay">
+  <div class="homePageTwoSectionText">
+    <h2>Discover</h2>
+    <div class="servicesGrid">
+
+      <div class="serviceCard homePageTwoSectionCard fade-in cardDiscover">
+        <div class="cardOverlay">
           <h3 class="cardTitle">E-Performance - Sustainable Mobility</h3>
           <span class="cardIcon">➜</span>
-       </div>
-          <img src="./assets/photos/discover2.jpg" alt="">
         </div>
-        <div class="serviceCard homePageTwoSectionCard fade-in cardDiscover" >
-          <div class="cardOverlay">
+        <img src="./assets/photos/discover/img1.jpg?v=<?= filemtime(__DIR__ . '/assets/photos/discover/img1.jpg') ?>" alt="">
+      </div>
+
+      <div class="serviceCard homePageTwoSectionCard fade-in cardDiscover">
+        <div class="cardOverlay">
           <h3 class="cardTitle">Car Tequipment</h3>
           <span class="cardIcon">➜</span>
-       </div>
-          <img src="./assets/photos/discover1.jpeg" alt=""> 
         </div>
-        <div class="serviceCard homePageTwoSectionCard fade-in cardDiscover" >
-          <div class="cardOverlay">
+        <img src="./assets/photos/discover/img2.jpg?v=<?= filemtime(__DIR__ . '/assets/photos/discover/img2.jpg') ?>" alt="">
+      </div>
+
+      <div class="serviceCard homePageTwoSectionCard fade-in cardDiscover">
+        <div class="cardOverlay">
           <h3 class="cardTitle">Exclusive Manufaktur</h3>
           <span class="cardIcon">➜</span>
-       </div>
-          <img src="./assets/photos/discover3.jpg" alt="">
         </div>
+        <img src="./assets/photos/discover/img3.jpg?v=<?= filemtime(__DIR__ . '/assets/photos/discover/img3.jpg') ?>" alt="">
       </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
   
 

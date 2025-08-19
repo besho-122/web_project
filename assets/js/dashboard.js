@@ -73,64 +73,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-////////////////////////////////charts/////////////////////////////////////
 
 
 
-    //chart2 
-    const data2 = {
-      labels: ['BMW', 'GOLF', 'Audi', 'Porsche', 'Opel', 'VW'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1,
-        backgroundColor: ['#4f0975ff', '#341c1cff', '#294533ff', '#a71241ff', '#a3a1a1ff', '#580606ff'],
-      }]
-    };
 
 
-    function handleHover(evt, item, legend) {
-      const colors = legend.chart.data.datasets[0].backgroundColor;
-      colors.forEach((color, index) => {
-        colors[index] = (index === item.index || color.length === 9) ? color : color + '4D';
-      });
-      legend.chart.update();
-    }
-
-    function handleLeave(evt, item, legend) {
-      const colors = legend.chart.data.datasets[0].backgroundColor;
-      colors.forEach((color, index) => {
-        colors[index] = (color.length === 9) ? color.slice(0, -2) : color;
-      });
-      legend.chart.update();
-    }
-
-   const config2 = {
-  type: 'doughnut',
-  data: data2,
-  options: {
-    responsive: false,
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            size: 10, 
-            weight: 'bold' 
-          },
-          color: '#a3a1a1ff' 
-        }
-      },
-      tooltip: {
-        bodyFont: {
-          size: 10 
-        }
-      }
-    }
-  }
-};
-
-    const ctx2 = document.getElementById('lineChart');
-    const myChart2 = new Chart(ctx2, config2);
 
 
       function makeWheel(fontSize) {
@@ -761,15 +708,15 @@ function changeVideo(){
   document.querySelector('.btnVideoApply').style.display = 'block';
   document.querySelector('.btnVideoCancel').style.display = 'block';
   document.querySelector('#videoInput').style.display = 'block';
+    document.querySelector('.btnVideoCancel22').style.display = 'block';
 
 }
-function applyVideo(){
-  
-}
+
 function cancelVideo(){
     document.querySelector('.btnVideoApply').style.display = 'none';
   document.querySelector('.btnVideoCancel').style.display = 'none';
   document.querySelector('#videoInput').style.display = 'none';
+    document.querySelector('.btnVideoCancel22').style.display = 'none';
   
 }
 
@@ -782,9 +729,9 @@ function cancelVideo(){
 function changeImagesTwo(){
   document.querySelector('.btnImagesApply').style.display = 'block';
   document.querySelector('.btnImagesCancel').style.display = 'block';
-  document.querySelector('#imageInput1').style.display = 'block';
-  document.querySelector('#imageInput2').style.display = 'block';
-  document.querySelector('#imageInput3').style.display = 'block';
+  document.querySelector('.imgLabel').style.display = 'block';
+  document.querySelector('.imgLabel2').style.display = 'block';
+  document.querySelector('.imgLabel3').style.display = 'block';
 }
 function applyImagesTwo(){
   
@@ -792,18 +739,19 @@ function applyImagesTwo(){
 function cancelImagesTwo(){
   document.querySelector('.btnImagesApply').style.display = 'none';
   document.querySelector('.btnImagesCancel').style.display = 'none';
-  document.querySelector('#imageInput1').style.display = 'none';
-  document.querySelector('#imageInput2').style.display = 'none';
-  document.querySelector('#imageInput3').style.display = 'none';
+  document.querySelector('.imgLabel').style.display = 'none';
+  document.querySelector('.imgLabel2').style.display = 'none';
+  document.querySelector('.imgLabel3').style.display = 'none';
 }
 
-//////////page 3////////////////////////
+//////////page 3////////////////////////s
 function changeImagesThree(){
   document.querySelector('.btnImagesThreeApply').style.display = 'block';
   document.querySelector('.btnImagesThreeCancel').style.display = 'block';
-  document.querySelector('#imageInputThree1').style.display = 'block';
-  document.querySelector('#imageInputThree2').style.display = 'block';
-  document.querySelector('#imageInputThree3').style.display = 'block';
+ document.querySelector('.imgLabel4').style.display = 'block';
+  document.querySelector('.imgLabel5').style.display = 'block';
+  document.querySelector('.imgLabel6').style.display = 'block';
+
 }
 function applyImagesThree(){
   
@@ -811,9 +759,9 @@ function applyImagesThree(){
 function cancelImagesThree(){
   document.querySelector('.btnImagesThreeApply').style.display = 'none';
   document.querySelector('.btnImagesThreeCancel').style.display = 'none';
-  document.querySelector('#imageInputThree1').style.display = 'none';
-  document.querySelector('#imageInputThree2').style.display = 'none';
-  document.querySelector('#imageInputThree3').style.display = 'none';
+  document.querySelector('.imgLabel4').style.display = 'none';
+  document.querySelector('.imgLabel5').style.display = 'none';
+  document.querySelector('.imgLabel6').style.display = 'none';
 }
 
 
