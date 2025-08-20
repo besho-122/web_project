@@ -17,19 +17,19 @@
 </head>
 <body>
   <?php  
-
 $DB_HOST = 'trolley.proxy.rlwy.net:56657';   
 $DB_PORT = 3306;                  
 $DB_NAME = 'webproject';              
 $DB_USER = 'root';
 $DB_PASS = 'NEtoTHvxITFQeGQLDaBHMwDsSfFcwfFy';
+
+session_start();
 $dp = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME, $DB_PORT);
 function redirect($to){ header('Location: ' . $to); exit; }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Email'], $_POST['Password'], $_POST['UserName'])) {
     $userName = $_POST['UserName'];
     $email = $_POST['Email'];
     $password = $_POST['Password'];
-
     $stmt = $dp->prepare("INSERT INTO Users (userName, Email, Password) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $userName, $email, $password);
      $ok = $stmt->execute();
@@ -38,7 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Email'], $_POST['Pass
     $nextOnSuccess = '../index.php';
     $nextOnError   = '../index.php'; 
 
-    if ($ok) {
+    if ($ok) { 
+        $_SESSION['userName'] = $userName;
+          $_SESSION['isLoggedIn'] = true;
         header("Location: ../pages/loading.php?action=signup&status=success&next=" . rawurlencode($nextOnSuccess));
         exit;
     } else {
@@ -49,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Email'], $_POST['Pass
 
 
 ?>
+
 
     <div class="container" id="container">
       <div class="form-container sign-up">
@@ -375,6 +378,9 @@ function handleAuthResult(result, defaultName) {
 
 
 </script>
+
+
+
 <script src="../assets/js/login.js"></script>
 </body>
 </html>
