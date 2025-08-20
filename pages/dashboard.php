@@ -116,7 +116,13 @@ $values_js2 = implode(",", array_map('intval', $values2));
   <aside id="sidebar">
     <div class="sidebar-title">
       <div class="sidebarBrand">
-        <img src="../assets/photos/yousef.jpg">
+        <?php
+        $sql = "SELECT image FROM Users WHERE userName = '$user_id'";
+        $result = $dp->query($sql);
+        $row = $result->fetch_assoc();
+        $image = $row['image'];
+        ?>
+        <img src="<?php echo $image; ?>" alt="User Image">
         <h4>Welcome <?php echo htmlspecialchars($user_id ?? 'Guest', ENT_QUOTES); ?></h4>
       </div>
       <span class="material-icons-outlined" onclick="closeSidebar()">close</span>

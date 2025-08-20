@@ -13,8 +13,25 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://js.stripe.com/v3"></script>
-
+<style>
+iframe.goog-te-banner-frame,
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  top: auto !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  position: fixed !important;
+  z-index: -100!important;
+  display: none !important;
+}
+body {
+  top: 0 !important; 
+  z-index: 100 !important;
+}
+</style>
   <link href="../assets/css/product.css" rel="stylesheet">
+
 </head>
 <body>
    <?php require("../api/config.php"); ?>
@@ -63,13 +80,17 @@
       <a href="../pages/profile.php?tab=cart"><li class="nav-item"><i class="fa-solid fa-cart-shopping fa-xl" style="color: #ffffff;"></i><span id="cartCount"></span></li></a>
       
       <!-- Dropdown -->
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    En
-  </a>
+<li class="nav-item dropdown" id="langDropdown">
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="langToggle">En</a>
   <ul class="dropdown-menu">
     <li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
     <li><a class="dropdown-item" href="#" data-lang="ar">Arabic</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="es">Spanish</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="fr">French</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="it">Italian</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="de">German</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="tr">Turkish</a></li>
+    
   </ul>
 </li>
 
@@ -297,6 +318,92 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+
+
+
+
+
+<!-- //translarer -->
+
+
+
+
+<div id="google_translate_element" style="display:none;"></div>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+  }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const langRoot   = document.getElementById('langDropdown');
+  const langToggle = document.getElementById('langToggle');
+
+  function getCookie(name) {
+    const m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+
+  function setTranslateCookie(lang) {
+    const base = 'en';
+    const val = `/${base}/${lang}`;
+    const expires = new Date(Date.now() + 365*24*60*60*1000).toUTCString();
+    document.cookie = `googtrans=${val}; expires=${expires}; path=/`;
+    document.cookie = `googtrans=${val}; expires=${expires}; path=/; domain=${location.hostname}`;
+    location.reload();
+  }
+
+  function refreshDropdownLabel() {
+    const labels = {
+      en: "English",
+      ar: "Arabic",
+      es: "Spanish",
+      fr: "French",
+      it: "Italian",
+      de: "German",
+      tr: "Turkish"
+    };
+    const current = getCookie('googtrans') || '/en/en';
+    const parts = current.split('/');
+    const code = (parts[2] || 'en').toLowerCase();
+    if (langToggle) langToggle.textContent = labels[code] || code.toUpperCase();
+  }
+
+  if (langRoot) {
+    langRoot.querySelectorAll('.dropdown-item[data-lang]').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        setTranslateCookie(item.getAttribute('data-lang'));
+      });
+    });
+  }
+
+  refreshDropdownLabel();
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script src="../assets/js/product.js"></script>

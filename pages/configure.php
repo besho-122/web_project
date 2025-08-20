@@ -18,6 +18,23 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <link href="../assets/css/configure.css" rel="stylesheet">
+  <style>
+iframe.goog-te-banner-frame,
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  top: auto !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  position: fixed !important;
+  z-index: -100!important;
+  display: none !important;
+}
+body {
+  top: 0 !important; 
+  z-index: 100 !important;
+}
+</style>
 </head>
 <body>
    <?php require("../api/config.php"); ?>
@@ -65,18 +82,20 @@
       </form>
      <a href="../pages/profile.php?tab=cart"><li class="nav-item"> <i class="fa-solid fa-cart-shopping fa-xl" style="color: #ffffff;"></i><span id="cartCount"></span></li></a>
       
-       <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            En
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        
+      <!-- Dropdown -->
+<li class="nav-item dropdown" id="langDropdown">
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="langToggle">En</a>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="ar">Arabic</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="es">Spanish</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="fr">French</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="it">Italian</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="de">German</a></li>
+    <li><a class="dropdown-item" href="#" data-lang="tr">Turkish</a></li>
+    
+  </ul>
+</li>
          </ul>
          
           <a href="../pages/profile.php" > <i class="fa-solid fa-user fa-lg" id="logTitle" style="color: #ffffff;"></i></a>
@@ -89,34 +108,38 @@
 
 
  <section class="exteriorSection">
+    <h1 style="color:rgb(0, 0, 0); text-align:center; margin-bottom: 50px;">Configure Your Model</h1>
   <div class="sketchfab-embed-wrapper exterior" >
-    <h1 style="color:rgb(0, 0, 0); text-align:center;">Configure Your Model</h1>
+  
 <iframe id="api-frame"
   src="https://sketchfab.com/models/d01b254483794de3819786d93e0e1ebf/embed?autostart=1&preload=1&transparent=1&ui_theme=light&ui_animations=0&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_hint=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_annotations=0&dnt=1"
   allow="autoplay; fullscreen; xr-spatial-tracking"
-  style="width:100%;border-radius:10px;background:transparent">
+  style="width:100%;background:transparent">
 </iframe>
+  <div class="controls" style="background-color:black;">
+  <div class="title" style="color:white; margin-bottom: 10px; margin-top: 10px; text-align: center; width: 100%;" >Exterior Color</div>
+  <div class="color-btn" style="background:black;display:inline-block;cursor:pointer;" onclick="changeColor([0,0,0])"></div>
+  <div class="color-btn" style="background:white;display:inline-block;cursor:pointer;border:1px solid #ccc;" onclick="changeColor([1,1,1])"></div>
+  <div class="color-btn" style="background:silver;display:inline-block;cursor:pointer;" onclick="changeColor([0.75,0.75,0.75])"></div>
+  <div class="color-btn" style="background:#e0cfc4;display:inline-block;cursor:pointer;" onclick="changeColor([0.88,0.81,0.77])" title="Crayon"></div>
+  <div class="color-btn" style="background:grey;display:inline-block;cursor:pointer;" onclick="changeColor([0.5,0.5,0.5])"></div>
+  <div class="color-btn" style="background:blue;display:inline-block;cursor:pointer;" onclick="changeColor([0,0,1])"></div>
+  <div class="color-btn" style="background:red;display:inline-block;cursor:pointer;" onclick="changeColor([1,0,0])"></div>
+  <div class="color-btn" style="background:yellow;display:inline-block;cursor:pointer;" onclick="changeColor([1,1,0])"></div>
+  <div class="color-btn" style="background:brown;display:inline-block;cursor:pointer;" onclick="changeColor([0.6,0.3,0.2])"></div>
+  <div class="color-btn" style="background:green;display:inline-block;cursor:pointer;" onclick="changeColor([0,1,0])"></div>
+  <div class="color-btn" style="background:violet;display:inline-block;cursor:pointer;" onclick="changeColor([0.93,0.51,0.93])"></div>
+  <div class="color-btn" style="background:gold;display:inline-block;cursor:pointer;" onclick="changeColor([1,0.84,0])"></div>
+  <div class="color-btn" style="background:orange;display:inline-block;cursor:pointer;" onclick="changeColor([1,0.5,0])"></div>
+  <div class="color-btn" style="background:pink;display:inline-block;cursor:pointer;" onclick="changeColor([1,0.75,0.8])"></div>
+  <div class="color-btn" style="background:beige;display:inline-block;cursor:pointer;" onclick="changeColor([0.96,0.96,0.86])"></div>
+</div>
   </div>
+
+
 </section>
 
 
-<div class="controls" style="background-color:black; margin-bottom: 70px;">
-  <div class="color-btn" style="width:40px;height:40px;background:black;display:inline-block;cursor:pointer;" onclick="changeColor([0,0,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:white;display:inline-block;cursor:pointer;border:1px solid #ccc;" onclick="changeColor([1,1,1])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:silver;display:inline-block;cursor:pointer;" onclick="changeColor([0.75,0.75,0.75])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:#e0cfc4;display:inline-block;cursor:pointer;" onclick="changeColor([0.88,0.81,0.77])" title="Crayon"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:grey;display:inline-block;cursor:pointer;" onclick="changeColor([0.5,0.5,0.5])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:blue;display:inline-block;cursor:pointer;" onclick="changeColor([0,0,1])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:red;display:inline-block;cursor:pointer;" onclick="changeColor([1,0,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:yellow;display:inline-block;cursor:pointer;" onclick="changeColor([1,1,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:brown;display:inline-block;cursor:pointer;" onclick="changeColor([0.6,0.3,0.2])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:green;display:inline-block;cursor:pointer;" onclick="changeColor([0,1,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:violet;display:inline-block;cursor:pointer;" onclick="changeColor([0.93,0.51,0.93])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:gold;display:inline-block;cursor:pointer;" onclick="changeColor([1,0.84,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:orange;display:inline-block;cursor:pointer;" onclick="changeColor([1,0.5,0])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:pink;display:inline-block;cursor:pointer;" onclick="changeColor([1,0.75,0.8])"></div>
-  <div class="color-btn" style="width:40px;height:40px;background:beige;display:inline-block;cursor:pointer;" onclick="changeColor([0.96,0.96,0.86])"></div>
-</div>
 
 
 
@@ -142,6 +165,83 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+    <!-- //translarer -->
+
+
+
+
+
+<!-- //translarer -->
+
+
+
+
+<div id="google_translate_element" style="display:none;"></div>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+  }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const langRoot   = document.getElementById('langDropdown');
+  const langToggle = document.getElementById('langToggle');
+
+  function getCookie(name) {
+    const m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+
+  function setTranslateCookie(lang) {
+    const base = 'en';
+    const val = `/${base}/${lang}`;
+    const expires = new Date(Date.now() + 365*24*60*60*1000).toUTCString();
+    document.cookie = `googtrans=${val}; expires=${expires}; path=/`;
+    document.cookie = `googtrans=${val}; expires=${expires}; path=/; domain=${location.hostname}`;
+    location.reload();
+  }
+
+  function refreshDropdownLabel() {
+    const labels = {
+      en: "English",
+      ar: "Arabic",
+      es: "Spanish",
+      fr: "French",
+      it: "Italian",
+      de: "German",
+      tr: "Turkish"
+    };
+    const current = getCookie('googtrans') || '/en/en';
+    const parts = current.split('/');
+    const code = (parts[2] || 'en').toLowerCase();
+    if (langToggle) langToggle.textContent = labels[code] || code.toUpperCase();
+  }
+
+  if (langRoot) {
+    langRoot.querySelectorAll('.dropdown-item[data-lang]').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        setTranslateCookie(item.getAttribute('data-lang'));
+      });
+    });
+  }
+
+  refreshDropdownLabel();
+});
+// main color
+ window.addEventListener('load', function() {
+  const savedColor = localStorage.getItem('mainColor');
+  if (savedColor) {
+    document.documentElement.style.setProperty('--main-color', savedColor);
+    colorPicker.value = savedColor; 
+  }});
+
+</script>
+
+
+
     
 </body>
 </html>

@@ -63,6 +63,7 @@ $Img2 = $car['img2'];
 $Img3 = $car['img3'];
 $Img4 = $car['img4'];
 $Img5 = $car['img5'];
+$speed = $car['speed'];
     ?>
      <nav class=" fixed-top homePageNavbar">
     <div class="container-fluid px-5 behind">
@@ -139,7 +140,7 @@ $Img5 = $car['img5'];
             </button>
         </a>
         
-        <button class="btnProduct editButton secondButton">Configure</button>
+        <a href="../pages/configure.php"><button class="btnProduct editButton secondButton">Configure</button></a>
         <a href="../pages/filter.php">
             <button class="btnProduct editButton">Find new or used</button>
         </a>
@@ -163,9 +164,9 @@ $Img5 = $car['img5'];
   <h2>
     <span id="speed" class="rolling-number" data-decimals="0"></span><sub>km/h</sub>
   </h2>
-  <p class="decMarginButton">Top speed</p>
+  <p class="decMarginButton">Max speed</p>
 
-  <button class="btnProduct editButton2">View all technical details</button>
+  <button class="btnProduct editButton2">Add to cart </button>
 </div>
 
 
