@@ -568,7 +568,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function updatePagination() {
-  const filteredCards = filterCards(); // get filtered cards
+  const filteredCards = filterCards(); 
   const itemsPerPage = 3;
   const totalCards = filteredCards.length;
   const totalPages = Math.max(1, Math.ceil(totalCards / itemsPerPage));
@@ -673,7 +673,7 @@ function highlightMatches(text) {
         const after = m.node.splitText(m.start);
         after.textContent = after.textContent.slice(m.end - m.start);
         parent.insertBefore(span, after);
-        m.node = span; // replace node reference with span
+        m.node = span; 
     });
 
     if (matches.length > 0) {

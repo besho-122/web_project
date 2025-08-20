@@ -402,7 +402,7 @@ if ($result->num_rows > 0) {
             <p>Range combined (WLTP): 442 km</p>
         </div>
         <div class="threeCar">
-            <strong>Price on request</strong>
+            <strong>$<?= htmlspecialchars($row['Price'] ?? '') ?></strong>
             <button class="btnProduct details"
                     onclick="window.location.href='../pages/model.php?id=<?= $row['id'] ?>'">
                 Show Details
@@ -589,8 +589,44 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+<script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+<script>
+document.querySelectorAll('input[name="rating"]').forEach((inp) => {
+  inp.addEventListener('change', async (e) => {
+    const rating = parseInt(e.target.value, 10);
 
+    try {
+      const res = await fetch('../api/rate.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rating })
+      });
+      const data = await res.json();
 
+      if (data.success) {
+        iziToast.success({
+          title: 'success',
+          message: data.message || 'your rating has been saved.',
+          position: 'topRight'
+        });
+      } else {
+        iziToast.error({
+          title: 'error',
+          message: data.message || 'your rating has not been saved.',
+          position: 'topRight'
+        });
+      }
+    } catch (err) {
+      iziToast.error({
+        title: 'server error',
+        message: 'something went wrong.',
+        position: 'topRight'
+      });
+    }
+  });
+});
+</script>
 
 
 
