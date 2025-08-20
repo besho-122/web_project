@@ -28,6 +28,38 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
     localStorage.setItem('isLoggedIn', '<?php echo $isLoggedIn; ?>');
     localStorage.setItem('userName', '<?php echo $user_id; ?>');
 </script>
+<?php
+require './api/config.php'; 
+
+$sql = "SELECT id, Name, Description
+        FROM Company
+        ORDER BY id DESC
+        LIMIT 4";
+
+$stmt = $dp->prepare($sql);
+$stmt->execute();
+$res = $stmt->get_result();
+$companies = $res->fetch_all(MYSQLI_ASSOC);
+$comp1=$companies[0]['id'];
+$comp2=$companies[1]['id'];
+$comp3=$companies[2]['id'];
+$comp4=$companies[3]['id'];
+$compName1=$companies[0]['Name'];
+$compName2=$companies[1]['Name'];
+$compName3=$companies[2]['Name'];
+$compName4=$companies[3]['Name'];
+$compdis1=$companies[0]['Description'];
+$compdis2=$companies[1]['Description'];
+$compdis3=$companies[2]['Description'];
+$compdis4=$companies[3]['Description'];
+
+$stmt->close();
+
+?>
+
+
+
+
 
 </head>
 
@@ -100,7 +132,7 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
 
 </div>
   </div>
-  <?php require './api/config.php';
+  <?php 
    $sql = "SELECT id FROM Product ORDER BY id DESC LIMIT 1";
    $result = $dp->query($sql);
    $row = $result->fetch_assoc();
@@ -162,26 +194,29 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
       <h2 class="yourJourney">Your journey starts now.</h2> 
      
       <div class="servicesGrid3 ">
+
          <div class="servicesGrid2rows">
-        <div class="serviceCard3 homePagethreeSectionCard fade-in" >
+          
+        <div class="serviceCard3 homePagethreeSectionCard fade-in"  data-id=<?php echo $comp1 ?> data-name=<?php echo $compName1 ?> onClick="return checkLogin(event)">
           <div class="cardOverlay2">
-          <h3 class="cardTitle2">Panamera</h3>
+          <h3 class="cardTitle2"><?php echo $compName1 ?></h3>
           <div class="cardOverlay gas">
-            <p class="type">Gasoline</p>
-            <p class="cardTitle describe">Iconic sports car with real engine: 2 doors, 2+2 seats</p>
+            <p class="type"><?php echo $compName1 ?></p>
+            <p class="cardTitle describe"><?php echo $compdis1 ?></p>
           </div>
           <span class="cardIcon2">➜</span>
        </div>
           <img src="./assets/photos/sectionThree/gtr.jpg" alt="">
           <video src="./assets/videos/homePage/videos for section 3/gtr.mp4" autoplay muted loop></video>
-        
-        </div>
-        <div class="serviceCard3 homePagethreeSectionCard fade-in" >
+
+</div>
+       
+        <div class="serviceCard3 homePagethreeSectionCard fade-in"data-id=<?php echo $comp2 ?> data-name=<?php echo $compName2 ?> onClick="return checkLogin(event)" >
           <div class="cardOverlay2">
-          <h3 class="cardTitle2">911</h3>
+          <h3 class="cardTitle2"><?php echo $compName2 ?></h3>
            <div class="cardOverlay gas">
-            <p class="type">Gasoline</p>
-            <p class="cardTitle describe">Iconic sports car with real engine: 2 doors, 2+2 seats</p>
+            <p class="type"><?php echo $compName2 ?></p>
+            <p class="cardTitle describe"><?php echo $compdis2 ?></p>
           </div>
           <span class="cardIcon2">➜</span>
        </div>
@@ -192,24 +227,24 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
         </div>
         </div>
         <div class="servicesGrid2rows">
-        <div class="serviceCard3 homePagethreeSectionCard fade-in" >
+        <div class="serviceCard3 homePagethreeSectionCard fade-in" data-id=<?php echo $comp3 ?> data-name=<?php echo $compName3 ?> onClick="return checkLogin(event)">
           <div class="cardOverlay2">
-          <h3 class="cardTitle2">BMW</h3>
+          <h3 class="cardTitle2"><?php echo $compName3 ?></h3>
            <div class="cardOverlay gas">
-            <p class="type">Gasoline</p>
-            <p class="cardTitle describe">Iconic sports car with real engine: 2 doors, 2+2 seats</p>
+            <p class="type"><?php echo $compName3 ?></p>
+            <p class="cardTitle describe"><?php echo $compdis3 ?></p>
           </div>
           <span class="cardIcon2">➜</span>
        </div>
-          <img src="./assets/photos/sectionThree/gtr.jpg" alt="">
+          <img src="./assets/photos/sectionThree/gtr.jpg" alt="" >
            <video src="./assets/videos/homePage/videos for section 3/gtr.mp4" autoplay muted loop></video>
         </div>
-        <div class="serviceCard3 homePagethreeSectionCard fade-in" >
+        <div class="serviceCard3 homePagethreeSectionCard fade-in" data-id=<?php echo $comp4 ?> data-name=<?php echo $compName4 ?> onClick="return checkLogin(event)">
           <div class="cardOverlay2">
-          <h3 class="cardTitle2">BMW</h3>
+          <h3 class="cardTitle2"><?php echo $compName4 ?></h3>
            <div class="cardOverlay gas">
-            <p class="type">Gasoline</p>
-            <p class="cardTitle describe">Iconic sports car with real engine: 2 doors, 2+2 seats</p>
+            <p class="type"><?php echo $compName4 ?></p>
+            <p class="cardTitle describe"><?php echo $compdis4 ?></p>
           </div>
           <span class="cardIcon2">➜</span>
        </div>
@@ -263,31 +298,33 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
   <div class="homePageTwoSectionText">
     <h2>Discover</h2>
     <div class="servicesGrid">
-
+        <a  onClick="return checkLogin(event)" href="../pages/filter.php"  class="newcars" > 
       <div class="serviceCard homePageTwoSectionCard fade-in cardDiscover">
         <div class="cardOverlay">
-          <h3 class="cardTitle">E-Performance - Sustainable Mobility</h3>
+          <h3 class="cardTitle">New Cars - Filter Options</h3>
           <span class="cardIcon">➜</span>
         </div>
         <img src="./assets/photos/discover/img1.jpg?v=<?= filemtime(__DIR__ . '/assets/photos/discover/img1.jpg') ?>" alt="">
       </div>
-
+      </a>
+  <a onClick="return checkLogin(event)" href="../pages/filter.php"  class="usedcars"> 
       <div class="serviceCard homePageTwoSectionCard fade-in cardDiscover">
         <div class="cardOverlay">
-          <h3 class="cardTitle">Car Tequipment</h3>
+          <h3 class="cardTitle">Used Cars - Filter Options</h3>
           <span class="cardIcon">➜</span>
         </div>
         <img src="./assets/photos/discover/img2.jpg?v=<?= filemtime(__DIR__ . '/assets/photos/discover/img2.jpg') ?>" alt="">
       </div>
-
+      </a>
+       <a onClick="return checkLogin(event)" href="../pages/filter.php"  class="preownedcars"> 
       <div class="serviceCard homePageTwoSectionCard fade-in cardDiscover">
         <div class="cardOverlay">
-          <h3 class="cardTitle">Exclusive Manufaktur</h3>
+          <h3 class="cardTitle">Pre-Owned Cars - Options</h3>
           <span class="cardIcon">➜</span>
         </div>
         <img src="./assets/photos/discover/img3.jpg?v=<?= filemtime(__DIR__ . '/assets/photos/discover/img3.jpg') ?>" alt="">
       </div>
-
+      </a>
     </div>
   </div>
 </section>
@@ -348,7 +385,11 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
     if (isLoggedIn === 'true') {
       return true;
     } else {
-      if (event) event.preventDefault();
+      if (event) {event.preventDefault();
+           event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation(); 
+      }
       toastr.error('Please log in to access this page.', 'You are not logged in!');
       return false;
     }
@@ -359,7 +400,8 @@ $user_id = isset($_SESSION['userName']) ? $_SESSION['userName'] : null;
     if (isLoggedIn === 'true') {
       window.location.href = './pages/profile.php';
     } else {
-      if (event) event.preventDefault();
+      if (event)
+         event.preventDefault();
       window.location.href = './pages/login.php';
     }
 

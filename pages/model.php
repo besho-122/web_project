@@ -534,6 +534,87 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+<script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+<script>
+  window.toast = window.toast || {
+    success: (m) => (window.iziToast ? iziToast.success({title:'Success', message:m, position:'topRight'}) : alert(m)),
+    info:    (m) => (window.iziToast ? iziToast.info({title:'Info', message:m, position:'topRight'}) : alert(m)),
+    error:   (m) => (window.iziToast ? iziToast.error({title:'Error', message:m, position:'topRight'}) : alert(m)),
+  };
+</script>
+
+
+<?php 
+$id = $_GET['id'] ?? 0;
+$sql = "SELECT * FROM Product WHERE id = ?";
+$stmt = $dp->prepare($sql);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$car = $result->fetch_assoc();
+$name = $car['Name'] ?? '';
+$Img5 = $car['img5'] ?? '';
+?>
+
+<script>
+const PRODUCT = {
+  id:     <?= (int)$id ?>,
+  name:   <?= json_encode($name ?? '') ?>,
+  image:  <?= json_encode($Img5 ?? '') ?>,
+  description: (document.querySelector('.secondPictureText p')?.textContent || '').trim()
+};
+
+function getCart(){ try { return JSON.parse(localStorage.getItem('cartCars')) || []; } catch { return []; } }
+function setCart(c){ localStorage.setItem('cartCars', JSON.stringify(c)); }
+
+function updateCartCount(){
+  const count = getCart().length; 
+  const el = document.getElementById('cartCount');
+  if (!el) return;
+  el.textContent = count;
+  el.style.display = count > 0 ? 'inline-block' : 'none';
+}
+
+(function(){
+  const btn = document.querySelector('.btnProduct.editButton2');
+  if (!btn) return;
+
+  btn.addEventListener('click', () => {
+    if (btn.dataset.lock === '1') return;
+    btn.dataset.lock = '1'; setTimeout(()=>btn.dataset.lock='0', 250);
+
+    const id = String(PRODUCT.id || '').trim();
+    if (!id){ toast.error('Missing product id'); return; }
+
+    const cart = getCart();
+    if (cart.some(it => String(it.id) === id)){
+      toast.info(`${PRODUCT.name || 'Item'} is already in your cart`);
+      return;
+    }
+    cart.push({
+      id,
+      name: PRODUCT.name || 'Item',
+      image: PRODUCT.image || '',
+      description: PRODUCT.description || ''
+    });
+    setCart(cart);
+    updateCartCount();
+    toast.success(`${PRODUCT.name || 'Item'} added to cart`);
+  });
+
+  updateCartCount();
+})();
+</script>
+
+
+
+
+
+
+
+
+
 
 <script src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>

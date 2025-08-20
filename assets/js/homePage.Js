@@ -162,4 +162,41 @@ window.addEventListener('scroll', () => {
 
 
 
+// used button  //
+
+
+document.querySelectorAll('.usedcars').forEach(card => {
+  card.addEventListener('click', () => {
+    localStorage.setItem("condition", "used");
+     window.location.href = "../pages/filter.php";
+  });
+});
+
+// new button //
+document.querySelectorAll('.newcars').forEach(card => {
+  card.addEventListener('click', () => {
+    localStorage.setItem("condition", "new");
+     window.location.href = "../pages/filter.php";
+  });
+});
+
+// pre owned button //
+document.querySelectorAll('.preownedcars').forEach(card => {
+  card.addEventListener('click', () => {
+    localStorage.setItem("condition", "preowned");
+     window.location.href = "../pages/filter.php";
+  });
+});
+
+
+// select product video
+document.querySelectorAll('.serviceCard3').forEach(serviceCard3 => {
+  serviceCard3.addEventListener('click', () => {
+    const modelId = serviceCard3.dataset.id; 
+    const modelName = serviceCard3.dataset.name;
+    localStorage.setItem("modelId", modelId);
+    localStorage.setItem("modelName", modelName);
+     window.location.href = "./pages/filter.php";
+  });
+});
 

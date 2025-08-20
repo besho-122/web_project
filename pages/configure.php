@@ -152,6 +152,38 @@ body {
 <section>
   <!--Footer-->
 <footer class="footer">
+  <h4>Overall, how satisfied are you with the <span>information</span> available on this page?</h4>
+  <button class="btnProduct" onclick="showFeedback()">Give Feedback now</button>
+
+  <div class="feedback-container" id="feedback">
+    <div class="rating-scale">
+      <span class="rating-label">Very dissatisfied</span>
+
+      <div class="rating-option">
+        <input type="radio" name="rating" id="rate1" value="1">
+        <label for="rate1">1</label>
+      </div>
+      <div class="rating-option">
+        <input type="radio" name="rating" id="rate2" value="2">
+        <label for="rate2">2</label>
+      </div>
+      <div class="rating-option">
+        <input type="radio" name="rating" id="rate3" value="3">
+        <label for="rate3">3</label>
+      </div>
+      <div class="rating-option">
+        <input type="radio" name="rating" id="rate4" value="4">
+        <label for="rate4">4</label>
+      </div>
+      <div class="rating-option">
+        <input type="radio" name="rating" id="rate5" value="5">
+        <label for="rate5">5</label>
+      </div>
+      <span class="rating-label">Very satisfied</span>
+    </div>
+  </div>
+  </div>
+
   <div class="underFooter">
      <p>© 2025 Porsche Sales & Marketplace GmbH General Privacy Policy. Imprint. Open Source Software Notice. Business & Human Rights. The illustrated vehicle images may contain automatically computer generated image material. The representation may differ in part from the actual appearance and/or the product substance of the vehicle.</p>
      <a href="../index.php"><img src="../assets/photos/title.png" id="mainTitle" alt="" width="200px"></a>
@@ -240,6 +272,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+<script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+
+<script>
+document.querySelectorAll('input[name="rating"]').forEach((inp) => {
+  inp.addEventListener('change', async (e) => {
+    const rating = parseInt(e.target.value, 10);
+
+    try {
+      const res = await fetch('../api/rate.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rating })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        iziToast.success({
+          title: 'success',
+          message: data.message || 'your rating has been saved.',
+          position: 'topRight'
+        });
+      } else {
+        iziToast.error({
+          title: 'error',
+          message: data.message || 'your rating has not been saved.',
+          position: 'topRight'
+        });
+      }
+    } catch (err) {
+      iziToast.error({
+        title: 'server error',
+        message: 'something went wrong.',
+        position: 'topRight'
+      });
+    }
+  });
+});
+</script>
 
 
     
