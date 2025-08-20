@@ -288,8 +288,7 @@ aside .logout svg {
     display: none;
 }
 #cart-section{
-    margin-left: 10vw;
-    margin-top: 38vh;
+    
     display: none;
 }
 #password-section{
@@ -316,6 +315,8 @@ aside .logout svg {
   }
 }
 .empty-cart {
+  margin-left: 10vw;
+    margin-top: 38vh;
   display: flex;
   gap: 8px; /* space between words */
 }

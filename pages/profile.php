@@ -217,7 +217,7 @@ if (isset($_POST['savePassword'])) {
      
       <form class="d-flex" role="search">
          <div class="searchDiv ">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" disabled/>
         <i class="fa-solid fa-magnifying-glass fa-xl searchIcon" style="color: #000000;" type="submit" ></i>
         </div>
       </form>

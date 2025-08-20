@@ -158,9 +158,104 @@ googleSignInBtn.addEventListener('click', async () => {
 });
 </script>
 
+<a href="javascript:void(0)" id="facebookBtnSignIn" class="icon" type="button">
+    <i class="fa-brands fa-facebook-f"></i>
+</a>
+<script>
+const facebookSignInBtn = document.getElementById('facebookBtnSignIn');
+facebookSignInBtn.addEventListener('click', async () => {
+    facebookSignInBtn.disabled = true;
+    const provider = new firebase.auth.FacebookAuthProvider();
+    try {
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        const email = user.email;
+        const response = await fetch('../api/getPassword.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await response.json();
+        if (data.success) {
+            const password = data.password;
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '../api/signin.php';
+            const emailInput = document.createElement('input');
+            emailInput.type = 'hidden';
+            emailInput.name = 'emailLogin';
+            emailInput.value = email;
+            const passwordInput = document.createElement('input');
+            passwordInput.type = 'hidden';
+            passwordInput.name = 'passwordLogin';
+            passwordInput.value = password;
+            form.appendChild(emailInput);
+            form.appendChild(passwordInput);
+            document.body.appendChild(form);
+            form.submit();
+
+        } else {
+            alert('User not found. Please sign up first.');
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    } finally {
+        facebookSignInBtn.disabled = false;
+    }
+});
+</script>
 
 
-            <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+            <a href="javascript:void(0)" id="githubBtnSignIn" class="icon" type="button">
+    <i class="fa-brands fa-github"></i>
+</a>
+<script>
+const githubSignInBtn = document.getElementById('githubBtnSignIn');
+githubSignInBtn.addEventListener('click', async () => {
+    githubSignInBtn.disabled = true;
+    const provider = new firebase.auth.GithubAuthProvider();
+    try {
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        const email = user.email;
+        const response = await fetch('../api/getPassword.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await response.json();
+        if (data.success) {
+            const password = data.password;
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '../api/signin.php';
+            const emailInput = document.createElement('input');
+            emailInput.type = 'hidden';
+            emailInput.name = 'emailLogin';
+            emailInput.value = email;
+            const passwordInput = document.createElement('input');
+            passwordInput.type = 'hidden';
+            passwordInput.name = 'passwordLogin';
+            passwordInput.value = password;
+            form.appendChild(emailInput);
+            form.appendChild(passwordInput);
+            document.body.appendChild(form);
+            form.submit();
+
+        } else {
+            alert('User not found. Please sign up first.');
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    } finally {
+        githubSignInBtn.disabled = false;
+    }
+});
+</script>
           </div>
           <span>or use your email password</span>
           <input type="email"   name="emailLogin" placeholder="Email" />
