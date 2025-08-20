@@ -1,5 +1,5 @@
 <?php 
-require("config.php");
+require("../api/config.php");
 
 if (isset($_POST['nameCreate'], $_POST['emailCreate'], $_POST['passwordCreate'])) {
     $name     = $_POST['nameCreate'];

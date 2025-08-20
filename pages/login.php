@@ -59,9 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Email'], $_POST['Pass
         <a href="javascript:void(0)" id="googleBtn" class="icon" type="button">
             <i class="fa-brands fa-google-plus-g"></i>
         </a>
-        <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
-        <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+        <!-- Facebook Button -->
+<a href="javascript:void(0)" id="facebookBtn" class="icon" type="button">
+    <i class="fa-brands fa-facebook-f"></i>
+</a>
+
+        <a href="javascript:void(0)" id="githubBtn" class="icon" type="button">
+    <i class="fa-brands fa-github"></i>
+</a>
     </div>
     <span>or use your email for registration</span>
     <input type="text" name="nameCreate" placeholder="Name" />
@@ -99,14 +104,60 @@ signUpBtn.addEventListener("click", (e) => {
         <form id="signInForm" action="../api/signin.php" method="post">
           <h1>Sign In</h1>
           <div class="social-icons">
-            <a href="#" class="icon"
-              ><i class="fa-brands fa-google-plus-g"></i
-            ></a>
-            <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+            
+           <a href="javascript:void(0)" id="googleSignInBtn" class="icon signInGoogle">
+  <i class="fa-brands fa-google-plus-g"></i>
+</a>
+
+<script>
+const googleSignInBtn = document.getElementById('googleSignInBtn');
+googleSignInBtn.addEventListener('click', async () => {
+    googleSignInBtn.disabled = true;
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        const email = user.email;
+        const response = await fetch('../api/getPassword.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await response.json();
+        if (data.success) {
+            const password = data.password;
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '../api/signin.php';
+            const emailInput = document.createElement('input');
+            emailInput.type = 'hidden';
+            emailInput.name = 'emailLogin';
+            emailInput.value = email;
+            const passwordInput = document.createElement('input');
+            passwordInput.type = 'hidden';
+            passwordInput.name = 'passwordLogin';
+            passwordInput.value = password;
+            form.appendChild(emailInput);
+            form.appendChild(passwordInput);
+            document.body.appendChild(form);
+            form.submit();
+
+        } else {
+            alert('User not found. Please sign up first.');
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    } finally {
+        googleSignInBtn.disabled = false;
+    }
+});
+</script>
+
+
+
             <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
-            <a href="#" class="icon"
-              ><i class="fa-brands fa-linkedin-in"></i
-            ></a>
           </div>
           <span>or use your email password</span>
           <input type="email"   name="emailLogin" placeholder="Email" />
@@ -207,10 +258,6 @@ function forgetPassword() {
   window.location.href = '../pages/code.php?email=' + encodeURIComponent(email);
 }
 
-// google
-  
-
-
   
 </script>
 
@@ -242,29 +289,21 @@ function generateRandomPassword(length = 5) {
 }
 
 const googleBtn = document.getElementById('googleBtn');
-
 googleBtn.addEventListener('click', async () => {
     googleBtn.disabled = true;
     const provider = new firebase.auth.GoogleAuthProvider();
-
     try {
         const result = await auth.signInWithPopup(provider);
         const user = result.user;
         const randomPassword = generateRandomPassword();
-
-        // Show credentials visually
         const div = document.getElementById('credentialsDiv');
         div.innerHTML = `<h1>Name: </h1>
                          <h1>Email: ${user.email}</h1>
                          <h1>Password: ${randomPassword}</h1>`;
         div.style.display = 'block';
-
-        // Fill hidden inputs for form submission
         document.getElementById('nameInput').value = user.displayName || 'GoogleUser';
         document.getElementById('emailInput').value = user.email;
         document.getElementById('passwordInput').value = randomPassword;
-
-        // Optionally auto-submit the form
         document.getElementById('signUpForm').submit();
 
     } catch (error) {
@@ -274,6 +313,56 @@ googleBtn.addEventListener('click', async () => {
         googleBtn.disabled = false;
     }
 });
+
+const facebookBtn = document.getElementById('facebookBtn');
+facebookBtn.addEventListener('click', async () => {
+    facebookBtn.disabled = true;
+    const provider = new firebase.auth.FacebookAuthProvider();
+    try {
+        const result = await auth.signInWithPopup(provider);
+        handleAuthResult(result, 'FacebookUser');
+
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    } finally {
+        facebookBtn.disabled = false;
+    }
+});
+
+
+const githubBtn = document.getElementById('githubBtn');
+githubBtn.addEventListener('click', async () => {
+    githubBtn.disabled = true;
+    const provider = new firebase.auth.GithubAuthProvider();
+    try {
+        const result = await auth.signInWithPopup(provider);
+        handleAuthResult(result, 'GitHubUser');
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    } finally {
+        githubBtn.disabled = false;
+    }
+});
+
+// Common handler
+function handleAuthResult(result, defaultName) {
+    const user = result.user;
+    const randomPassword = generateRandomPassword();
+
+    const div = document.getElementById('credentialsDiv');
+    div.innerHTML = `<h1>Name: ${user.displayName || defaultName}</h1>
+                     <h1>Email: ${user.email}</h1>
+                     <h1>Password: ${randomPassword}</h1>`;
+
+    document.getElementById('nameInput').value = user.displayName || defaultName;
+    document.getElementById('emailInput').value = user.email;
+    document.getElementById('passwordInput').value = randomPassword;
+
+    document.getElementById('signUpForm').submit();
+}
+
 
 
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require("config.php");
+require("../api/config.php");
 
 if (isset($_POST['emailLogin']) && isset($_POST['passwordLogin'])) {
     $email = $_POST['emailLogin'];
