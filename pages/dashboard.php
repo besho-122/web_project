@@ -339,11 +339,6 @@ if ($result->num_rows > 0) {
 
 
 <script>
-function addProduct() {
-    window.location.href = "addProductForm.php"; 
-}
-
-
 
 const searchInput = document.getElementById('searchInput');
 const cards = document.querySelectorAll('.productCard');
@@ -956,7 +951,7 @@ document.addEventListener("DOMContentLoaded", () => {
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
-  <script src="../assets/js/dashboard.js"></script>
+
 
 
 
@@ -1307,6 +1302,49 @@ email: d.email,
 });
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  <!-- / /// / / change video main ////// -->
 
 <script>
@@ -1492,7 +1530,7 @@ $stmt->close();
 
 
 
-
+  <script src="../assets/js/dashboard.js"></script>
 
 
 

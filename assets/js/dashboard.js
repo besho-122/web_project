@@ -239,32 +239,53 @@ function resetSelects(form) {
 }
 
 // add product
+
 function addProduct() {
     const form = document.getElementById('productForm');
     const form2 = document.querySelector('.productShowImages');
     form.reset();
     resetImages(form2);
     resetSelects(form);
+
     const modal = document.querySelector('.productShow');
     if (!modal) return;
     modal.style.display = 'block';
+
     const modalContent = modal.querySelector('.productShowDiscription');
     if (modalContent) modalContent.style.display = 'flex';
+
     const blurLayer = document.querySelector('.toMakeItBlur');
     if (blurLayer) blurLayer.style.filter = 'blur(16px)';
+
     form.action = "../api/addProduct.php";
+
     const hiddenId = form.querySelector('input[name="id"]');
     if (hiddenId) hiddenId.remove();
+
     const heading = modal.querySelector('.productShowDiscriptionInner h1');
     if (heading) heading.textContent = "Add Product";
+
     const submitBtn = modal.querySelector('.btnProductShowDiscriptionInnerList');
     if (submitBtn) submitBtn.textContent = "Add";
-    form.onsubmit = function(e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        fetch(form.action, { method: 'POST', body: formData })
-            .finally(() => location.reload());
-    };
+
+   form.onsubmit = function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    fetch(form.action, { method: 'POST', body: formData })
+        .then(res => res.json())
+        .then(resp => {
+            console.log("Response from server:", resp);
+            if (resp.success) {
+                sendEmailsAfterAdd(resp.id);    
+                alert("Product added successfully!");
+            } else {
+                alert("Add failed: " + resp.message);
+            }
+        })
+        .catch(err => console.error("Fetch Error:", err))
+        .finally(() => location.reload());
+};
 }
 
 // edit product
@@ -899,4 +920,41 @@ function cancelEditEmail() {
 
 
 
+
+// email sent on add product -->
+
+import("https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js")    
+.then(() => {
+  emailjs.init("3C2Muw3ickuu0FrEq");
+});
+
+function sendEmailsAfterAdd() {
+
+    fetch("../api/getLastAdded.php")
+        .then(res => res.json())
+        .then(car => {
+            if (!car || !car.id) return;
+            fetch("../api/emailsForProducts.php")
+                .then(res => res.json())
+                .then(users => {
+                    users.forEach(user => {
+                        emailjs.send("service_rj120g6","template_qrz5kgz", {
+                            company: car.company,
+                            carName: car.carName,
+                            model: car.Model,
+                            year: car.Year,
+                            color: car.color,
+                            color2: car.color2,
+                            price: car.Price,
+                            image_url: "https://images-porsche.imgix.net/-/media/18BDB8E5546C4BA4A12F88891D661876_76C4D93742CD42E8BEBE222C39477D82_911-carrera-4-gts-front?w=768&q=85&auto=format",
+                            email: user.Email
+                        }).then(() => {
+                            console.log(" Email sent to:", user.Email);
+                        }).catch(err => {
+                            console.error("EmailJS error:", err);
+                        });
+                    });
+                });
+        });
+}
 

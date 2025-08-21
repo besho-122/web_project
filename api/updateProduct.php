@@ -24,16 +24,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         'Model'     => $_POST['Model'] ?? ''
     ];
 
+    // Base paths for images
+    $baseFs = realpath(__DIR__ . "/.."); 
+    $imgDirs = [
+        "img1" => [$baseFs . "/assets/photos/Products/img1/", "../assets/photos/Products/img1/"],
+        "img2" => [$baseFs . "/assets/photos/Products/img2/", "../assets/photos/Products/img2/"],
+        "img3" => [$baseFs . "/assets/photos/Products/img3/", "../assets/photos/Products/img3/"],
+        "img4" => [$baseFs . "/assets/photos/Products/img4/", "../assets/photos/Products/img4/"],
+        "img5" => [$baseFs . "/assets/photos/Products/img5/", "../assets/photos/Products/img5/"]
+    ];
+
+    // إنشاء المجلدات إذا مش موجودة
+    foreach ($imgDirs as [$fsDir, $webDir]) {
+        if (!is_dir($fsDir)) mkdir($fsDir, 0777, true);
+    }
+
     // Handle images
     $images = [];
-    $uploadDir = realpath(__DIR__ . "/../assets/photos/products/") . "/";
-    if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
-
-    for ($i = 1; $i <= 5; $i++) {
-        $field = 'img' . $i;
+    foreach ($imgDirs as $field => [$fsDir, $webDir]) {
         if (isset($_FILES[$field]) && $_FILES[$field]['error'] === 0) {
-            // Delete old image if exists
-            $res = $dp->query("SELECT `$field` FROM Product WHERE id = '$id'");
+            // احذف الصورة القديمة
+            $res = $dp->query("SELECT `$field` FROM Product WHERE id='$id'");
             if ($res && $res->num_rows > 0) {
                 $row = $res->fetch_assoc();
                 if (!empty($row[$field]) && file_exists(__DIR__ . "/.." . substr($row[$field], 2))) {
@@ -41,16 +52,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
                 }
             }
 
-            // Save new image
-            $filename = time() . "_$i_" . basename($_FILES[$field]['name']);
-            $filepath = $uploadDir . $filename;
-            if (move_uploaded_file($_FILES[$field]['tmp_name'], $filepath)) {
-                $images[$field] = "../assets/photos/products/" . $filename;
+            // ارفع الصورة الجديدة
+            $fileName = time() . "_" . basename($_FILES[$field]['name']);
+            if (move_uploaded_file($_FILES[$field]['tmp_name'], $fsDir . $fileName)) {
+                $images[$field] = $webDir . $fileName;
             }
         }
     }
 
-    // Prepare SQL
+    // جهّز أعمدة التحديث
     $numericColumns = ['Price','Year','MileAge','CompanyId'];
     $updates = [];
 
@@ -66,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         $updates[] = "`$field`='" . $dp->real_escape_string($path) . "'";
     }
 
+    // نفذ SQL
     $sql = "UPDATE Product SET " . implode(", ", $updates) . " WHERE id='$id'";
 
     if ($dp->query($sql)) {
@@ -77,3 +88,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
 echo json_encode($response);
 exit;
+?>

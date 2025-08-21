@@ -648,12 +648,12 @@ document.addEventListener('DOMContentLoaded', () => {
     else    notifToggle.classList.remove('active');
   };
 
-  const initialStr = (notifToggle.getAttribute('data-value') || 'no').toLowerCase();
-  let isOn = initialStr === 'yes';
+  const initialStr = (notifToggle.getAttribute('data-value') || 'No');
+  let isOn = initialStr === 'Yes';
   applyNotif(isOn);
   notifToggle.addEventListener('click', async () => {
     const next = !isOn;
-    const nextStr = next ? 'yes' : 'no';
+    const nextStr = next ? 'Yes' : 'No';
     applyNotif(next);
     try {
       const res = await fetch('../api/updatenotification.php', {

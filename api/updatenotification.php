@@ -10,10 +10,10 @@ if (!isset($_SESSION['userName'])) {
 
 $raw = file_get_contents('php://input');
 $payload = json_decode($raw, true);
-$value = strtolower(trim($payload['value'] ?? ''));
+$value = trim($payload['value'] ?? '');
 
-if (!in_array($value, ['yes','no'], true)) {
-  echo json_encode(['success' => false, 'message' => 'Invalid value (use yes/no)']);
+if (!in_array($value, ['Yes','No'], true)) {
+  echo json_encode(['success' => false, 'message' => 'Invalid value (use Yes/No)']);
   exit;
 }
 
@@ -27,9 +27,7 @@ if (!$stmt) {
 $stmt->bind_param('ss', $value, $userName);
 $ok = $stmt->execute();
 $stmt->close();
-echo json_encode(['success' => (bool)$ok, 'message' => $ok ? 'OK' : 'DB update failed']);
 
+echo json_encode(['success' => (bool)$ok, 'message' => $ok ? 'OK' : 'DB update failed']);
 exit;
 ?>
-
-

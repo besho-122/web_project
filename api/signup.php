@@ -9,8 +9,8 @@ if (isset($_POST['nameCreate'], $_POST['emailCreate'], $_POST['passwordCreate'])
     $sql = "INSERT INTO Users (userName, Email, Password) VALUES ('$name', '$email', '$password')";
     $ok  = $dp->query($sql) === TRUE;
 
-    $nextOnSuccess = '../pages/login.html';
-    $nextOnError   = '../pages/login.html'; 
+    $nextOnSuccess = '../pages/login.php';
+    $nextOnError   = '../pages/login.php'; 
 
 
     if ($ok) {

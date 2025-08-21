@@ -1,7 +1,6 @@
 <?php
 require("../api/config.php");
-
-// Get form data & clean
+ session_start(); 
 $model      = $_POST['Model'] ?? '';
 $interior   = $_POST['Interior'] ?? '';
 $exterior   = $_POST['Exterior'] ?? '';
@@ -75,7 +74,8 @@ $sql = "INSERT INTO Product
          '$img1Path', '$img2Path', '$img3Path', '$img4Path', '$img5Path')";
 
 if ($dp->query($sql)) {
-    header("Location: ../pages/dashboard.php#products");
+     $id = $dp->insert_id;
+    echo json_encode(['success'=>true,'id'=>$id]);
     exit;
 } else {
     echo "db_error: " . $dp->error;
