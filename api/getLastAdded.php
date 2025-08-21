@@ -1,24 +1,42 @@
 <?php
 require("config.php");
-session_start();
 header("Content-Type: application/json; charset=utf-8");
-$id = $_SESSION['lastAddedCarId'] ?? 0;
+
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
 if ($id <= 0) {
-    echo json_encode(["success"=>false, "message"=>"No car in session"]);
+    echo json_encode(["success"=>false, "message"=>"Invalid product id"]);
     exit;
 }
-$res = $dp->prepare("SELECT 
-    P.id, P.Name AS carName, P.Model, P.Year, P.Price, 
-    P.Exterior AS color, P.Interior AS color2, P.img1 AS image_url, 
+
+
+$stmt = $dp->prepare("SELECT 
+    P.id, 
+    P.Name AS carName, 
+    P.Model, 
+    P.Year, 
+    P.Price, 
+    P.Exterior AS color, 
+    P.Interior AS color2, 
+    P.img1 AS image_url, 
     C.Name AS company
 FROM Product P 
 LEFT JOIN Company C ON P.CompanyId = C.id
 WHERE P.id = ? LIMIT 1");
-$res->bind_param("i", $id);
-$res->execute();
-$car = $res->get_result()->fetch_assoc();
+
+if (!$stmt) {
+    echo json_encode(["success"=>false, "message"=>"DB prepare failed"]);
+    exit;
+}
+
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$res = $stmt->get_result();
+$car = $res->fetch_assoc();
+$stmt->close();
+
 if ($car) {
-    echo json_encode($car);
+    echo json_encode(["success"=>true, "car"=>$car]);
 } else {
     echo json_encode(["success"=>false, "message"=>"Car not found"]);
 }

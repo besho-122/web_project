@@ -928,9 +928,8 @@ import("https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js")
   emailjs.init("3C2Muw3ickuu0FrEq");
 });
 
-function sendEmailsAfterAdd() {
-
-    fetch("../api/getLastAdded.php")
+function sendEmailsAfterAdd(productId) {
+    fetch(`../api/getProduct.php?id=${productId}`)
         .then(res => res.json())
         .then(car => {
             if (!car || !car.id) return;
@@ -939,17 +938,17 @@ function sendEmailsAfterAdd() {
                 .then(users => {
                     users.forEach(user => {
                         emailjs.send("service_rj120g6","template_qrz5kgz", {
-                            company: car.company,
-                            carName: car.carName,
+                            company: car.CompanyId,
+                            carName: car.Name,
                             model: car.Model,
                             year: car.Year,
-                            color: car.color,
-                            color2: car.color2,
+                            color: car.Exterior,
+                            color2: car.Interior,
                             price: car.Price,
-                            image_url: "https://images-porsche.imgix.net/-/media/18BDB8E5546C4BA4A12F88891D661876_76C4D93742CD42E8BEBE222C39477D82_911-carrera-4-gts-front?w=768&q=85&auto=format",
+                            image_url: "https://i.pinimg.com/1200x/17/df/ad/17dfad2fa9be615b06fbe31af9f92ba0.jpg",
                             email: user.Email
                         }).then(() => {
-                            console.log(" Email sent to:", user.Email);
+                            console.log("Email sent to:", user.Email);
                         }).catch(err => {
                             console.error("EmailJS error:", err);
                         });
@@ -957,4 +956,3 @@ function sendEmailsAfterAdd() {
                 });
         });
 }
-
