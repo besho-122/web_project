@@ -99,8 +99,16 @@ span{
     justify-content: center;
     gap: 30px;
     flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(10vh);
+  animation: fadeIn3 1.5s ease-out forwards;
 }
-
+@keyframes fadeIn3 {
+   to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .card{
     background-image:  var(--gradient-color) !important;
     height: 279px !important;
@@ -161,7 +169,8 @@ h4{
     
     font-size: 0.8vw;
  }
-
+opacity: 0;
+transform: translateY(10vh);
 }
 /*homePageTwoSection*/
 .homePageTwoSectionText{
@@ -170,6 +179,7 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 position: relative;
+
 }
 
 .car-container {
@@ -180,8 +190,18 @@ position: relative;
   height: 410px;
   margin: auto;
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  
+    
 }
-
+.homePageFourSection.show {
+  animation: fadeIn3 1.5s ease-out forwards;
+}
+@keyframes fadeIn3 {
+   to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .car-image {
   flex: 1.2;
 }
@@ -315,7 +335,12 @@ position: relative;
   margin-bottom: 120px;
   padding: 0 16px;
   width: 100%;
-  height: auto;                    
+  height: auto;  
+  opacity: 0;
+transform: translateY(10vh);                  
+}
+.swiper1.show {
+  animation: fadeIn3 1.5s ease-out forwards;
 }
 
 .swiper1 .swiper-wrapper{
@@ -455,4 +480,9 @@ position: relative;
   display: none;
 }
 
-
+.highlight2 {
+  background-color: yellow;
+}
+.current {
+  background-color: orange;
+}

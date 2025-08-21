@@ -73,7 +73,7 @@ body {
       
       <form class="d-flex " role="search">
         <div class="searchDiv ">
-        <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search"/>
+        <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search"/>
         <i class="fa-solid fa-magnifying-glass fa-xl searchIcon" style="color: #000000;" type="submit" ></i>
         </div>
       </form>
@@ -142,7 +142,7 @@ foreach ($modelseries as $modelserie) {
 <!--Second Section-->
 <section class="homePageFourSection" id="thirdSection">
   <div class="homePageTwoSectionText">
-    <div class="car-container">
+    <div class="car-container fade-in">
       <div class="car-image">
         <img src="../assets/photos/new.jpg" alt="Car">
       </div>

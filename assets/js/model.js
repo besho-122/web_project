@@ -171,4 +171,26 @@ countUpRolling(speed, 220, 2000);
 
     
 
-    
+//Fade In
+function observeAndAddClass(selector, className) {
+  const element = document.querySelector(selector);
+
+  if (!element) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        element.classList.add(className);
+        observer.unobserve(element);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  observer.observe(element);
+}
+
+observeAndAddClass('.Buttons', 'show');    
+observeAndAddClass('.technical', 'show');
+observeAndAddClass('.threePictureSection', 'show'); 
+observeAndAddClass('.carsound2', 'show'); 
+observeAndAddClass('.exteriorSection', 'show');
