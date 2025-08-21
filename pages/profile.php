@@ -626,6 +626,76 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+<!-- /////// notification -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const notifToggle = document.getElementById('notificationsToggle');
+  if (!notifToggle) return;
+
+  const applyNotif = (on) => {
+    if (on) notifToggle.classList.add('active');
+    else    notifToggle.classList.remove('active');
+  };
+
+  const initialStr = (notifToggle.getAttribute('data-value') || 'no').toLowerCase();
+  let isOn = initialStr === 'yes';
+  applyNotif(isOn);
+  notifToggle.addEventListener('click', async () => {
+    const next = !isOn;
+    const nextStr = next ? 'yes' : 'no';
+    applyNotif(next);
+    try {
+      const res = await fetch('../api/updatenotification.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value: nextStr })
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message || 'Failed');
+      isOn = next;
+      notifToggle.setAttribute('data-value', nextStr);
+
+      window.iziToast && iziToast.success({
+        title: 'Saved',
+        message: 'Notification preference updated.',
+        position: 'topRight'
+      });
+    } catch (err) {
+      applyNotif(isOn);
+      window.iziToast && iziToast.error({
+        title: 'Error',
+        message: err.message || 'Could not update notifications.',
+        position: 'topRight'
+      });
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     <script src="../assets/js/profile.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

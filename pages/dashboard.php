@@ -185,7 +185,7 @@ $values_js2 = implode(",", array_map('intval', $values2));
               
             </div>
             <?php
-            $sql = "SELECT COUNT(*) as count FROM Users";
+            $sql = "SELECT COUNT(*) as count FROM Product";
             $result = $dp->query($sql);
             $row = $result->fetch_assoc();
             $count = $row['count'];
