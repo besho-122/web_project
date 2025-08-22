@@ -178,6 +178,7 @@ function setupSelectSorting(selectSelector, pText, groupName) {
   const sortingBy = document.querySelector('.sortingBy');
   if (!selectElement) return;
   selectElement.addEventListener('change', () => {
+    
     const selectedValue = selectElement.value;
     if (selectedValue) {
       checkedGroups[groupName] = [selectedValue];
