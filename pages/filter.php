@@ -271,8 +271,8 @@ body {
     <div class="mileField">
         <p>Max. Mileage</p>
         <div class="SeriesSelect2 sort-bar">
-            <select id="sort" class="selection milesSelect">
-                <option>Any</option>
+           <select id="maxMileage" class="selection milesSelect">
+               <option value="">Any</option>
                 <?php
                 // Fetch distinct mileage values from the database, ordered ascending
                 $sql = "SELECT DISTINCT MileAge FROM Product ORDER BY MileAge ASC";

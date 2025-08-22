@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+function toNum(v){
+  const s = String(v ?? '').replace(/[^\d.-]/g, ''); 
+  return s ? Number(s) : NaN;
+}
 
 function filterCards() {
   const cards = Array.from(document.querySelectorAll('.car-card'));
@@ -36,20 +40,26 @@ function filterCards() {
     let show = true;
     for (const [group, values] of Object.entries(checkedGroups)) {
       if (!values || values.length === 0) continue;
-      const cardValue = card.dataset[group.toLowerCase()] || '';
-      if (group === "Price" || group === "Mileage") {
-        if (Number(cardValue) > Number(values[0])) {
+
+      const key = group.toLowerCase();              
+      const cardValueRaw = card.dataset[key] || '';  
+
+      if (key === "price" || key === "mileage") {
+        const limit   = toNum(values[0]);
+        const cardNum = toNum(cardValueRaw);
+        if (!isNaN(limit) && !isNaN(cardNum) && cardNum > limit) {
           show = false;
           break;
         }
       } else if (group === "Company") {
-        if (!values.includes(cardValue)) {
+        if (!values.includes(cardValueRaw)) {
           show = false;
           break;
         }
       } else {
+        const cardValue = String(cardValueRaw).toLowerCase();
         const matched = values.some(value =>
-          cardValue.toString().toLowerCase().includes(value.toString().toLowerCase())
+          cardValue.includes(String(value).toLowerCase())
         );
         if (!matched) {
           show = false;
@@ -57,12 +67,13 @@ function filterCards() {
         }
       }
     }
+
     card.style.display = show ? 'flex' : 'none';
     if (show) filteredCards.push(card);
   });
-  return filteredCards; 
-}
 
+  return filteredCards;
+}
 
 
 
@@ -321,7 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
 setupSelectSorting('.sidebar .modelYear select', 'Year', 'Year');
 setupCheckboxSorting('.sidebar .interiorColour input[type="checkbox"]', 'Interior', 'Interior');
 setupCheckboxSorting('.sidebar .exteriorColour input[type="checkbox"]', 'Exterior', 'Exterior');
-setupSelectSorting('.sidebar .mileAge select', 'MileAge', 'MileAge');
+setupSelectSorting('.sidebar .mileAge select', 'Max. Mileage', 'Mileage');
 
 
 // Select min and max inputs
@@ -718,4 +729,5 @@ input.addEventListener('keydown', e => {
 input.addEventListener('input', () => {
     highlightMatches(input.value);
 });
+
 

@@ -108,3 +108,10 @@ window.addEventListener('storage', (e) => {
   if (e.key === 'cartCars') updateCartCount();
 });
 
+document.querySelectorAll('.nav-item-dropdown').forEach(card => {
+  card.addEventListener('click', () => {
+    const modelId = card.dataset.id; 
+    localStorage.setItem("modelId", modelId);
+     window.location.href = "../pages/filter.php";
+  });
+});
