@@ -361,7 +361,7 @@ $stmt->close();
 
     <!-- Footer -->
     <footer class="footer">
-      <p>© 2025 Porsche Middle East and Africa FZE. Legal Notice.Privacy Policy.Open Source Software Notice.Whistleblower System.</p>
+      <p>© 2025 Motor Yard Palestine. Legal Notice.Privacy Policy.Open Source Software Notice.Whistleblower System.</p>
       <img src="./assets/photos/title.png" id="mainTitle" alt="" width="200px">
     </footer>
   </section>
