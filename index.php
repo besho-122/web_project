@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <link rel="icon" type="image/png" sizes="512x512" href="./assets/photos/MY.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -220,8 +220,8 @@ $stmt->close();
           </div>
           <span class="cardIcon2">➜</span>
        </div>
-           <img src="./assets/photos/sectionThree/bmw.jpg" alt="">
-           <video src="./assets/videos/homePage/videos for section 3/bmw.mp4" autoplay muted loop></video>
+           <img src="./assets/photos/sectionThree/amg.jpg" alt="">
+           <video src="./assets/videos/homePage/videos for section 3/amg.mp4" autoplay muted loop></video>
          
 
         </div>
@@ -236,8 +236,8 @@ $stmt->close();
           </div>
           <span class="cardIcon2">➜</span>
        </div>
-          <img src="./assets/photos/sectionThree/gtr.jpg" alt="" >
-           <video src="./assets/videos/homePage/videos for section 3/gtr.mp4" autoplay muted loop></video>
+          <img src="./assets/photos/sectionThree/bmw.jpg" alt="" >
+           <video src="./assets/videos/homePage/videos for section 3/bmw.mp4" autoplay muted loop></video>
         </div>
         <div class="serviceCard3 homePagethreeSectionCard fade-in" data-id=<?php echo $comp4 ?> data-name=<?php echo $compName4 ?> onClick="return checkLogin(event)">
           <div class="cardOverlay2">
@@ -248,8 +248,8 @@ $stmt->close();
           </div>
           <span class="cardIcon2">➜</span>
        </div>
-          <img src="./assets/photos/sectionThree/gtr.jpg" alt="">
-           <video src="./assets/videos/homePage/videos for section 3/gtr.mp4" autoplay muted loop></video>
+          <img src="./assets/photos/sectionThree/r34.jpg" alt="">
+           <video src="./assets/videos/homePage/videos for section 3/r34.mp4" autoplay muted loop></video>
         </div>
 
       </div>

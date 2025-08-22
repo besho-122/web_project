@@ -260,7 +260,7 @@ githubSignInBtn.addEventListener('click', async () => {
           <span>or use your email password</span>
           <input type="email"   name="emailLogin" placeholder="Email" />
           <input type="password" name="passwordLogin" placeholder="Password" />
-          <a href="#" onclick="forgetPassword()">Forget Your Password?</a>
+          <a href="#" onclick="return forgetPassword(event)">Forget Your Password?</a>
           <button>Sign In</button>
         </form>
       </div>
@@ -331,7 +331,7 @@ githubSignInBtn.addEventListener('click', async () => {
 
 <script>
   (function(){
-    emailjs.init({ publicKey: "ApeL9b3oz5PynbXsm" });
+    emailjs.init({ publicKey: "YRHV_6c89sUTJv5FF" });
   })();
 </script>
 
@@ -339,23 +339,43 @@ githubSignInBtn.addEventListener('click', async () => {
 
 
 <script>
-function forgetPassword() {
+async function forgetPassword(e) {
+  if (e && typeof e.preventDefault === 'function') e.preventDefault();
+
   const email = document.querySelector('input[name="emailLogin"]')?.value.trim() || "";
   if (!email) {
     iziToast.error({ title: 'Error', message: 'Please enter your email address.', position: 'topRight' });
-    return;
+    return false;
   }
-  passcode = Math.floor(Math.random() * 1000000);
-  sessionStorage.setItem('resetEmail', email);
-  emailjs.send("service_ohhju66","template_zaqhu6b",{
-  passcode: passcode,
-  email: email,
-});
- sessionStorage.setItem('resetEmail', email);
- sessionStorage.setItem('otp', passcode);
-  window.location.href = '../pages/code.php?email=' + encodeURIComponent(email);
-}
 
+  const passcode = String(Math.floor(Math.random() * 1e6)).padStart(6, '0');
+
+  try {
+    await emailjs.send("service_ohhju66", "template_zaqhu6b", {
+      passcode: passcode,
+      email: email,
+    });
+
+    sessionStorage.setItem('resetEmail', email);
+    sessionStorage.setItem('otp', passcode);
+
+    iziToast.success({
+      title: 'Sent',
+      message: `We sent a verification code to ${email}`,
+      position: 'topRight'
+    });
+
+    setTimeout(() => {
+      window.location.href = '../pages/code.php?email=' + encodeURIComponent(email);
+    }, 600);
+
+    return false; 
+  } catch (err) {
+    console.error(err);
+    iziToast.error({ title: 'Error', message: 'Failed to send email.', position: 'topRight' });
+    return false;
+  }
+}
   
 </script>
 

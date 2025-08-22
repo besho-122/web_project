@@ -119,45 +119,72 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// icon train
-let inSection = false; 
-let isAnimating = false; 
-window.addEventListener('scroll', () => {
+
+// menu animation
+(() => {
+  const mq = window.matchMedia('(max-width: 767.98px)'); 
+  let inSection = false;
+  let isAnimating = false;
+
   const section = document.querySelector('.homePageTwoSection');
   const navbarItems = document.querySelectorAll('.navbar__item');
-  const scrollY = window.scrollY;
-  const windowHeight = window.innerHeight;
-  const sectionTop = section.offsetTop;
-  const sectionBottom = sectionTop + section.offsetHeight;
-  const middleScreen = scrollY + windowHeight / 2;
+  if (!section || !navbarItems.length) return;
+
   const totalAnimTime = navbarItems.length * 400;
-  if (middleScreen >= sectionTop && middleScreen < sectionBottom) {
-    if (!inSection && !isAnimating) { 
-      inSection = true;
-      isAnimating = true;
-      navbarItems.forEach((item, index) => {
-        setTimeout(() => {
-          item.style.transform = 'translateX(calc(100vw - 8rem))';
-        }, index * 400);
-      });
 
-      setTimeout(() => isAnimating = false, totalAnimTime);
-    }
-  } 
-  else {
-    if (inSection && !isAnimating) { 
-      inSection = false;
-      isAnimating = true;
-      navbarItems.forEach((item, index) => {
-        setTimeout(() => {
-          item.style.transform = 'translateX(0)';
-        }, index * 400);
-      });
+  function resetItems(){
+    navbarItems.forEach(item => { item.style.transform = 'translateX(0)'; });
+    inSection = false;
+    isAnimating = false;
+  }
 
-      setTimeout(() => isAnimating = false, totalAnimTime);
+  function onScroll(){
+    if (mq.matches) return;
+
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const sectionTop = section.offsetTop;
+    const sectionBottom = sectionTop + section.offsetHeight;
+    const middleScreen = scrollY + windowHeight / 2;
+
+    if (middleScreen >= sectionTop && middleScreen < sectionBottom) {
+      if (!inSection && !isAnimating) {
+        inSection = true;
+        isAnimating = true;
+        navbarItems.forEach((item, index) => {
+          setTimeout(() => {
+            item.style.transform = 'translateX(calc(100vw - 8rem))';
+          }, index * 400);
+        });
+        setTimeout(() => isAnimating = false, totalAnimTime);
+      }
+    } else {
+      if (inSection && !isAnimating) {
+        inSection = false;
+        isAnimating = true;
+        navbarItems.forEach((item, index) => {
+          setTimeout(() => {
+            item.style.transform = 'translateX(0)';
+          }, index * 400);
+        });
+        setTimeout(() => isAnimating = false, totalAnimTime);
+      }
     }
   }
-});
+  function applyMode(){
+    if (mq.matches) {
+      window.removeEventListener('scroll', onScroll);
+      resetItems();
+    } else {
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll(); 
+    }
+  }
+
+  applyMode();
+  if (mq.addEventListener) mq.addEventListener('change', applyMode);
+  else mq.addListener(applyMode);
+})();
 
 
 
