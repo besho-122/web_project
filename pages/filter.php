@@ -274,7 +274,7 @@ body {
             <input type="number" id="priceMin" class="priceInput minPriceInput" placeholder="Min" step="10000" style="width: 100px;border-radius:5px;text-align:center;">
             <p style="margin-top:13px;">to</p>
             <input type="number" id="priceMax" class="priceInput maxPriceInput" placeholder="Max" step="10000" style="width: 100px;border-radius:5px;text-align:center;">
-        <p style="margin-top:14px;">NIS.</p>
+        <p style="margin-top:14px;">$</p>
           </div>
     </div>
 </li>

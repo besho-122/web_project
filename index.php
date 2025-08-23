@@ -109,7 +109,7 @@ $stmt->close();
     <div class="homePageMainSectionText ">
       <button id="videoToggle" class="video-btn"><i class="fas fa-pause"></i></button>
       <h2 class="fade-in-home-text">Motors <span class="highlight">For</span> Sells.</h2>
-      <h3 class="fade-in-home-text">Discover the new Deadpool Edition</h3>
+      <h3 class="fade-in-home-text" onClick="window.location.href='./pages/model.php?id=28'">Discover the new Deadpool Edition</h3>
       
       <!--<a herf="#"><button type="button" class="btn btn-primary">Learn more</button></a>-->
     </div>

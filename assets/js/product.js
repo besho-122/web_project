@@ -69,11 +69,17 @@ document.querySelectorAll('.preownedcars').forEach(card => {
 
 //////////////////// doop down //////////////
 //////////////////// doop down //////////////
-document.querySelectorAll('.nav-item-dropdown').forEach(card => {
-  card.addEventListener('click', () => {
-    const modelId = card.dataset.id; 
-    localStorage.setItem("modelId", modelId);
-     window.location.href = "../pages/filter.php";
+document.querySelectorAll('.nav-item-dropdown').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();       
+    e.stopPropagation();         
+    const id   = link.dataset.id;
+    const name = link.querySelector('.company-name')?.textContent.trim()
+              || link.getAttribute('title')?.trim()
+              || link.textContent.trim();
+    if (id)   localStorage.setItem('modelId', id);
+    if (name) localStorage.setItem('modelName', name);
+    window.location.href = "../pages/filter.php";
   });
 });
 

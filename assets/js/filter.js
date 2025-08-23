@@ -337,27 +337,23 @@ setupSelectSorting('.sidebar .mileAge select', 'Max. Mileage', 'Mileage');
 
 
 // Select min and max inputs
-const minInput = document.getElementById('priceMin');
-const maxInput = document.getElementById('priceMax');
 const carCards = document.querySelectorAll('.car-card');
+const minInput = document.getElementById('priceMax');
+const maxInput = document.getElementById('priceMin');
 
-function filterByPrice() {
-    const min = parseInt(minInput.value) || 0;
-    const max = parseInt(maxInput.value) || Infinity;
-
-    carCards.forEach(card => {
-        const price = parseInt(card.dataset.price) || 0;
-        if (price >= min && price <= max) {
-            card.style.display = '';
-        } else {
-            card.style.display = 'none';
-        }
-    });
+function pushPriceToFilters(){
+  checkedGroups['Price'] = [
+    minInput?.value || '',
+    maxInput?.value || ''
+  ];
+  filterCards();
+  if (document.querySelector('.pagination')) updatePagination();
 }
+minInput.addEventListener('input', pushPriceToFilters);
+maxInput.addEventListener('input', pushPriceToFilters);
 
 // Add event listeners
-minInput.addEventListener('input', filterByPrice);
-maxInput.addEventListener('input', filterByPrice);
+
 setupInputSorting('.sidebar .location input', 'Location', 'Location');
 
 
@@ -578,32 +574,33 @@ document.addEventListener('DOMContentLoaded', function () {
   showPage(1);
 });
 
-
 function updatePagination() {
-  const filteredCards = filterCards(); 
+  const filteredCards = filterCards();
   const itemsPerPage = 3;
   const totalCards = filteredCards.length;
   const totalPages = Math.max(1, Math.ceil(totalCards / itemsPerPage));
   let currentPage = 1;
 
-  const paginationUl = document.querySelector('.pagination');
+
+  let paginationUl = document.querySelector('.pagination');
   if (!paginationUl) return;
+
+  const fresh = paginationUl.cloneNode(false); 
+  paginationUl.parentNode.replaceChild(fresh, paginationUl);
+  paginationUl = fresh;
 
   function renderPagination() {
     paginationUl.innerHTML = '';
-
     const prevLi = document.createElement('li');
     prevLi.className = 'page-item';
     prevLi.innerHTML = '<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>';
     paginationUl.appendChild(prevLi);
-
     for (let i = 1; i <= totalPages; i++) {
       const li = document.createElement('li');
       li.className = 'page-item';
       li.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`;
       paginationUl.appendChild(li);
     }
-
     const nextLi = document.createElement('li');
     nextLi.className = 'page-item';
     nextLi.innerHTML = '<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>';
@@ -614,7 +611,6 @@ function updatePagination() {
     if (page < 1) page = 1;
     if (page > totalPages) page = totalPages;
     currentPage = page;
-
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
 
@@ -632,19 +628,14 @@ function updatePagination() {
     if (next) next.parentElement.classList.toggle('disabled', page === totalPages);
   }
 
+ 
   paginationUl.addEventListener('click', e => {
     const link = e.target.closest('.page-link');
     if (!link) return;
     e.preventDefault();
 
-    if (link.getAttribute('aria-label') === 'Previous') {
-      showPage(currentPage - 1);
-      return;
-    }
-    if (link.getAttribute('aria-label') === 'Next') {
-      showPage(currentPage + 1);
-      return;
-    }
+    if (link.getAttribute('aria-label') === 'Previous') { showPage(currentPage - 1); return; }
+    if (link.getAttribute('aria-label') === 'Next')     { showPage(currentPage + 1); return; }
 
     const p = Number(link.dataset.page);
     if (p) showPage(p);
@@ -653,7 +644,6 @@ function updatePagination() {
   renderPagination();
   showPage(1);
 }
-
 
 const input = document.getElementById('searchInput');
 let matches = [];
