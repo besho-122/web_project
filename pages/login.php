@@ -494,7 +494,57 @@ function handleAuthResult(result, defaultName) {
 
 </script>
 
+<script>
+  (() => {
+    const container = document.querySelector('.container');
+    const signUp = document.querySelector('.sign-up');
+    const signIn = document.querySelector('.sign-in');
+    const mq = window.matchMedia('(max-width: 768px)');
 
+    function toSignUp() {
+      if (!signUp) return;
+
+      if (mq.matches) {
+        signUp.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        signUp.classList.add('pulseHighlight');
+        setTimeout(() => signUp.classList.remove('pulseHighlight'), 1200);
+      } else if (container) {
+        container.classList.add('active');
+      }
+    }
+
+    function toSignIn() {
+      if (!signIn) return;
+
+      if (mq.matches) {
+        signIn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        signIn.classList.add('pulseHighlight');
+        setTimeout(() => signIn.classList.remove('pulseHighlight'), 1200);
+      } else if (container) {
+        container.classList.remove('active');
+      }
+    }
+
+    const upSel =
+      '[data-go="signup"], .to-signup, .go-signup, .btn-create, .cta-create, #goSignUp';
+    const inSel =
+      '[data-go="signin"], .to-signin, .go-signin, .btn-login, .cta-login, #goSignIn';
+
+    document.querySelectorAll(upSel).forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        toSignUp();
+      });
+    });
+
+    document.querySelectorAll(inSel).forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        toSignIn();
+      });
+    });
+  })();
+</script>
 
 <script src="../assets/js/login.js"></script>
 </body>

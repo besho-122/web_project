@@ -762,3 +762,462 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 
+
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+a,
+a:hover,
+a:focus {
+  text-decoration: none !important;
+}
+a,
+button,
+.btn,
+.card,
+.nav-link {
+  outline: none !important;
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    height: auto;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  body {
+    height: auto;
+    padding-top: 60px;
+  }
+
+  .navProduct {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    height: 60px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+  }
+
+  .navProduct .container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+  }
+
+  .navbar-brand {
+    margin: 0 !important;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .navbar-brand img {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+
+  .navbar-toggler {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .navbar-collapse {
+    width: 100%;
+  }
+
+  .navbar-collapse.show,
+  .navbar-collapse.collapsing {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #000;
+    padding: 14px 16px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar-collapse.show .navbar-nav {
+    width: 100%;
+    gap: 6px;
+  }
+
+  .navbar-collapse.show .nav-link {
+    display: block;
+    color: #fff !important;
+    padding: 12px 12px;
+    margin: 0;
+    border-radius: 12px;
+    border-bottom: 3px solid transparent;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .navbar-collapse.show .nav-link:hover,
+  .navbar-collapse.show .nav-link.active {
+    border-bottom-color: var(--main-color) !important;
+  }
+
+  .navbar-collapse.show .dropdown-menu {
+    position: static;
+    float: none;
+    margin-top: 6px;
+  }
+
+  .searchDiv {
+    width: 100%;
+    position: relative;
+  }
+
+  .me-2 {
+    width: 100% !important;
+    margin: 6px 0 !important;
+    border-radius: 12px !important;
+    padding-right: 40px;
+  }
+
+  .searchIcon {
+    right: 12px;
+  }
+
+  .fa-cart-shopping {
+    margin-left: 8px !important;
+    margin-top: 0;
+  }
+
+  .fa-user {
+    margin-right: 8px !important;
+  }
+
+  .filterFirst {
+    padding-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .filterFirst h1 {
+    font-size: 22px;
+  }
+
+  .filterFirst h4 {
+    font-size: 16px;
+  }
+
+  .filterMain {
+    display: block;
+    width: 100%;
+  }
+
+  .page-container {
+    width: 100%;
+    display: block;
+    padding: 16px;
+    margin: 0;
+    gap: 0;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .sidebar li {
+    padding: 14px 8px;
+  }
+
+  .checkCondition,
+  .SeriesSelect,
+  .varientsChecked,
+  .yearSelection,
+  .exColor,
+  .intColour,
+  .priceField,
+  .mileField {
+    width: 100%;
+  }
+
+  .searchGrandDad {
+    width: 100%;
+    margin: 12px 0 16px 0;
+  }
+
+  .searchGrandDad .form-control {
+    width: 100%;
+  }
+
+  .selection,
+  .selectionEdit,
+  .milesSelect,
+  .years-select {
+    width: 100% !important;
+  }
+
+  .content-area {
+    width: 100%;
+    padding: 0;
+    margin-top: 16px;
+    gap: 14px;
+  }
+
+  .sort-bar-two {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .sortingBy {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .sortingOne {
+    width: 48%;
+    min-width: 150px;
+    height: auto;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .sort-bar {
+    padding: 12px;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sort-bar strong {
+    font-size: 14px;
+  }
+
+  #sort {
+    width: 55%;
+    min-width: 160px;
+  }
+
+  .arrow {
+    display: none;
+  }
+
+  .car-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+  }
+
+  .car-image {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .car-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .car-info {
+    padding: 14px;
+  }
+
+  .car-info h2 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .car-info p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .car-info strong {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .motor {
+    font-size: 14px !important;
+  }
+
+  .btnProduct {
+    width: 48%;
+    min-width: 140px;
+    height: 48px;
+    margin-top: 8px;
+  }
+
+  .btnProduct.two {
+    width: 48% !important;
+  }
+
+  .sons {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sons img {
+    width: 120px;
+  }
+
+  .pagination {
+    padding: 8px 10px;
+    gap: 4px;
+    margin-top: 10px;
+  }
+
+  .page-item .page-link {
+    padding: 10px 14px;
+    height: 46px;
+    padding-top: 12px;
+    font-size: 16px;
+  }
+
+  .feedback-container {
+    transform: scale(0.9);
+    transform-origin: top center;
+  }
+
+  .rating-label {
+    font-size: 12px;
+  }
+
+  .rating-option label {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+  }
+
+  section:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .underFooter {
+    margin-bottom: 0;
+  }
+}
+
+
+
+
+/* down down  */
+.navProduct .dropdown-menu {
+  background: #000;             
+  border-radius: 10px;          
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 0;
+  min-width: 180px;
+  display: none;               
+}
+
+.navProduct .dropdown-item {
+  color: #fff !important;        
+  font-family: "Orbitron", sans-serif;
+  padding: 10px 16px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navProduct .dropdown-item:hover {
+  background: var(--main-color); 
+  color: #fff !important;
+  border-radius: 6px;
+}
+
+
+.navProduct .dropdown:focus-within > .dropdown-menu {
+  display: block;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.navProduct .dropdown-item .company-icon{
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex: 0 0 22px;
+  border-radius: 4px;          
+  background: #fff0;            
+  filter: none;                 
+}
+
+.navProduct .dropdown-item .company-name{
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px){
+  .navProduct .dropdown-item .company-name{
+    white-space: normal;       
+  }
+  .navProduct .dropdown-item .company-icon{
+    width: 20px; height: 20px;
+  }
+}
+
+.navProduct .dropdown-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  color: #fff !important;               
+  font-family: "Orbitron", sans-serif;
+  font-size: 15px;
+}
+
+.navProduct .dropdown-item .company-icon {
+  width: 32px;                          
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: transparent;
+}
+
+.navProduct .dropdown-item .company-name {
+  line-height: 1.3;
+  color: #fff !important;             
+}
+
+.navProduct .dropdown-item:hover {
+  background: var(--main-color);
+  color: #fff !important;
+}
+.navProduct .dropdown-item:hover .company-name {
+  color: #fff !important;
+}
+
+@media (max-width: 768px) {
+  .navProduct .dropdown-item {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+  .navProduct .dropdown-item .company-icon {
+    width: 28px;
+    height: 28px;
+  }
+}

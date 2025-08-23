@@ -57,16 +57,30 @@ body {
             Products
           </a>
           <ul class="dropdown-menu">
-            <?php
-            $sql = "SELECT * FROM Company";
-            $result = $dp->query($sql);
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                  echo '<li ><a class="dropdown-item nav-item-dropdown" data-id="' . $row["id"] . '" href="#">' . $row["Name"] . '</a></li>';
-              }
-            }
-            ?>
-          </ul>
+  <?php
+    $sql = "SELECT id, Name, imagepng FROM Company";
+    $result = $dp->query($sql);
+    if ($result && $result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $logo = !empty($row['imagepng'])
+          ? htmlspecialchars($row['imagepng'], ENT_QUOTES)
+          : "../assets/photos/companies/default.png"; 
+        $name = htmlspecialchars($row["Name"], ENT_QUOTES);
+        $id   = (int)$row["id"];
+
+        echo '
+          <li>
+            <a class="dropdown-item nav-item-dropdown d-flex align-items-center gap-2"
+               data-id="'.$id.'" href="#" title="'.$name.'">
+              <img class="company-icon" src="'.$logo.'" alt="'.$name.' logo"
+                   loading="lazy" decoding="async">
+              <span class="company-name">'.$name.'</span>
+            </a>
+          </li>';
+      }
+    }
+  ?>
+</ul>
         </li>
        
       

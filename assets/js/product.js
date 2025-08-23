@@ -194,3 +194,5 @@ input.addEventListener('keydown', e => {
 input.addEventListener('input', () => {
     highlightMatches(input.value);
 });
+
+
