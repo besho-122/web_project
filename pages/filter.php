@@ -528,11 +528,19 @@ if (sortSelect) {
   }});
     const dark = localStorage.getItem('darkMode');
     if (dark === 'true') {
-    document.documentElement.style.setProperty('--black-color', '#ffffffff');
-    document.documentElement.style.setProperty('--gradient-color', 'linear-gradient( #222222ff,#000000,#000000)');
-  
+  // Apply to both .sidebar and .content-area
+ document.querySelectorAll('.sidebar, .sort-bar, .sort-bar-two, .car-card, .car-card p, .pagination, .page-link')
+  .forEach(el => {
+    el.style.setProperty('background-color', '#202020ff', 'important');
+    el.style.setProperty('color', '#ffffff', 'important');
+  });
 
-    }
+
+  // Update CSS variables
+  document.documentElement.style.setProperty('--black-color', '#ffffffff');
+  document.documentElement.style.setProperty('--gradient-color', 'linear-gradient(#111111ff, #111111ff, #111111ff)');
+}
+
     else {
     }
   </script>

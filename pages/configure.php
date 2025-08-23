@@ -286,6 +286,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </script>
 
+ <script>
+   window.addEventListener('load', function() {
+  const savedColor = localStorage.getItem('mainColor');
+  if (savedColor) {
+    document.documentElement.style.setProperty('--main-color', savedColor);
+    colorPicker.value = savedColor; 
+  }});
+    const dark = localStorage.getItem('darkMode');
+   if (dark === 'true') {
+  // Apply dark background + white text to multiple elements
+  document.querySelectorAll('.sidebar, .sort-bar, .sort-bar-two, .car-card, .car-card p, .pagination, .page-link')
+    .forEach(el => {
+      el.style.setProperty('background-color', '#202020ff', 'important');
+      el.style.setProperty('color', '#ffffff', 'important');
+    });
+
+  // h1 → only color (no background)
+  document.querySelectorAll('h1').forEach(h1 => {
+    h1.style.setProperty('color', '#ffffff', 'important');
+  });
+
+  // Update CSS variables
+  document.documentElement.style.setProperty('--black-color', '#ffffffff');
+  document.documentElement.style.setProperty('--gradient-color', 'linear-gradient(#111111ff, #111111ff, #111111ff)');
+}
+
+    else {
+    }
+  </script>
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
 <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
 

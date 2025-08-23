@@ -301,13 +301,22 @@ foreach ($modelseries as $modelserie) {
     colorPicker.value = savedColor; 
   }});
     const dark = localStorage.getItem('darkMode');
-    if (dark === 'true') {
-    document.documentElement.style.setProperty('--white-color', '#1e1e1e');
-    document.documentElement.style.setProperty('--text-color', '#ffffffff');
-    document.documentElement.style.setProperty('--gradient-color', 'linear-gradient( #222222ff,#000000,#000000)');
-    document.documentElement.style.setProperty('--back-color', '#ffffffff');
+   if (dark === 'true') {
+  document.documentElement.style.setProperty('--white-color', '#1e1e1e');
+  document.documentElement.style.setProperty('--text-color', '#ffffffff');
+  document.documentElement.style.setProperty('--gradient-color', 'linear-gradient(#111111ff, #111111ff, #111111ff)');
+document.querySelectorAll('h1, p ,h4 ,a ,button,.model-card').forEach(el => {
+  el.style.setProperty('color', '#fff', 'important');
+});
+document.querySelectorAll('.model-card').forEach(card => {
+  card.style.setProperty('background-color', '#1e1e1e', 'important');
+});
 
-    }
+
+  document.querySelector('.productCards')
+    .style.setProperty('--gradient-color', 'linear-gradient(#222222ff, #000000, #000000)');
+}
+
     else {
     }
 
